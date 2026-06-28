@@ -1,8 +1,11 @@
 # prototypes/
 
-**Scratch directory. Not part of the release. Not imported by the package.**
+**Curated, dated record of the development process — the build history made visible. Not imported by the package; not shipped in the wheel.**
 
-Contains exploratory `.py` scripts from the development process — the journey made visible. Kept on GitHub as a record of how the package was built (agent-by-agent), but excluded from the wheel.
+As the build matured, production code moved into `bayanihan/` (the package) and the runnable runners + figure scripts into `scripts/`. What remains here is the one still-useful artifact:
+
+- **`2026-06-26_portfolio_demo.py`** — the end-to-end **synthetic** demo (~50 hypothetical schools), referenced from the main README's Quick Start as the no-real-data way to watch the pipeline run end to end:
+  `python prototypes/2026-06-26_portfolio_demo.py`
 
 ## Naming convention
 
@@ -13,6 +16,6 @@ Date prefix sorts naturally and makes the build timeline legible at a glance.
 ## Rules
 
 - Python only. No `.ipynb` files here.
-- Don't import from `prototypes/` in the package or tests.
-- Don't fix lint errors here — these are scratch.
-- When a script's core logic matures enough to belong in the package, extract it, then archive or delete the prototype.
+- The package and tests never import from here.
+- Lint is intentionally relaxed for this directory (dev scripts, not shipped code).
+- When a script's logic matures enough to belong in the package, it graduates into `bayanihan/` or `scripts/`.

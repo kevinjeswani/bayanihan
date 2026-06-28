@@ -14,7 +14,7 @@ In the years since I became a software and AI engineer — went deep on the mach
 
 There's a throughline in everything I've ever been drawn to: infrastructure asset management, data science for cities, structural engineering automation, and software. One instinct under all of it — portfolio-level, orchestrational, operational systems thinking. Conducting many moving parts toward one coherent outcome. This repo is that instinct turned on my own past, rebuilt with the power I didn't have the first time.
 
-**Bayanihan** is a Filipino word for carrying a load together — the old image is neighbors lifting a whole house on their shoulders and walking it down the road. This work was always about home: Filipino schools, Filipino kids, my own family near the fault. Bayanihan is how my people carry what matters — everyone grabs a corner.
+**Bayanihan** is a Filipino word for carrying a load together — the old image is neighbors lifting a whole house on their shoulders and walking it down the road. This work was always about home: Filipino schools, Filipino kids, my own family near the fault. Bayanihan is how we help each other carry what matters — everyone grabs a corner. So that's how this gets built: in the open, together.
 
 To Filipino structural engineers and researchers: the barrier is gone. Fork it, extend it, make it better.
 
