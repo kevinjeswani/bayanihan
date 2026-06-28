@@ -1,0 +1,518 @@
+# REDi Impedance Factors (Delays) and Repair Class/Sequence Assignments
+# Source: Chapter 6 §6.3 and Appendix D.7 (Tables 6-7, D-16)
+# Thesis: Jeswani, K.K. (2021). The Seismic Resilience of Critical Spatially-Distributed Building Portfolios. MASc Thesis, University of Toronto.
+# Reference: Almufti & Willford (2013). REDi Rating System v1.0. Arup.
+#
+# All delay curves are lognormal (θ = median, β = dispersion)
+# Delay units: weeks unless noted
+#
+# Three target recovery levels:
+#   (i)  Re-Occupancy:       Repair Class 1 components addressed
+#   (ii) Functional Recovery: Repair Class 1 + 2 components addressed [PRIMARY METRIC in this thesis]
+#   (iii) Full Recovery:      All Repair Class 1, 2, 3 components addressed
+#
+# Repair Classes:
+#   Class 1: Heavily damaged structural or non-structural components posing "life-safety" risk
+#   Class 2: Damaged non-structural components NOT posing "life-safety" risk
+#   Class 3: Minimal and minor cosmetic damage
+
+metadata:
+  document: "MASc Thesis Chapter 6 §6.3 / Appendix D.7"
+  author: "Kevin Jeswani"
+  year: 2021
+  primary_metric: "Functional Recovery (Repair Class 1 + 2)"
+  notes: "REDi v1.0 curves developed for North American context; calibrated for Philippine setting using engineering judgment"
+
+# ============================================================
+# SECTION 6.3.1: COMPONENT REPAIR CLASS AND SEQUENCE
+# Source: Table D-16 (Appendix D.7.1, printed page 313)
+# ============================================================
+repair_class_assignments:
+  source:
+    section: "6.3.1"
+    table: "Table D-16"
+    appendix_section: "D.7.1"
+    printed_page: 313
+  provenance_confidence: high
+  notes: "Default REDi v1.0 values used; Philippine-specific components approximated from closest REDi group"
+
+  # DS → Repair Class mapping: DS range to repair class number
+  # Repair Sequence: S=Serial; A,B,C,D,E,F = parallel sequences per REDi v1.0
+
+  components:
+    ductile_rcmrf_and_pt_rcmrf:
+      label: "Ductile RCMRF (1-/2-Sides) & PT RCMRF (1-/2-Sides)"
+      redi_group: "RC MRF Beam-Column"
+      repair_class_map:
+        "0 <= DS <= 1": 1
+        "1 <= DS <= 2": 3
+        "2 <= DS <= 3": 3
+      repair_sequence: S
+      notes: "PT beam-columns use same repair class as standard RC beam-columns"
+
+    non_ductile_rcmrf:
+      label: "Non-Ductile RCMRF (1-/2-Sides)"
+      redi_group: "RC MRF Beam-Column"
+      repair_class_map:
+        "0 <= DS <= 1": 1
+        "1 <= DS <= 2": 3
+        "2 <= DS <= 3": 3
+      repair_sequence: S
+
+    non_rbs_steel_mrf:
+      label: "Non-RBS Steel MRF (1-/2-Sides)"
+      redi_group: "Steel Connections"
+      repair_class_map:
+        "0 <= DS <= 1": 3
+        "1 <= DS <= 2": 3
+        "2 <= DS <= 3": 3
+      repair_sequence: S
+
+    steel_column_splice:
+      label: "Steel Column Splice"
+      redi_group: "Steel Connections"
+      repair_class_map:
+        "0 <= DS <= 1": 3
+        "1 <= DS <= 2": 3
+        "2 <= DS <= 3": 3
+      repair_sequence: S
+
+    steel_column_base_plate:
+      label: "Steel Column Base Plate"
+      redi_group: "Steel – Base Plates"
+      repair_class_map:
+        "0 <= DS <= 1": 3
+        "1 <= DS <= 2": 3
+        "2 <= DS <= 3": 3
+      repair_sequence: S
+
+    chb_wall_solid_unreinforced:
+      label: "CHB Wall; Solid; Unreinforced"
+      redi_group: "Interior Partition – Gypsum"
+      approximation_note: "Approximated as Interior Partition – Gypsum (§6.3.1)"
+      repair_class_map:
+        "0 <= DS <= 1": 1
+        "1 <= DS <= 2": 1
+        "2 <= DS <= 3": 3
+      repair_sequence: A
+
+    chb_wall_solid_reinforced:
+      label: "CHB Wall; Solid; Reinforced"
+      redi_group: "Interior Partition – Gypsum"
+      approximation_note: "Approximated as Interior Partition – Gypsum (§6.3.1)"
+      repair_class_map:
+        "0 <= DS <= 1": 1
+        "1 <= DS <= 2": 1
+        "2 <= DS <= 3": 3
+      repair_sequence: A
+
+    chb_with_doors_windows:
+      label: "CHB with Doors/Windows (Unreinforced & Reinforced)"
+      redi_group: "Glazing"
+      approximation_note: "Approximated as Glazing (§6.3.1); preliminary decision"
+      repair_class_map:
+        "0 <= DS <= 1": 2
+        "1 <= DS <= 2": "3 (LL)"   # LL = Long Lead
+        "2 <= DS <= 3": "3 (LL)"
+      repair_sequence: B
+      notes: "LL = Long Lead; preliminary decision"
+
+    curtain_wall:
+      label: "Curtain Wall"
+      redi_group: "Glazing"
+      approximation_note: "Approximated as Glazing; preliminary decision"
+      repair_class_map:
+        "0 <= DS <= 1": "3 (LL)"
+        "1 <= DS <= 2": "3 (LL)"
+        "2 <= DS <= 3": "3 (LL)"
+      repair_sequence: B
+      notes: "LL = Long Lead; preliminary decision"
+
+    suspended_ceiling_non_seismic_and_braced:
+      label: "Suspended Ceiling; Non-Seismic/Braced"
+      redi_group: "Suspended Ceiling"
+      repair_class_map:
+        "0 <= DS <= 1": 1
+        "1 <= DS <= 2": 3
+        "2 <= DS <= 3": 3
+      repair_sequence: A
+
+    ceiling_fixtures:
+      label: "Ceiling Fixtures; Non-Seismic/Seismic"
+      redi_group: "Suspended Ceiling"
+      repair_class_map:
+        "0 <= DS <= 1": 3
+        "1 <= DS <= 2": null  # not applicable (only 1 DS)
+        "2 <= DS <= 3": null
+      repair_sequence: A
+
+    cip_rc_stairs:
+      label: "CIP RC Stairs"
+      redi_group: "Stairs"
+      repair_class_map:
+        "0 <= DS <= 1": 1
+        "1 <= DS <= 2": 3
+        "2 <= DS <= 3": 3
+      repair_sequence: F
+
+    desktop_electronics:
+      label: "Desktop Electronics"
+      redi_group: "Furniture"
+      repair_class_map:
+        "0 <= DS <= 1": 1    # assumed
+      repair_sequence: F
+      notes: "Assumed (per Table D-16 footnote)"
+
+    wall_mounted_electronics:
+      label: "Wall-Mounted Electronics"
+      redi_group: "Furniture"
+      repair_class_map:
+        "0 <= DS <= 1": 1    # assumed
+      repair_sequence: F
+      notes: "Assumed (per Table D-16 footnote)"
+
+    elevator:
+      label: "Elevator"
+      redi_group: "Elevator"
+      repair_class_map:
+        "0 <= DS <= 1": "2 (LL)"  # Long Lead
+      repair_sequence: E
+      notes: "LL = Long Lead"
+
+    sprinkler_drop:
+      label: "Sprinkler Drop"
+      redi_group: "Pipes"
+      repair_class_map:
+        "0 <= DS <= 1": 2
+        "1 <= DS <= 2": 3
+      repair_sequence: A
+
+    sprinkler_horizontal_piping:
+      label: "Sprinkler/Other Piping"
+      redi_group: "Pipes"
+      repair_class_map:
+        "0 <= DS <= 1": 2
+        "1 <= DS <= 2": 3
+      repair_sequence: A
+
+    electrical_distribution_equipment:
+      label: "Electrical Distribution Equipment"
+      redi_group: "Electrical – Switchgear"
+      repair_class_map:
+        "0 <= DS <= 1": 2
+      repair_sequence: D
+
+    diesel_generator:
+      label: "Diesel Generator"
+      redi_group: "Emergency Backup"
+      repair_class_map:
+        "0 <= DS <= 1": 2
+      repair_sequence: C
+
+# ============================================================
+# SECTION 6.3.2: IMPEDANCE FACTOR (DELAY) CATEGORY ASSIGNMENTS
+# Source: Table 6-7 (printed page 135) + Section 6.3.2 narrative
+# ============================================================
+impedance_factor_assignments:
+  source:
+    section: "6.3.2"
+    table: "Table 6-7"
+    printed_page: 135
+  provenance_confidence: high
+  notes: "REDi v1.0 lognormal curves developed for North American context; calibrated for Philippine setting with engineering judgment"
+
+  # Five impedance paths per REDi (max of three critical paths + utility disruption):
+  # 1. Inspection
+  # 2. Financing (critical path A)
+  # 3. Engineering mobilization + permitting (critical path B)
+  # 4. Contractor mobilization (critical path C)
+  # 5. Utility disruptions (parallel path)
+
+  primary_school_archetypes:
+    # All archetypes in this group (C1-M Hi/Mid/Pre/Lo; C1-L Mid/Hi/Pre/Lo;
+    # PTC1-M Hi/Mid; CWS-L; C1-H Hi; S1-M Hi)
+    # share the same inspection and contractor delay categories
+
+    inspection_delay:
+      category: "Non-Essential Facility"
+      theta:
+        value: 5
+        unit: "days"
+      beta: 0.54
+      applies_to: ["C1-M (Hi)", "C1-M (Mid)", "C1-M (Pre/Lo)", "C1-M (Pre/Lo) FRP",
+                   "C1-L (Mid/Hi)", "C1-L (Pre/Lo)", "PTC1-M (Hi)", "PTC1-M (Mid)",
+                   "CWS-L", "C1-H (Hi)", "S1-M (Hi)"]
+      source:
+        section: "6.3.2"
+        table: "Table 6-7"
+        printed_page: 135
+      provenance_confidence: high
+
+    financing_delay:
+      category: "SBA-Backed Loans"
+      theta:
+        value: 48
+        unit: "weeks"
+      beta: 0.57
+      applies_to: ["C1-M (Hi)", "C1-M (Mid)", "C1-M (Pre/Lo)", "C1-M (Pre/Lo) FRP",
+                   "C1-L (Mid/Hi)", "C1-L (Pre/Lo)", "PTC1-M (Hi)", "PTC1-M (Mid)",
+                   "CWS-L", "C1-H (Hi)", "S1-M (Hi)"]
+      source:
+        section: "6.3.2"
+        table: "Table 6-7"
+        printed_page: 135
+      provenance_confidence: high
+
+    engineering_delay:
+      notes: "Varies by max repair class and archetype"
+      sub_categories:
+        engineer_on_contract_yes:
+          theta:
+            value: 0
+            unit: "weeks"
+          description: '"Yes" — DPWH or City Engineering Department on contract'
+          applies_to: ["C1-M (Hi)"]
+        max_repair_class_1:
+          theta:
+            value: 2
+            unit: "weeks"
+          beta: 0.32
+          applies_to: ["C1-M (Mid)", "C1-M (Pre/Lo)"]
+        max_repair_class_3:
+          theta:
+            value: 4
+            unit: "weeks"
+          beta: 0.54
+          applies_to: ["C1-M (Pre/Lo) FRP", "C1-L (Mid/Hi)", "C1-L (Pre/Lo)",
+                       "PTC1-M (Hi)", "PTC1-M (Mid)", "CWS-L", "C1-H (Hi)", "S1-M (Hi)"]
+        max_repair_class_3_complete_redesign:
+          theta:
+            value: 42
+            unit: "weeks"
+          beta: 0.45
+          description: "Max Repair Class=3 (Complete Re-design)"
+          applies_to: ["C1-M (Pre/Lo) FRP"]
+          notes: "REVIEW NEEDED: Two values appear in Table 6-7 for C1-M (Pre/Lo) FRP engineering — this represents the 'complete redesign' case"
+          provenance_confidence: medium
+      source:
+        section: "6.3.2"
+        table: "Table 6-7"
+        printed_page: 135
+
+    contractor_delay:
+      notes: "Varies by max repair class; 'Non-essential facility <20 stories' category"
+      sub_categories:
+        max_repair_class_1:
+          theta:
+            value: 7
+            unit: "weeks"
+          beta: 0.60
+          applies_to: ["C1-M (Hi)", "C1-M (Mid)", "C1-M (Pre/Lo)"]
+        max_repair_class_3:
+          theta:
+            value: 19
+            unit: "weeks"
+          beta: 0.38
+          applies_to: ["C1-M (Pre/Lo) FRP", "C1-L (Mid/Hi)", "C1-L (Pre/Lo)",
+                       "PTC1-M (Hi)", "PTC1-M (Mid)", "CWS-L", "C1-H (Hi)", "S1-M (Hi)"]
+      source:
+        section: "6.3.2"
+        table: "Table 6-7"
+        printed_page: 135
+
+  simple_non_engineered_archetypes:
+    # N-L, CHB-L, S3-L — lower replacement cost; faster financing
+    inspection_delay:
+      category: "Non-Essential Facility"
+      theta:
+        value: 5
+        unit: "days"
+      beta: 0.54
+      applies_to: ["N-L", "CHB-L", "S3-L"]
+      provenance_confidence: high
+
+    financing_delay:
+      category: "Insurance"
+      theta:
+        value: 6
+        unit: "weeks"
+      beta: 1.11
+      applies_to: ["N-L", "CHB-L", "S3-L"]
+      rationale: "Faster financing due to low replacement costs; funds released in immediate aftermath of 2019 Mindanao Earthquakes for temporary learning spaces"
+      source:
+        section: "6.3.2"
+        table: "Table 6-7"
+        printed_page: 135
+      provenance_confidence: high
+
+    contractor_delay:
+      notes: "On-contract (fewer delays); 'Non-essential facility <20 stories' category"
+      sub_categories:
+        max_repair_class_1:
+          theta:
+            value: 3
+            unit: "weeks"
+          beta: 0.66
+        max_repair_class_3:
+          theta:
+            value: 7
+            unit: "weeks"
+          beta: 0.35
+      applies_to: ["N-L", "CHB-L", "S3-L"]
+      rationale: "Non-engineered buildings likely face fewer delays"
+      source:
+        section: "6.3.2"
+        table: "Table 6-7"
+        printed_page: 135
+      provenance_confidence: high
+
+  wood_frame_archetype:
+    # W-L — lowest replacement cost; private loans
+    inspection_delay:
+      category: "Non-Essential Facility"
+      theta:
+        value: 5
+        unit: "days"
+      beta: 0.54
+      applies_to: ["W-L"]
+      provenance_confidence: high
+
+    financing_delay:
+      category: "Private Loans"
+      theta:
+        value: 15
+        unit: "weeks"
+      beta: 0.68
+      applies_to: ["W-L"]
+      source:
+        section: "6.3.2"
+        table: "Table 6-7"
+        printed_page: 135
+      provenance_confidence: high
+
+    contractor_delay:
+      notes: '"Yes" — on contract'
+      sub_categories:
+        max_repair_class_1:
+          theta:
+            value: 3
+            unit: "weeks"
+          beta: 0.66
+        max_repair_class_3:
+          theta:
+            value: 7
+            unit: "weeks"
+          beta: 0.35
+      applies_to: ["W-L"]
+      provenance_confidence: high
+
+# ============================================================
+# UTILITY DISRUPTION DELAYS
+# Source: Appendix D.7.2 (printed page 313)
+# Adopted from REDi v1.0 (Almufti & Willford, 2013) — default values
+# ============================================================
+utility_disruption_delays:
+  source:
+    section: "Appendix D.7.2"
+    printed_page: 313
+  provenance_confidence: high
+  notes: "Default REDi v1.0 values used (no Philippine-specific data collected). Utility delays only account for minor mean downtime contribution (Section 6.4.1)."
+
+  electrical_systems:
+    T_min:
+      value: 3
+      unit: "days"
+    T_max:
+      value: 14
+      unit: "days"
+
+  natural_gas_systems:
+    applicable: false
+    notes: "Not applicable to Metro Manila — horizontally-distributed gas infrastructure not common in region"
+    low_repair_rate:
+      condition: "RR <= 0.2"
+      T_min: {value: 10, unit: "days"}
+      T_max: {value: 36, unit: "days"}
+    high_repair_rate:
+      condition: "RR > 0.2"
+      T_min: {value: 42, unit: "days"}
+      T_max: {value: 90, unit: "days"}
+
+  water_systems:
+    low_repair_rate:
+      condition: "RR <= 0.2"
+      T_min: {value: 4, unit: "days"}
+      T_max: {value: 8, unit: "days"}
+    high_repair_rate:
+      condition: "RR > 0.2"
+      T_min: {value: 21, unit: "days"}
+      T_max: {value: 90, unit: "days"}
+
+  repair_rate_formula:
+    formula: "RR = 0.034 × PGV^0.56"
+    description: "Repair rate per unit length of pipe utilities"
+    variables:
+      PGV: "Peak ground velocity"
+    source: "REDi v1.0 (Almufti & Willford, 2013)"
+
+# ============================================================
+# REPLACEMENT TIME DELAYS SUMMARY
+# Source: Table D-15 (Appendix D.6.2, printed page 312)
+# Used for final replacement times in Table 6-5
+# ============================================================
+replacement_time_delays:
+  source:
+    section: "Appendix D.6.2"
+    table: "Table D-15"
+    printed_page: 312
+  provenance_confidence: high
+  notes: "Replacement time = construction time (EQ 6-3) + delays. Delays assumed to increase with replacement cost."
+
+  replacement_cost_php_2000000:
+    engineering_mobilization_and_permitting_weeks: 1
+    financing_weeks: 8
+    contractor_mobilization_weeks: 1
+    total_delay_weeks: 10
+    total_delay_days: 70
+
+  replacement_cost_php_10000000:
+    engineering_mobilization_and_permitting_weeks: 2
+    financing_weeks: 36
+    contractor_mobilization_weeks: 4
+    total_delay_weeks: 42
+    total_delay_days: 294
+
+  replacement_cost_php_50000000:
+    engineering_mobilization_and_permitting_weeks: 4
+    financing_weeks: 48
+    contractor_mobilization_weeks: 4
+    total_delay_weeks: 56
+    total_delay_days: 392
+
+  replacement_cost_php_100000000:
+    engineering_mobilization_and_permitting_weeks: 6
+    financing_weeks: 56
+    contractor_mobilization_weeks: 4
+    total_delay_weeks: 66
+    total_delay_days: 462
+
+  replacement_cost_php_500000000:
+    engineering_mobilization_and_permitting_weeks: 16
+    financing_weeks: 72
+    contractor_mobilization_weeks: 8
+    total_delay_weeks: 96
+    total_delay_days: 672
+
+  replacement_cost_php_1000000000:
+    engineering_mobilization_and_permitting_weeks: 20
+    financing_weeks: 80
+    contractor_mobilization_weeks: 12
+    total_delay_weeks: 112
+    total_delay_days: 784
+
+  replacement_cost_php_1500000000:
+    engineering_mobilization_and_permitting_weeks: 24
+    financing_weeks: 96
+    contractor_mobilization_weeks: 16
+    total_delay_weeks: 136
+    total_delay_days: 952

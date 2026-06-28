@@ -1,0 +1,106 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bayanihan"
+version = "0.0.0"
+description = "Seismic resilience assessment for Philippine school building portfolios"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Kevin Jeswani" }]
+requires-python = ">=3.13"
+keywords = [
+    "earthquake",
+    "seismic",
+    "pbee",
+    "resilience",
+    "philippines",
+    "pelicun",
+    "performance-based-earthquake-engineering",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "pelicun>=3.9,<4",
+    "numpy",
+    "scipy",
+    "pandas",
+    "geopandas",
+    "shapely",
+    "pyarrow",
+    "matplotlib",
+    "contextily",
+    "pydantic>=2.0",
+    "openquake-engine>=3.25.1",
+    "fiona>=1.10.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov",
+    "mypy",
+    "ruff",
+    "jupyter",
+    "nbconvert",
+]
+
+[project.urls]
+Homepage = "https://github.com/kevinjeswani/bayanihan"
+Repository = "https://github.com/kevinjeswani/bayanihan"
+
+[tool.hatch.build.targets.wheel]
+packages = ["bayanihan"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/prototypes",
+    "/utils",
+    "/test",
+    "/examples",
+    "/docs",
+    "/images",
+    "/agents",
+    "/.claude",
+    "/.github",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+# Strict lint applies to the shipped package (bayanihan/). Tests and the utility /
+# scratch scripts (long plot-title strings etc.) are excluded from the lint gate.
+extend-exclude = ["test", "prototypes", "scripts", "utils", "examples"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["N803", "N806"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = false
+ignore_missing_imports = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+# Default `pytest` = the FAST suite: unit tests + one small end-to-end smoke per
+# model path. It verifies the model runs correctly — it does NOT run production
+# Monte-Carlo simulations. The heavy real-inventory portfolio runs (1,021 buildings)
+# are marked `integration` and DESELECTED by default (they took ~9 min locally).
+#   pytest                  # fast suite (default)
+#   pytest -m integration   # only the heavy end-to-end real-data runs (major lifts)
+#   pytest -m ""            # everything
+# Full N=1000 production runs that generate committed results live in scripts/.
+addopts = "-v --cov=bayanihan --cov-report=term-missing -m 'not integration'"
+markers = [
+    "integration: slow end-to-end Monte-Carlo portfolio run on the real inventory (run on major lifts, not every commit)",
+]

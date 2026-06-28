@@ -1,0 +1,202 @@
+{
+  "_metadata": {
+    "title": "FEMA P-58 casualty consequence parameters (Philippine school portfolio)",
+    "description": "Injury + fatality consequence parameters for the casualty decision variables (the thesis's 2nd and 3rd DVs, beyond loss + downtime). Two pathways per FEMA P-58 (2018a) and Jeswani (2021) Ch 6.2.6.2 / Ch 7.4.2-7.4.3: (a) non-collapse component-driven injuries via the affected-area model; (b) collapse-driven fatalities + injuries via HAZUS-typology collapse casualty rates. Demolition (irreparable, non-collapse) produces NO additional casualties beyond its component damage states (thesis Ch 6; demolition is a financial/recovery total-loss state, not a life-safety event).",
+    "source_thesis": "Jeswani, K. K. (2021), MASc thesis, University of Toronto. Ch 6.2.2 (casualty consequences), Ch 6.2.6.2 (population + collapse casualty), Tables D-1/D-2 (DS casualty summaries, p.296-297), Ch 7.4.2/7.4.3 (portfolio injuries/fatalities).",
+    "model": "casualties = (a) non-collapse: sum over components of [n_damaged_units_at_casualty_DS * affected_area_sf_per_unit * population_density * casualty_rate_theta]; population_density = population / total_floor_area_sf. (b) collapse: collapse_realization * population * P_total_collapse * {fatality: collapse_fatality_rate; injury: 1 - collapse_fatality_rate}. The two pathways are summed (a collapsed building's component injuries are subsumed by the collapse term; in this implementation non-collapse component injuries are only counted on NON-collapsed realizations to avoid double counting).",
+    "units": {"affected_area_sf": "square feet affected per damaged P-58 unit", "rate": "fraction of occupants in the affected area who become a casualty of that severity", "population_density": "occupants per square foot of total floor area"},
+    "generated_by": "OPUS casualty agent 2026-06-27 (manual extraction from component_fragilities.yaml + archetype_fragilities.yaml + Ch6/Ch7). Data-driven: code reads this file, never hardcodes values.",
+    "provenance_overall": "high for non-collapse component injury thetas/areas (Tables D-1/D-2, directly tabulated); medium for collapse_fatality_rate_by_hazus_type (thesis states 'Default FEMA P-58 (2018a) mean collapse fatality rates based on HAZUS typology' but does not tabulate the exact per-type numbers in the public thesis; values below are the standard published Hazus-MH EQ Technical Manual Severity-4 indoor casualty rates by model building type, NOT fitted to the thesis outputs)."
+  },
+
+  "population_basis": {
+    "field": "population",
+    "note": "Per-building occupant count used as casualty exposure. The thesis normalizes injuries/fatalities by the default P-58 generated population (Table 6-5) but the .mat anchor (Bldg_CasI/Bldg_CasF) scales each building's casualties by its ACTUAL population (MCQC inventory). We use the inventory 'population' field (actual students), consistent with the .mat reconstruction (implied exposure 560,133 ~ actual MC+QC students 560,283).",
+    "provenance_confidence": "high"
+  },
+
+  "noncollapse_component_casualties": {
+    "_comment": "Non-collapse injury/fatality consequences keyed by PH component ID. Each entry lists the damage state(s) that carry a casualty consequence and the affected area per damaged P-58 unit. Source: thesis Tables D-1/D-2 (printed p.296-297) via docs/thesis/data/component_fragilities.yaml. Structural RC/PT/steel components carry NO non-collapse casualties (thesis Ch 6.2.2). unit_sf is the component's P-58 quantity-unit size in SF (for EA components unit_sf=null: damaged quantity is already a unit count).",
+    "PH.NS.CHB.SU": {
+      "label": "CHB Wall; Solid; Unreinforced",
+      "unit_sf": 125,
+      "casualty_states": {
+        "3": {"injury_rate": 0.10, "fatality_rate": 0.0, "affected_area_sf": 50, "beta": 0.5}
+      },
+      "provenance_confidence": "medium",
+      "note": "Thesis: CHB casualty consequences approximated, subject to further review (Table D-4 footnote)."
+    },
+    "PH.NS.CHB.PU": {
+      "label": "CHB with Doors/Windows; Unreinforced",
+      "unit_sf": 125,
+      "casualty_states": {
+        "3": {"injury_rate": 0.10, "fatality_rate": 0.0, "affected_area_sf": 50, "beta": 0.5},
+        "4": {"injury_rate": 0.10, "fatality_rate": 0.0, "affected_area_sf": 50, "beta": 0.5}
+      },
+      "provenance_confidence": "medium",
+      "note": "CHB casualty consequences approximated, subject to further review."
+    },
+    "PH.NS.CW": {
+      "label": "Curtain Wall",
+      "unit_sf": 30,
+      "casualty_states": {
+        "4": {"injury_rate": 0.02, "fatality_rate": 0.0, "affected_area_sf": 36, "beta": 0.5}
+      },
+      "provenance_confidence": "high"
+    },
+    "PH.NS.CLG.NS": {
+      "label": "Suspended Ceiling; Non-Seismic",
+      "unit_sf": 250,
+      "casualty_states": {
+        "3": {"injury_rate": 0.10, "fatality_rate": 0.0, "affected_area_sf": 250, "beta": 0.5}
+      },
+      "provenance_confidence": "high"
+    },
+    "PH.NS.CLG.BR": {
+      "label": "Suspended Ceiling; Braced",
+      "unit_sf": 250,
+      "casualty_states": {
+        "3": {"injury_rate": 0.10, "fatality_rate": 0.0, "affected_area_sf": 250, "beta": 0.5}
+      },
+      "provenance_confidence": "high"
+    },
+    "PH.NS.FIX.NS": {
+      "label": "Ceiling Fixtures; Non-Seismic",
+      "unit_sf": null,
+      "casualty_states": {
+        "1": {"injury_rate": 0.10, "fatality_rate": 0.0, "affected_area_sf": 50, "beta": 0.5}
+      },
+      "provenance_confidence": "high",
+      "note": "Seismically-rated fixtures (PH.NS.FIX.SE) carry NO casualty (thesis Ch 6.2.2)."
+    },
+    "PH.NS.ELEC.DT": {
+      "label": "Desktop Electronics",
+      "unit_sf": null,
+      "casualty_states": {
+        "1": {"injury_rate": 0.10, "fatality_rate": 0.0, "affected_area_sf": 16, "beta": 0.5}
+      },
+      "provenance_confidence": "high"
+    },
+    "PH.NS.ELEC.WM": {
+      "label": "Wall-Mounted Electronics",
+      "unit_sf": null,
+      "casualty_states": {
+        "1": {"injury_rate": 0.20, "fatality_rate": 0.10, "affected_area_sf": 16, "beta": 0.5}
+      },
+      "provenance_confidence": "high",
+      "note": "Only non-structural component with a non-collapse FATALITY rate (thesis Ch 6.4.2); high demand capacity (PFA fragility median 2.5 g) means it rarely fires."
+    },
+    "PH.NS.ELEV": {
+      "label": "Elevator",
+      "unit_sf": null,
+      "casualty_states": {
+        "4": {"injury_rate": 0.10, "fatality_rate": 0.05, "affected_area_sf": 40, "beta": 0.5}
+      },
+      "provenance_confidence": "high",
+      "note": "C1-H (Hi) only."
+    }
+  },
+
+  "collapse_casualties": {
+    "_comment": "Collapse-driven casualties (FEMA P-58 2018a). fatalities = collapse * population * P_total_collapse * collapse_fatality_rate * expected_occupancy_factor; collapse injuries = collapse * population * P_total_collapse * (1 - collapse_fatality_rate) * expected_occupancy_factor. The (1 - P_total_collapse) partial-collapse-mode share is treated as NO additional casualty (conservative w.r.t. fatalities; consistent with the thesis emphasis that fatalities derive from TOTAL collapse). collapse_fatality_rate is the lethal-area rate by HAZUS model building type (thesis Ch 6.2.6.2: 'Default FEMA P-58 (2018a) mean collapse fatality rates based on HAZUS typology adopted; Collapse injury rate = 1 minus the fatality rate'). The expected_occupancy_factor (FEMA P-58 population model, see expected_occupancy_factor_by_archetype) scales the collapse exposure to the population expected to be PRESENT at the time of the earthquake. As of the NC-injury recalibration (2026-06-27) it is applied to BOTH the fatality and injury terms (expected_occupancy_factor_applies_to = 'both'): collapse injuries, like collapse fatalities, accrue only to present occupants. Applying it to fatalities ONLY left the collapse-injury exposure at full enrolment, which made collapse injuries DOMINATE the total and inverted the thesis's non-collapse-dominant injury split (0.78-0.99 Makati). See docs/learnings/2026-06-27_casualties.md.",
+    "collapse_injury_rate_is_one_minus_fatality": true,
+    "apply_p_total_collapse": true,
+    "expected_occupancy_factor_applies_to": "both",
+    "expected_occupancy_factor_default": 0.30,
+    "expected_occupancy_factor_by_archetype": {
+      "_comment": "FEMA P-58 (2018a) population/occupancy model: the casualty exposure at the instant of collapse is the population EXPECTED TO BE PRESENT, not the full enrolled population. The thesis applied 'the P-58 population model for middle schools to all archetypes' (Ch 6.2.6.2) and reports both an 'Actual Population' and a much smaller 'P-58 Peak Population' per archetype (Table 6-5, printed p.131). This factor = (P-58 Peak Population / Actual Population) per archetype; it is the FEMA P-58 expected-present-occupancy fraction that PACT applied to the collapse fatality computation. Applying it to the fatality term (only) reconciles the whole-portfolio WVF-7.3 fatalities to the thesis .mat anchor (PA_CasF mean 2945) within ~15%, WITHOUT moving injuries. Without it, fatalities run ~7x high (full-enrollment exposure). Provenance: thesis Table 6-5 actual-vs-P-58-peak population columns; high confidence on the tabulated populations, the ratio interpretation is the FEMA P-58 expected-occupancy mechanism.",
+      "C1-M (Hi)": 0.324,
+      "C1-M (Mid)": 0.174,
+      "C1-M (Pre/Lo)": 0.167,
+      "C1-M (Pre/Lo) FRP": 0.167,
+      "C1-L (Mid/Hi)": 0.359,
+      "C1-L (Pre/Lo)": 0.518,
+      "C1-H (Hi)": 1.502,
+      "PTC1-M (Hi)": 0.375,
+      "PTC1-M (Mid)": 0.405,
+      "S1-M (Hi)": 0.174,
+      "S3-L": 0.321,
+      "CHB-L": 0.314,
+      "W-L": 0.368,
+      "CWS-L": 0.420,
+      "N-L": 0.234
+    },
+    "expected_occupancy_factor_provenance": {
+      "source": "Thesis Jeswani (2021) Table 6-5 (printed p.131): per-archetype 'Actual Population | P-58 Peak Population'. Factor = P-58 Peak / Actual. Values: C1-M (Hi) 156/481; C1-M (Mid) 141/810; C1-M (Pre/Lo) 141/846; C1-L (Mid/Hi) 92/256; C1-L (Pre/Lo) 141/272; C1-H (Hi) 2534/1687; PTC1-M (Hi) 416/1109; PTC1-M (Mid) 165/407; S1-M (Hi) 428/2453; S3-L 17/53; CHB-L 16/51; W-L 56/152; CWS-L 92/219; N-L 22/94. C1-M (Pre/Lo) FRP reuses C1-M (Pre/Lo). Population-weighted mean ~0.295 over the real inventory.",
+      "provenance_confidence": "high",
+      "mechanism": "FEMA P-58 (2018a) Vol 1 expected-present-occupancy: collapse casualties (BOTH fatalities and injuries) are computed on the population present at the time of the earthquake (a fraction of peak/enrolled occupancy). The thesis reports the P-58 generated 'peak' population which it used to normalize casualties (Ch 7.4 / Table 6-5); PACT applied this occupancy basis to the collapse fatality AND injury calculation. C1-H (Hi) factor exceeds 1 because its P-58-generated peak population for a large multi-storey building exceeds the recorded enrolment; this raises its (small, 2-building, low-collapse) collapse contribution negligibly."
+    },
+    "collapse_fatality_rate_by_hazus_type": {
+      "C1L": {"rate": 0.15, "provenance_confidence": "medium", "note": "Low/mid-rise concrete moment frame; Hazus-MH EQ Tech Manual Severity-4 collapse indoor casualty rate."},
+      "C1M": {"rate": 0.15, "provenance_confidence": "medium"},
+      "C1H": {"rate": 0.15, "provenance_confidence": "medium", "note": "High-rise concrete; Hazus uses ~0.15 for the collapsed portion."},
+      "S1M": {"rate": 0.15, "provenance_confidence": "medium"},
+      "S3":  {"rate": 0.15, "provenance_confidence": "medium"},
+      "W1":  {"rate": 0.10, "provenance_confidence": "medium", "note": "Wood/light frame; lower collapse fatality rate."},
+      "URM": {"rate": 0.20, "provenance_confidence": "medium", "note": "Unreinforced masonry (CHB); highest collapse fatality rate."}
+    },
+    "archetype_hazus_type": {
+      "C1-M (Hi)": "C1M", "C1-M (Mid)": "C1M", "C1-M (Pre/Lo)": "C1M", "C1-M (Pre/Lo) FRP": "C1M",
+      "C1-L (Mid/Hi)": "C1L", "C1-L (Pre/Lo)": "C1L", "C1-H (Hi)": "C1H",
+      "PTC1-M (Hi)": "C1M", "PTC1-M (Mid)": "C1M",
+      "S1-M (Hi)": "S1M", "S3-L": "S3",
+      "CHB-L": "URM", "W-L": "W1", "CWS-L": "W1", "N-L": "W1"
+    },
+    "p_total_collapse_by_archetype": {
+      "C1-M (Hi)": 0.6, "C1-M (Mid)": 0.7, "C1-M (Pre/Lo)": 0.9, "C1-M (Pre/Lo) FRP": 0.5,
+      "C1-L (Mid/Hi)": 0.6, "C1-L (Pre/Lo)": 0.9, "C1-H (Hi)": 0.7,
+      "PTC1-M (Hi)": 0.6, "PTC1-M (Mid)": 0.7,
+      "S1-M (Hi)": 0.7, "S3-L": 1.0,
+      "CHB-L": 1.0, "W-L": 1.0, "CWS-L": 1.0, "N-L": 1.0
+    },
+    "p_total_collapse_default": 0.7,
+    "provenance_source": "P_total_collapse from thesis Table 6-6 (p.133) via docs/thesis/data/archetype_fragilities.yaml; collapse_fatality_rate_by_hazus_type = standard Hazus-MH EQ Technical Manual Severity-4 indoor casualty rates (medium confidence; the exact per-type numbers are not tabulated in the public thesis)."
+  },
+
+  "noncollapse_injury_calibration": {
+    "_comment": "Per-archetype calibration that raises the FEMA P-58 affected-area non-collapse INJURY output to the thesis's published per-archetype non-collapse injury rate. The affected-area model (component affected areas 16-250 SF + injury theta ~0.10 over the building-average occupant density population/total_floor_area) systematically UNDER-COUNTS non-collapse injuries relative to the thesis: our baseline whole-portfolio NC injuries are ~6,000 vs the thesis ~40,000 (the thesis reports per-archetype injury rates 0.017-0.17 vs our affected-area 0.002-0.025). Without this, even after the expected-occupancy factor is applied to collapse injuries, the non-collapse injury fraction stays ~0.27 (collapse-injury-dominated) instead of the thesis's non-collapse-dominant split. factor_by_archetype scales the summed, component-resolved NC injury term per archetype so the modelled per-archetype NC injury rate matches the thesis. Applied to NC INJURIES ONLY (applies_to='injuries_only'); NC fatalities (wall-mounted electronics/elevator) are negligible and already match. Because the factor multiplies the component-resolved NC sum uniformly, the non-structural mitigation's component-level neutralisation is preserved (the reduction stays proportional).",
+    "applies_to": "injuries_only",
+    "factor_default": 1.0,
+    "factor_by_archetype": {
+      "C1-H (Hi)": 13.44,
+      "C1-L (Mid/Hi)": 5.30,
+      "C1-L (Pre/Lo)": 23.36,
+      "C1-M (Hi)": 2.28,
+      "C1-M (Mid)": 17.10,
+      "C1-M (Pre/Lo)": 22.89,
+      "C1-M (Pre/Lo) FRP": 22.89,
+      "PTC1-M (Hi)": 2.73,
+      "PTC1-M (Mid)": 14.67,
+      "S1-M (Hi)": 1.49,
+      "S3-L": 38.11,
+      "CHB-L": 1.0,
+      "W-L": 47.75,
+      "CWS-L": 11.39,
+      "N-L": 83.38
+    },
+    "provenance": {
+      "source": "Thesis Jeswani (2021) per-archetype injuries; decoded from the thesis portfolio-analysis .mat (sandbox/thesis-data/Portfolio_Analysis_Script/WVF_7_3_PA.mat, Arch_simp_norm_CasI = per-archetype injury rate / actual population, Arch_simp_norm_CasF = per-archetype fatality rate).",
+      "derivation": "factor[a] = thesis_nc_injury_rate[a] / baseline_affected_area_nc_rate[a]. thesis_nc_injury_rate[a] = Arch_simp_norm_CasI[a] - min((1-CFR)/CFR * Arch_simp_norm_CasF[a], Arch_simp_norm_CasI[a]) — i.e. the thesis per-archetype TOTAL injury rate minus the collapse-injury portion implied by the thesis's own stated collapse model (collapse injury rate = 1 - fatality rate, thesis Ch 6.2.6.2). baseline_affected_area_nc_rate[a] = our un-calibrated affected-area NC injuries per enrolled occupant, from the WVF-7.3 base calibration run (N=1000, seed 12345).",
+      "provenance_confidence": "high for the thesis per-archetype injury rates (the thesis's own published output); medium for the per-archetype factor (it is anchored to the WVF-7.3 base run and inherits the .mat collapse-injury decomposition).",
+      "validation": "With this calibration + expected_occupancy_factor_applies_to='both', the WVF-7.3 base reproduces the thesis injury structure: whole-portfolio injuries ~59,000 (.mat PA_CasI median 58,117) and non-collapse injury fraction ~0.73 whole / ~0.76 Makati / ~0.74 QC — matching the thesis's own .mat-reconstructed fractions (whole 0.70, Makati 0.79 = the Ch 7.4.2 '0.78-0.99' Makati anchor, QC 0.68). The earlier model (no occupancy factor on collapse injuries, no NC calibration) gave a collapse-dominated fraction ~0.11.",
+      "caveat": "The factors are large (and largest for the high-collapse low-rise archetypes N-L, S3-L, W-L and the Pre/Lo RCMRF) for two compounding, documented reasons: (1) the affected-area reading genuinely under-counts NC injuries ~2-17x even for low-collapse archetypes; (2) for the high-collapse archetypes our collapse rate exceeds the 2021-thesis per-archetype collapse rate (the documented upstream collapse-fragility-distribution difference, out of scope here), which suppresses our non-collapsed NC sample and inflates the factor needed to reach the thesis per-archetype NC LEVEL. A single global factor ~6.5x reproduces the WHOLE anchors (injuries ~56k, NC fraction ~0.71) but not the regional structure; the per-archetype factors are used because the task target is the thesis's per-archetype rates. CHB-L is set to 1.0 (its thesis non-collapse injury rate is ~0 — collapse-dominated URM — so no raise; <3 injuries portfolio-wide). C1-M (Pre/Lo) FRP reuses C1-M (Pre/Lo)."
+    },
+    "derivation_detail": {
+      "_comment": "Per-archetype intermediate quantities behind factor_by_archetype, for full traceability. normI/normF from WVF_7_3_PA.mat; thesis_nc_injury_rate per the derivation above; baseline_nc_injury_rate from the WVF-7.3 N=1000 seed-12345 base calibration run.",
+      "C1-H (Hi)": {"normI": 0.04334, "normF": 0.000475, "thesis_nc_rate": 0.04065, "baseline_nc_rate": 0.003025},
+      "C1-L (Mid/Hi)": {"normI": 0.11283, "normF": 0.000608, "thesis_nc_rate": 0.10938, "baseline_nc_rate": 0.020633},
+      "C1-L (Pre/Lo)": {"normI": 0.15423, "normF": 0.009735, "thesis_nc_rate": 0.09907, "baseline_nc_rate": 0.004241},
+      "C1-M (Hi)": {"normI": 0.07836, "normF": 0.008648, "thesis_nc_rate": 0.02936, "baseline_nc_rate": 0.01289},
+      "C1-M (Mid)": {"normI": 0.12595, "normF": 0.000145, "thesis_nc_rate": 0.12512, "baseline_nc_rate": 0.007319},
+      "C1-M (Pre/Lo)": {"normI": 0.1627, "normF": 0.011742, "thesis_nc_rate": 0.09616, "baseline_nc_rate": 0.0042},
+      "PTC1-M (Hi)": {"normI": 0.10636, "normF": 0.006697, "thesis_nc_rate": 0.06841, "baseline_nc_rate": 0.025099},
+      "PTC1-M (Mid)": {"normI": 0.16103, "normF": 0.000189, "thesis_nc_rate": 0.15996, "baseline_nc_rate": 0.010908},
+      "S1-M (Hi)": {"normI": 0.01737, "normF": 0.000254, "thesis_nc_rate": 0.01594, "baseline_nc_rate": 0.010672},
+      "S3-L": {"normI": 0.16814, "normF": 0.007343, "thesis_nc_rate": 0.12653, "baseline_nc_rate": 0.00332},
+      "CHB-L": {"normI": 0.1055, "normF": 0.068287, "thesis_nc_rate": 0.0, "baseline_nc_rate": 0.001822, "note": "thesis NC rate ~0 (collapse-dominated); factor floored to 1.0"},
+      "W-L": {"normI": 0.13029, "normF": 0.000631, "thesis_nc_rate": 0.12462, "baseline_nc_rate": 0.00261},
+      "CWS-L": {"normI": 0.12965, "normF": 0.007062, "thesis_nc_rate": 0.0661, "baseline_nc_rate": 0.005806},
+      "N-L": {"normI": 0.17149, "normF": 0.001398, "thesis_nc_rate": 0.1589, "baseline_nc_rate": 0.001906}
+    }
+  }
+}

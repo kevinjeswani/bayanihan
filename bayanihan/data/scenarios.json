@@ -1,0 +1,86 @@
+{
+  "_provenance": "Extracted from recovered thesis portfolio-analysis workbooks (sandbox/portfolio-analysis/*.xlsx, dated 2020-08-31). GMPE sets match bayanihan.hazard 8-branch logic tree. EVF longitude corrected (see data_correction).",
+  "gmpe_sets": {
+    "crustal_4": [
+      "Chiou & Youngs 2008",
+      "Boore & Atkinson 2008",
+      "Boore et al. 2014 (BSSA14)",
+      "Zhao et al. 2006 (crustal)"
+    ],
+    "subduction_interface_4": [
+      "Zhao et al. 2006 (interface)",
+      "Abrahamson et al. 2015/16 (BC Hydro)",
+      "Youngs et al. 1997",
+      "Atkinson & Boore 2003"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "WVF_6.5",
+      "fault": "West Valley Fault",
+      "mw": 6.5,
+      "hypocenter": {
+        "lat": 14.65,
+        "lon": 121.087,
+        "depth_km": 8.25
+      },
+      "mechanism": "crustal",
+      "gmpe_set": "crustal_4",
+      "source_file": "WVF_6_5_(2020-08-31).xlsx"
+    },
+    {
+      "id": "WVF_7.3",
+      "fault": "West Valley Fault",
+      "mw": 7.3,
+      "hypocenter": {
+        "lat": 14.65,
+        "lon": 121.087,
+        "depth_km": 12.0
+      },
+      "mechanism": "crustal",
+      "gmpe_set": "crustal_4",
+      "source_file": "WVF_7_3_(2020-08-31).xlsx",
+      "note": "thesis Ch.7 validation scenario (Makati ~26% WVF); a _DG variant also exists"
+    },
+    {
+      "id": "EVF_6.6",
+      "fault": "East Valley Fault",
+      "mw": 6.6,
+      "hypocenter": {
+        "lat": 14.74,
+        "lon": 121.17,
+        "depth_km": 10.92
+      },
+      "mechanism": "crustal",
+      "gmpe_set": "crustal_4",
+      "source_file": "EVF_6_6_(2020-08-31).xlsx",
+      "data_correction": "source-file longitude was 141.17 (Pacific, E of Japan) — corrected to 121.17 (Metro Manila). VERIFY exact value."
+    },
+    {
+      "id": "GNW_7.2",
+      "fault": "General Nakar West (GNW)",
+      "mw": 7.2,
+      "hypocenter": {
+        "lat": 15.0072,
+        "lon": 121.352,
+        "depth_km": 11.79
+      },
+      "mechanism": "crustal",
+      "gmpe_set": "crustal_4",
+      "source_file": "GNW_7_2_(2020-08-31).xlsx"
+    },
+    {
+      "id": "MnlTrench_8.15",
+      "fault": "Manila Trench",
+      "mw": 8.15,
+      "hypocenter": {
+        "lat": 14.4295,
+        "lon": 119.885,
+        "depth_km": 25.35
+      },
+      "mechanism": "interface",
+      "gmpe_set": "subduction_interface_4",
+      "source_file": "MnlTrench_8_15_(2020-08-31).xlsx"
+    }
+  ]
+}

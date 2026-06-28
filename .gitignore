@@ -1,0 +1,133 @@
+# Real inventory data — never commit
+bayanihan/data/inventory/manila_schools_real*.geojson
+
+# Private project context
+docs/planning/private/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables (local machine config — see .env.example)
+.env
+.env.local
+
+# uv
+.uv/
+
+# Distribution / packaging
+dist/
+*.dist-info/
+
+# Testing
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ruff
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# IPython
+profile_default/
+ipython_config.py
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# pyarrow / parquet cache
+*.parquet
+*.arrow
+vulnerability_surfaces/
+# ...but DO ship the bundled EDP demand store (package runtime data, archetype-level, not sensitive)
+!bayanihan/data/edps/
+!bayanihan/data/edps/*.parquet
+
+# Sphinx docs (deferred to v0.2)
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Claude Code local settings + private local memory
+.claude/settings.local.json
+CLAUDE.local.md
+.claude/CLAUDE.local.md
+
+# Source PDFs (large; thesis extracted to docs/thesis/*.md instead)
+# Kevin keeps these locally. They are NOT the deliverable.
+docs/thesis/*.pdf
+docs/reference/*.pdf
+
+# Private working docs — strategy, orchestration state, research notes (local-only, never public)
+docs/planning/
+docs/orchestration/
+
+# Private working dirs + scratch — contents gitignored, README marker committed (workflow showcase)
+# Ignore CONTENTS of any .local/ (not the dir itself) so the README marker can be re-included.
+docs/.local/*
+!docs/.local/README.md
+**/.local/*
+!**/.local/README.md
+sandbox/*
+!sandbox/README.md
+docs/learnings/*
+!docs/learnings/README.md

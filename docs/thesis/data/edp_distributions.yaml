@@ -1,0 +1,244 @@
+# edp_distributions.yaml
+# EDP summary statistics per archetype per intensity level
+# Source: Jeswani (2021) MASc thesis, Chapter 5, Section 5.3.2.2 (printed pp. 98-104)
+#
+# ═══════════════════════════════════════════════════════════════
+# IMPORTANT: NO TABULATED EDP SUMMARY STATISTICS IN THESIS BODY
+# ═══════════════════════════════════════════════════════════════
+#
+# The thesis does NOT provide tabulated median + dispersion values for EDPs
+# (Peak Inter-Storey Drift Ratio PIDR, Residual IDRR, Peak Floor Acceleration PFA,
+# Peak Floor Velocity PFV) per archetype per intensity level.
+#
+# NRHA EDP results are presented GRAPHICALLY ONLY:
+#   - Figure 5-20: C1-L (Mid/Hi) EDPs — Soil D, 75/475/2475-year, Directions 1 & 2 (printed p. 99)
+#   - Figure 5-21: C1-M (Hi) EDPs — Soil D, 75/475/2475-year, Directions 1 & 2 (printed p. 100)
+#   - Figure 5-22: C1-M (Mid) EDPs — Soil D, 75/475/2475-year, Directions 1 & 2 (printed p. 101)
+#   - Figure 5-23: C1-M (Pre/Lo) EDPs — Soil D, 75/475/2475-year, Directions 1 & 2 (printed p. 102)
+#   - Figure 5-24: C1-M (Pre/Lo) FRP EDPs — Soil D, 75/475/2475-year, Directions 1 & 2 (printed p. 103)
+#   Soil C EDP results in Appendix C.5.6 (not extracted here)
+#
+# EDP SUMMARY FOR SIMPLIFIED ARCHETYPES (C1-L Pre/Lo, C1-H Hi, S1-M Hi, CWS-L, S3-L, CHB-L, W-L, N-L):
+#   Generated using FEMA P-58 (2018a) simplified method — medians and dispersions assigned
+#   from default P-58 values (which already include β_m for modelling uncertainty).
+#   These are also NOT tabulated in the thesis body; they are computed within the SRAMP software
+#   at each of the 5 intensity levels as part of the P-58 Monte Carlo simulations.
+#
+# NARRATIVE EDP SUMMARIES (from Section 5.3.2.2, printed pp. 103-104):
+#   These are the only quantitative EDP ranges available from the thesis text:
+#
+#   C1-M (Hi):
+#     PIDR: Mean lower-storey PIDRs 1.5–2% at maximum intensity (2,475-year Soil D)
+#     RIDR: Generally below 1% limit at maximum intensity
+#     PFA: 0.25–1g on lower floors at 475- to 2,475-year intensities; ~2g at roof level
+#
+#   C1-L (Mid/Hi) and C1-M (Mid) [grouped in narrative]:
+#     PIDR: 1.25–2.5% at maximum intensity (2,475-year)
+#     RIDR: < 1% for all but maximum intensity
+#     PFA (C1-L Mid/Hi): 0.5–1.25g across all intensities
+#     PFA (C1-M Mid): 0.25–0.75g (2nd & 3rd stories); 0.75–1.25g at roof
+#
+#   C1-M (Pre/Lo):
+#     Numerous collapses; EDPs usable for only 1 record at 2,475-year Soil D
+#     That surviving record comparable to mean of C1-M (Mid)
+#
+#   C1-M (Pre/Lo) FRP:
+#     Improved PIDR and RIDR vs. Pre/Lo; no drastic change in PFA or PFV
+#     (Comparison is not one-to-one; Pre/Lo mean excludes collapsed records)
+#
+# ADDITIONAL NOTES:
+#   - Collapsed records are EXCLUDED from EDP summaries
+#   - PIDRs > 10% treated as non-simulated collapse indicator (not included in EDP distribution)
+#   - Modelled RIDRs are 1.2–1.6× higher than FEMA P-58 simplified method estimates
+#   - PFA spikes due to abrupt stiffness changes are acknowledged but not corrected
+#   - EDPs conditioned on 5 return periods: 75, 175, 475, 975, 2475-year (both Soil C and D)
+#     Only 75, 475, 2475-year shown in figures
+#   - Randomized GM input angles used for all NRHA simulations
+#
+# ACCESSING RAW EDP DATA:
+#   Per Section 5.3.2.2, EDPs for Soil C are in Appendix C.5.6 (not digitized here).
+#   Raw per-record EDP distributions (N records per suite) are not published as tables.
+#   The graphical figures show scatter plots of individual record responses + mean.
+#   If tabulated EDP data is needed, it must be digitized from Figures 5-20 through 5-24
+#   or obtained from the author's SRAMP simulation outputs.
+#
+# STATUS: No tabulated EDP summary statistics available in thesis body or appendix.
+#         This file serves as a documented placeholder and extraction metadata record.
+#         Future work: digitize EDP figures or obtain from SRAMP output files.
+
+schema_version: "1.0"
+extraction_date: "2026-06-26"
+extractor: "claude-sonnet-4-6 (automated thesis extraction)"
+
+status: "NO_TABULATED_DATA"
+reason: >
+  Chapter 5 of the thesis presents NRHA EDP results exclusively as scatter plots in
+  Figures 5-20 through 5-24 (printed pp. 99-103). No summary statistics tables exist
+  for median PIDR, PIDR dispersion, median PFA, PFA dispersion, median RIDR, or RIDR
+  dispersion per archetype per intensity level. Simplified archetype EDPs are computed
+  internally by SRAMP (Kinetica Risk, 2019) using FEMA P-58 default values and are
+  not tabulated in the thesis. Only qualitative narrative ranges are available from
+  Section 5.3.2.2.
+
+narrative_edp_ranges:
+  # These are extracted from Section 5.3.2.2 text (printed pp. 103-104) — approximations only
+  # All values are for Soil D unless noted; "maximum intensity" = 2,475-year return period
+
+  C1-M_Hi:
+    archetype_id: "C1-M (Hi)"
+    pidr_max_intensity:
+      value: "1.5–2%"
+      unit: "% (mean lower-storey)"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: "Narrative range only; graphical data in Figure 5-21"
+    ridr_max_intensity:
+      value: "< 1%"
+      unit: "% (mean)"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: "Below the imposed 1% RIDR limit"
+    pfa_at_design_intensity:
+      value: "0.25–1 g (lower floors); ~2g (roof)"
+      unit: "g"
+      intensity: "475- to 2,475-year"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: "Very high roof PFA due to steel truss flexible diaphragm"
+
+  C1-L_MidHi:
+    archetype_id: "C1-L (Mid/Hi)"
+    pidr_max_intensity:
+      value: "1.25–2.5%"
+      unit: "%"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: "Grouped with C1-M (Mid) in narrative; graphical data in Figure 5-20"
+    ridr_max_intensity:
+      value: "< 1% for all but maximum intensity"
+      unit: "%"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: ""
+    pfa_at_design_intensity:
+      value: "0.5–1.25 g"
+      unit: "g"
+      intensity: "all intensities"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: ""
+
+  C1-M_Mid:
+    archetype_id: "C1-M (Mid)"
+    pidr_max_intensity:
+      value: "1.25–2.5%"
+      unit: "%"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: "Grouped with C1-L (Mid/Hi) in narrative; graphical data in Figure 5-22"
+    ridr_max_intensity:
+      value: "< 1% for all but maximum intensity"
+      unit: "%"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: ""
+    pfa_at_design_intensity:
+      value: "0.25–0.75 g (2nd & 3rd stories); 0.75–1.25 g (roof)"
+      unit: "g"
+      intensity: "475- to 2,475-year"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: medium
+      notes: ""
+
+  C1-M_PreLo:
+    archetype_id: "C1-M (Pre/Lo)"
+    pidr_max_intensity:
+      value: "Dominated by collapse; 1 surviving record comparable to mean C1-M (Mid)"
+      unit: "%"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: EDPs not meaningful at maximum intensity. Graphical data in Figure 5-23 (collapse-excluded mean)"
+    ridr_max_intensity:
+      value: "Not representative"
+      unit: "%"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Collapse dominates; limited non-collapse data points"
+    pfa_at_design_intensity:
+      value: "Not representative"
+      unit: "g"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Same limitation as PIDR"
+
+  C1-M_PreLo_FRP:
+    archetype_id: "C1-M (Pre/Lo) FRP"
+    pidr_max_intensity:
+      value: "Improved vs. Pre/Lo (FRP retrofit provided 'some improvement')"
+      unit: "%"
+      intensity: "2,475-year Soil D"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Qualitative only; graphical data in Figure 5-24. Not a one-to-one comparison since Pre/Lo mean excludes collapsed records"
+    ridr_max_intensity:
+      value: "Improved vs. Pre/Lo"
+      unit: "%"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Qualitative only"
+    pfa_at_design_intensity:
+      value: "No drastic change vs. Pre/Lo"
+      unit: "g"
+      source: {section: "5.3.2.2", printed_page: 103}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: PFV also not significantly changed"
+
+figures_containing_edp_data:
+  - figure: "Figure 5-20"
+    content: "C1-L (Mid/Hi) EDPs: Soil D – 75-, 475-, and 2,475-year – Direction 1 and 2"
+    printed_page: 99
+    pdf_page: 126
+    plot_types: ["PIDR by storey", "RIDR by storey", "PFA by storey", "PGV/PGV"]
+    data_format: "Scatter plot with mean line; individual GM records shown"
+    digitization_status: "NOT DIGITIZED"
+  - figure: "Figure 5-21"
+    content: "C1-M (Hi) EDPs: Soil D – 75-, 475-, and 2,475-year – Direction 1 and 2"
+    printed_page: 100
+    pdf_page: 127
+    plot_types: ["PIDR by storey", "RIDR by storey", "PFA by storey"]
+    data_format: "Scatter plot with mean line"
+    digitization_status: "NOT DIGITIZED"
+  - figure: "Figure 5-22"
+    content: "C1-M (Mid) EDPs: Soil D – 75-, 475-, and 2,475-year – Direction 1 and 2"
+    printed_page: 101
+    pdf_page: 128
+    digitization_status: "NOT DIGITIZED"
+  - figure: "Figure 5-23"
+    content: "C1-M (Pre/Lo) EDPs: Soil D – 75-, 475-, and 2,475-year – Direction 1 and 2"
+    printed_page: 102
+    pdf_page: 129
+    notes: "Collapsed records excluded; very few non-collapse points at 2,475-year"
+    digitization_status: "NOT DIGITIZED"
+  - figure: "Figure 5-24"
+    content: "C1-M (Pre/Lo) FRP EDPs: Soil D – 75-, 475-, and 2,475-year – Direction 1 and 2"
+    printed_page: 103
+    pdf_page: 130
+    digitization_status: "NOT DIGITIZED"
+
+appendix_edp_data:
+  location: "Appendix C.5.6"
+  content: "Soil C EDP results for all NRHA archetypes (same format as Figures 5-20 to 5-24)"
+  status: "NOT EXTRACTED — outside Ch5 body extraction scope"
+
+additional_ridr_note:
+  observation: "Modelled RIDRs are 1.2–1.6× higher than FEMA P-58 simplified method estimates as a function of PIDRs"
+  source: {section: "5.3.2.2", printed_page: 104}
+  attribution: "Attributed to heavy use of pulse-like motions, spectral matching issues, or P-delta/unloading modelling decisions"
+  fema_acknowledgment: "FEMA (2018a) acknowledged difficulty in accurately modelling RIDR from NRHA"

@@ -1,0 +1,174 @@
+{
+  "scenario_id": "WVF_7.3",
+  "n_realizations": 1000,
+  "seed": 12345,
+  "mitigation_strategy": "TWO simultaneous layers (thesis): (1) STRUCTURAL FRP retrofit of the non-ductile RCMRF (collapse-risk -> fatality reduction); (2) NON-STRUCTURAL equipment upgrade (Table 6-3 component swap: braced ceilings, safety-wired fixtures, reinforced CHB, electronics removed -> falling-hazard injury reduction).",
+  "structural_layer": "FRP retrofit of C1-M (Pre/Lo) RC moment frames (the only archetype with recovered R1 EDPs; collapse Sa 1.11 g -> 2.12 g). Those buildings swap to the C1-M (Pre/Lo) FRP EDP/collapse fragility + FRP component model. The thesis retrofitted the WHOLE RC moment-frame stock (C1-L MCHC, C1-M HC/MC/PCLC, PTC1-M HC/MC per WVF_7_3_R1_PA.mat); we reach 71/1021 buildings (11.3% of value; MC 20/96, QC 51/925). The structural layer -> FATALITY reduction is therefore smaller than the thesis's. Not tuned.",
+  "nonstructural_layer": "Portfolio-wide component swap (NOT coverage-limited): {'PH.NS.CLG.NS': 'PH.NS.CLG.BR', 'PH.NS.FIX.NS': 'PH.NS.FIX.SE', 'PH.NS.CHB.SU': 'PH.NS.CHB.SR', 'PH.NS.CHB.PU': 'PH.NS.CHB.PR'} ; removed ['PH.NS.ELEC.DT', 'PH.NS.ELEC.WM']. Applied to every building carrying these acceleration/drift-sensitive components (1021/1021 buildings). This is the headline INJURY-reduction layer (neutralises non-collapse component injuries). Component fragility swap only \u2014 no new EDPs.",
+  "coverage": {
+    "whole": {
+      "n_buildings": 1021,
+      "n_retrofitted": 71,
+      "fraction_retrofitted_by_count": 0.06953966699314397,
+      "replacement_cost_php": 30636997329.0,
+      "retrofitted_replacement_cost_php": 3475087383.0,
+      "fraction_retrofitted_by_cost": 0.1134278057892636,
+      "n_nonstructural_upgraded": 1021,
+      "fraction_nonstructural_upgraded": 1.0
+    },
+    "makati_MC": {
+      "n_buildings": 96,
+      "n_retrofitted": 20,
+      "fraction_retrofitted_by_count": 0.20833333333333334,
+      "replacement_cost_php": 10601648074.0,
+      "retrofitted_replacement_cost_php": 1866423898.0,
+      "fraction_retrofitted_by_cost": 0.17605035414987122,
+      "n_nonstructural_upgraded": 96,
+      "fraction_nonstructural_upgraded": 1.0
+    },
+    "quezon_QC": {
+      "n_buildings": 925,
+      "n_retrofitted": 51,
+      "fraction_retrofitted_by_count": 0.055135135135135134,
+      "replacement_cost_php": 20035349255.0,
+      "retrofitted_replacement_cost_php": 1608663485.0,
+      "fraction_retrofitted_by_cost": 0.08029126243449655,
+      "n_nonstructural_upgraded": 925,
+      "fraction_nonstructural_upgraded": 1.0
+    }
+  },
+  "nonstructural": {
+    "substitutions": {
+      "PH.NS.CLG.NS": "PH.NS.CLG.BR",
+      "PH.NS.FIX.NS": "PH.NS.FIX.SE",
+      "PH.NS.CHB.SU": "PH.NS.CHB.SR",
+      "PH.NS.CHB.PU": "PH.NS.CHB.PR"
+    },
+    "removed": [
+      "PH.NS.ELEC.DT",
+      "PH.NS.ELEC.WM"
+    ],
+    "scope": "portfolio-wide for the upgraded acceleration/drift-sensitive non-structural components",
+    "effect": "falling-hazard INJURY reduction (neutralises non-collapse component injuries)",
+    "note": "Non-structural equipment upgrade (thesis Table 6-3): brace ceilings (CLG.NS->CLG.BR), anchor/safety-wire fixtures (FIX.NS->FIX.SE, no casualty), reinforce CHB (SU/PU->SR/PR), remove desktop & wall-mounted electronics from the mitigated models. Applied to every building carrying these components -> NOT coverage-limited. This is the headline INJURY-reduction layer. Component-level fragility swap only \u2014 no new EDPs. Not tuned."
+  },
+  "base": {
+    "whole": {
+      "loss_ratio_mean": 0.32043431065604855,
+      "loss_ratio_median": 0.2947717773544348,
+      "loss_ratio_p90": 0.5434602779142997,
+      "injury_ratio_median": 0.10596955876893145,
+      "fatality_ratio_median": 0.0054555330524878615,
+      "injuries_median": 59372.94229573321,
+      "fatalities_median": 3056.642425247056
+    },
+    "makati_MC": {
+      "loss_ratio_mean": 0.26720892298703164,
+      "loss_ratio_median": 0.20645968462725428,
+      "loss_ratio_p90": 0.5898801229984897,
+      "injury_ratio_median": 0.14987639833648275,
+      "fatality_ratio_median": 0.007978618028549683,
+      "injuries_median": 14128.698194781895,
+      "fatalities_median": 752.1363429333501
+    },
+    "quezon_QC": {
+      "loss_ratio_mean": 0.3485983731581442,
+      "loss_ratio_median": 0.32283182557978446,
+      "loss_ratio_p90": 0.5712685921626218,
+      "injury_ratio_median": 0.09823001043968554,
+      "fatality_ratio_median": 0.004618040670125658,
+      "injuries_median": 45776.56008503962,
+      "fatalities_median": 2152.071604847939
+    },
+    "total_loss_php_median": 9030922155.4724,
+    "total_loss_php_p90": 16649991082.878002,
+    "collapse_rate": 0.22237022526934377,
+    "demolition_rate": 0.1154309500489716,
+    "loss_source": {
+      "collapse_share_of_total_loss": 0.503869512862467,
+      "demolition_share_of_total_loss": 0.2065412528477698,
+      "component_share_of_total_loss": 0.28958923428976324,
+      "noncollapse_cell_loss_ratio_mean": 0.2255794369176145,
+      "noncollapse_cell_loss_ratio_median": 0.136306789172349
+    }
+  },
+  "mitigated": {
+    "whole": {
+      "loss_ratio_mean": 0.2552159166339735,
+      "loss_ratio_median": 0.222104670155639,
+      "loss_ratio_p90": 0.4732127591859098,
+      "injury_ratio_median": 0.03293378528228169,
+      "fatality_ratio_median": 0.0046699275770607975,
+      "injuries_median": 18452.24001931263,
+      "fatalities_median": 2616.4810326583547
+    },
+    "makati_MC": {
+      "loss_ratio_mean": 0.19591107643831873,
+      "loss_ratio_median": 0.11411235176676984,
+      "loss_ratio_p90": 0.5009710126516429,
+      "injury_ratio_median": 0.05211321892258115,
+      "fatality_ratio_median": 0.005393694000125869,
+      "injuries_median": 4912.661034612803,
+      "fatalities_median": 508.4581396978655
+    },
+    "quezon_QC": {
+      "loss_ratio_mean": 0.2865969041494388,
+      "loss_ratio_median": 0.25566488389167774,
+      "loss_ratio_p90": 0.505110630880458,
+      "injury_ratio_median": 0.027749843682159252,
+      "fatality_ratio_median": 0.0041602657290064765,
+      "injuries_median": 12931.815653697762,
+      "fatalities_median": 1938.742073437224
+    },
+    "total_loss_php_median": 6804620186.316738,
+    "total_loss_php_p90": 14497818039.22744,
+    "collapse_rate": 0.20413907933398628,
+    "demolition_rate": 0.1157179236043095,
+    "loss_source": {
+      "collapse_share_of_total_loss": 0.5116655866776972,
+      "demolition_share_of_total_loss": 0.2620487803789808,
+      "component_share_of_total_loss": 0.22628563294332182,
+      "noncollapse_cell_loss_ratio_mean": 0.13934667236962514,
+      "noncollapse_cell_loss_ratio_median": 0.06346514565889888
+    }
+  },
+  "thesis_targets": {
+    "MC": {
+      "base_loss_ratio": 0.26,
+      "mit_loss_ratio": 0.18,
+      "base_injury_ratio": 0.145,
+      "mit_injury_ratio": 0.011,
+      "base_fatality_ratio": 0.003,
+      "mit_fatality_ratio": 0.0004
+    },
+    "QC": {
+      "base_loss_ratio": 0.31,
+      "mit_injury_ratio": 0.023,
+      "mit_fatality_ratio": 0.001
+    }
+  },
+  "mat_anchors_whole_portfolio": {
+    "base": {
+      "loss_php_median": 7826000000.0,
+      "loss_php_p90": 10740000000.0,
+      "casI_median": 58120.0,
+      "casF_median": 2899.0
+    },
+    "mit": {
+      "loss_php_median": 6507000000.0,
+      "loss_php_p90": 8957000000.0,
+      "casI_median": 16270.0,
+      "casF_median": 953.2
+    }
+  },
+  "reduction_ours": {
+    "whole_loss_ratio_median": 0.2465,
+    "makati_loss_ratio_median": 0.4473,
+    "whole_total_loss_php_median": 0.2465,
+    "whole_injuries_median": 0.6892,
+    "makati_injuries_median": 0.6523,
+    "qc_injuries_median": 0.7175,
+    "makati_fatalities_median": 0.324,
+    "whole_fatalities_median": 0.144
+  }
+}

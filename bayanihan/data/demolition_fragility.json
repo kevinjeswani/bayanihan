@@ -1,0 +1,18 @@
+{
+  "_provenance": {
+    "model": "Residual-drift (irreparability) demolition fragility, FEMA P-58 (2018a) Vol 1 sec 7.6 after Ramirez & Miranda (2012).",
+    "description": "A non-collapsed building is demolished (irreparable -> total loss = full replacement cost + replacement time) with probability P(demolition) = Phi( ln(RIDR_median / median_ridr) / beta ), where RIDR_median is the MEDIAN peak residual interstory drift ratio at the realization's intensity (peak over stories, Direction-3 SRSS, capped at the top calibrated EDP stripe). Per FEMA P-58 / Ramirez & Miranda (2012) the demolition fragility is conditioned on the MEDIAN residual drift; its dispersion `beta` already carries the residual-threshold uncertainty, so the residual EDP's own record-to-record scatter is NOT additionally Monte-Carlo-sampled (doing so double-counts the residual aleatory variability and over-fires demolition on ductile frames whose median residual sits below the limit). Recalibrated 2026-06-27 -- see docs/learnings/2026-06-27_demolition_recalibration.md.",
+    "median_ridr_source": "Per-archetype 'Residual Drift Limit' (the median RIDR demolition threshold) from thesis Table 6-6 (Jeswani 2021, sec 6.2.6.3, printed page 133), carried in docs/thesis/data/archetype_fragilities.yaml (residual_drift_limit) and surfaced on each Building as metadata['residual_drift_limit_pct']. A value of 0.0% means residual drift is NOT a governing criterion for that archetype (thesis: CWS-L) -> no demolition fragility (P_demo == 0).",
+    "median_ridr_provenance_confidence": "high",
+    "beta_source": "FEMA P-58 (2018a) default residual-drift demolition dispersion, beta = 0.30, after Ramirez & Miranda (2012). The thesis tabulates only the median RIDR limit (Table 6-6); it does NOT tabulate a separate residual-drift fragility dispersion, so the FEMA P-58 default is used.",
+    "beta_provenance_confidence": "medium",
+    "citations": [
+      "FEMA P-58 (2018a). Seismic Performance Assessment of Buildings, Volume 1 - Methodology. Federal Emergency Management Agency.",
+      "Ramirez, C.M. & Miranda, E. (2012). Significance of residual drifts in building earthquake loss estimation. Earthquake Engineering & Structural Dynamics, 41(11), 1477-1493.",
+      "Jeswani, K. K. (2021). The Seismic Resilience of Critical Spatially-Distributed Building Portfolios. MASc thesis, University of Toronto. Table 6-6, sec 6.2.6.3."
+    ],
+    "notes": "Median RIDR is read per-archetype from the building metadata (thesis Table 6-6) so it is never hardcoded in Python; only the dispersion (a single FEMA P-58 default) lives here. The demolition RIDR demand at the scenario Sa is the peak-over-stories of the 'Building Residual Drift' channel already stored in data/edps/edp_store.parquet (Direction-3 SRSS resultant), interpolated against the stripe conditioning Sa exactly like the PID/PFA demands."
+  },
+  "beta_demolition": 0.30,
+  "default_median_ridr_pct": 1.0
+}

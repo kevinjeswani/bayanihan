@@ -1,0 +1,509 @@
+# component_quantities.yaml
+# Archetypal structural and non-structural component quantity assignments
+# Source: Jeswani (2021) MASc thesis, Appendix D, Table D-13 (printed p. 311)
+# PDF page: ~338 (printed page 311 + 27 offset)
+#
+# All component IDs follow the PH.{category}.{name} convention defined in
+# docs/reference/pelicun_csv_schema.md and used in bayanihan/data/fragility.csv.
+#
+# Column headers follow Table D-13:
+#   bc_1s: Beam-Column (Ductile/Non-Ductile/PTRC/Steel) — 1-Side
+#   bc_2s: Beam-Column — 2-Side
+#   steel_splice: Steel Column Splice
+#   steel_baseplate: Steel Column Base Plate
+#   chb_solid: CHB infill — Solid (unreinforced or reinforced per archetype)
+#   chb_perf: CHB infill — Perforated (unreinforced or reinforced per archetype)
+#   curtain_wall: Curtain Wall (sq ft panels)
+#   ceiling: Suspended Ceiling (250 SF zones; seismic/non-seismic per archetype)
+#   fixtures: Ceiling Fixtures (1 EA; seismic/non-seismic per archetype)
+#   stairs: CIP RC Stairs (1 EA)
+#   elec_dt: Desktop Electronics (1 EA)
+#   elec_wm: Wall-Mounted Electronics (1 EA)
+#   sprinkler_drop: Sprinkler Drops (100 EA)
+#   sprinkler_pipe: Sprinkler Horizontal Piping (1000 LF)
+#
+# Note on P-58 units:
+#   Beam-column joints: quantity = number of joints (1 EA each)
+#   CHB: quantity = number of 125 SF panels
+#   Ceiling: quantity = number of 250 SF zones
+#   Stairs: 1 EA per stair run
+#   Electronics: 1 EA each
+#   Sprinkler drops: 100 EA
+#   Sprinkler piping: 1000 LF
+#
+# Note on ductility:
+#   "Ductile" archetypes (C1-M Hi, C1-M Mid, C1-L Mid/Hi, PTC1-M, S1-M Hi, C1-H Hi,
+#    C1-M Pre/Lo FRP) use PH.S.DRCMRF.1S/2S (or PH.S.PTRCMRF/SMRF for PT/Steel).
+#   "Non-ductile" archetypes (C1-M Pre/Lo, C1-L Pre/Lo) use PH.S.NDRCMRF.1S/2S.
+#   Table D-13 footnote (a) references Table 7-4 for ductile/non-ductile and
+#   reinforced/unreinforced CHB assignments.
+#
+# Note on merged archetypes:
+#   PC-L → uses C1-L (Pre/Lo) component model
+#   PTC1-M (Pre/Lo) → uses C1-M (Pre/Lo) component model
+#   PTC4-M (Lo) → uses PTC1-M (Mid) component model
+#   C4-L (Lo/Mid) → uses C1-L (Mid/Hi) component model
+#   C4-M (Mid) → uses C1-M (Hi) component model
+
+schema_version: "1.0"
+extraction_date: "2026-06-26"
+extractor: "claude-sonnet-4-6 (automated thesis extraction)"
+source: "Jeswani (2021) Table D-13, printed p. 311"
+provenance_confidence: "high"
+
+component_quantities:
+
+  # ─── GROUP 1: NRHA-MODELLED ─────────────────────────────────────────────
+
+  "C1-M (Hi)":
+    stories: 4
+    per_story:
+      1:
+        bc_1s: 13
+        bc_2s: 21
+        chb_solid: 13
+        chb_perf: 11
+        ceiling: 1
+        fixtures: 32
+        stairs: 2
+      2:
+        bc_1s: 13
+        bc_2s: 21
+        chb_solid: 14
+        chb_perf: 11
+        ceiling: 1
+        fixtures: 32
+        stairs: 2
+      3:
+        bc_1s: 13
+        bc_2s: 21
+        chb_solid: 14
+        chb_perf: 11
+        ceiling: 1
+        fixtures: 32
+        stairs: 2
+      4:
+        bc_1s: 13
+        bc_2s: 21
+        chb_solid: 14
+        chb_perf: 11
+        ceiling: 11
+        fixtures: 5
+    notes: "Table D-13, p.311; ductile RCMRF; Story 4 = roof level (fewer rooms)"
+
+  "C1-M (Mid)":
+    stories: 3
+    per_story:
+      1:
+        bc_1s: 26
+        bc_2s: 38
+        chb_solid: 20
+        chb_perf: 9
+        ceiling: 2
+        fixtures: 41
+        stairs: 1
+      2:
+        bc_1s: 26
+        bc_2s: 38
+        chb_solid: 20
+        chb_perf: 9
+        ceiling: 2
+        fixtures: 41
+        stairs: 1
+      3:
+        bc_1s: 24
+        bc_2s: 40
+        chb_solid: 20
+        chb_perf: 9
+        ceiling: 8
+        fixtures: 5
+    notes: "Table D-13, p.311; ductile RCMRF (with eccentric infill struts in model)"
+
+  "C1-M (Pre/Lo)":
+    stories: 3
+    per_story:
+      1:
+        bc_1s: 26
+        bc_2s: 38
+        chb_solid: 20
+        chb_perf: 9
+        ceiling: 2
+        fixtures: 41
+        stairs: 1
+      2:
+        bc_1s: 26
+        bc_2s: 38
+        chb_solid: 20
+        chb_perf: 9
+        ceiling: 2
+        fixtures: 41
+        stairs: 1
+      3:
+        bc_1s: 24
+        bc_2s: 40
+        chb_solid: 20
+        chb_perf: 9
+        ceiling: 8
+        fixtures: 5
+    notes: "Table D-13, p.311; NON-DUCTILE RCMRF; same quantities as C1-M (Mid) per table footnote (a)"
+
+  "C1-M (Pre/Lo) FRP":
+    stories: 3
+    per_story: null
+    notes: >
+      Not separately listed in Table D-13. Uses same quantities as C1-M (Pre/Lo)
+      but with structural component switched to DRCMRF (ductile) due to FRP retrofit.
+      TODO(P2): Verify with thesis Section 5.1.3.
+    provenance_confidence: medium
+
+  "C1-L (Mid/Hi)":
+    stories: 2
+    per_story:
+      1:
+        bc_1s: 22
+        bc_2s: 26
+        chb_solid: 12
+        chb_perf: 14
+        ceiling: 0
+        fixtures: 44
+        stairs: 1
+      2:
+        bc_1s: 22
+        bc_2s: 26
+        chb_solid: 13
+        chb_perf: 14
+        ceiling: 13
+        fixtures: 5
+    notes: "Table D-13, p.311; ductile RCMRF"
+
+  # ─── GROUP 2: EDP PROXY ─────────────────────────────────────────────────
+
+  "PTC1-M (Hi)":
+    stories: 5
+    proxy_edp_source: "C1-M (Hi)"
+    per_story:
+      1:
+        bc_1s: 30
+        bc_2s: 34
+        curtain_wall: 11
+        chb_solid: 25
+        chb_perf: 28
+        ceiling: 3
+        fixtures: 88
+        stairs: 2
+        elec_wm: 6
+      2:
+        bc_1s: 30
+        bc_2s: 38
+        curtain_wall: 11
+        chb_solid: 27
+        chb_perf: 38
+        ceiling: 3
+        fixtures: 108
+        stairs: 2
+        elev: 51
+        elec_wm: 6
+      3:
+        bc_1s: 30
+        bc_2s: 38
+        curtain_wall: 11
+        chb_solid: 25
+        chb_perf: 38
+        ceiling: 3
+        fixtures: 108
+        stairs: 2
+        elec_wm: 6
+      4:
+        bc_1s: 30
+        bc_2s: 38
+        curtain_wall: 11
+        chb_solid: 29
+        chb_perf: 38
+        ceiling: 24
+        fixtures: 5
+        elec_wm: 6
+    notes: "Table D-13, p.311; PTRCMRF (post-tensioned); note c: EDP-Proxy. Story count=5 but table shows 4 occupied stories + proxy"
+
+  "PTC1-M (Mid)":
+    stories: 5
+    proxy_edp_source: "C1-M (Mid)"
+    per_story:
+      1:
+        bc_1s: 26
+        bc_2s: 18
+        curtain_wall: 8
+        chb_solid: 19
+        chb_perf: 9
+        ceiling: 3
+        fixtures: 63
+        stairs: 2
+        elec_wm: 3
+      2:
+        bc_1s: 27
+        bc_2s: 23
+        curtain_wall: 8
+        chb_solid: 19
+        chb_perf: 13
+        ceiling: 3
+        fixtures: 63
+        stairs: 2
+        elev: 30
+        elec_wm: 6
+      3:
+        bc_1s: 27
+        bc_2s: 23
+        curtain_wall: 8
+        chb_solid: 19
+        chb_perf: 13
+        ceiling: 13
+        fixtures: 30
+        elec_wm: 3
+    notes: "Table D-13, p.311; PTRCMRF; note c: EDP-Proxy"
+
+  # ─── GROUP 3: PRIMARY SIMPLIFIED ────────────────────────────────────────
+
+  "C1-L (Pre/Lo)":
+    stories: 2
+    per_story:
+      1:
+        bc_1s: 22
+        bc_2s: 26
+        chb_solid: 12
+        chb_perf: 14
+        ceiling: 0
+        fixtures: 44
+        stairs: 1
+      2:
+        bc_1s: 22
+        bc_2s: 26
+        chb_solid: 13
+        chb_perf: 14
+        ceiling: 13
+        fixtures: 5
+    notes: "Table D-13, p.311; NON-DUCTILE RCMRF; same quantities as C1-L (Mid/Hi)"
+
+  "C1-H (Hi)":
+    stories: 11
+    per_story:
+      "1,2":
+        bc_1s: 48
+        bc_2s: 76
+        curtain_wall: 32
+        chb_solid: 40
+        chb_perf: 71
+        ceiling: 71
+        fixtures: 10
+        stairs: 3
+        elev: 50
+        elec_dt: 50
+        sprinkler_drop: 2
+        sprinkler_pipe: 4
+      "3-7":
+        bc_1s: 48
+        bc_2s: 76
+        curtain_wall: 32
+        chb_solid: 40
+        chb_perf: 71
+        ceiling: 71
+        fixtures: 10
+        stairs: 3
+        elev: 10
+        elec_dt: 10
+        sprinkler_drop: 2
+        sprinkler_pipe: 4
+      8:
+        bc_1s: 38
+        bc_2s: 86
+        curtain_wall: 32
+        chb_solid: 40
+        chb_perf: 71
+        ceiling: 71
+        fixtures: 10
+        stairs: 3
+        elev: 10
+        elec_dt: 10
+        sprinkler_drop: 2
+        sprinkler_pipe: 4
+      9:
+        bc_1s: 38
+        bc_2s: 50
+        curtain_wall: 32
+        chb_solid: 7
+        chb_perf: 43
+        ceiling: 11
+        fixtures: 20
+        stairs: 3
+        elev: 10
+        elec_dt: 10
+        sprinkler_drop: 1
+        sprinkler_pipe: 2
+      10:
+        bc_1s: 38
+        bc_2s: 50
+        curtain_wall: 32
+        chb_solid: 7
+        chb_perf: 43
+        ceiling: 11
+        fixtures: 40
+        stairs: 3
+        elev: 10
+        elec_dt: 10
+        sprinkler_drop: 1
+        sprinkler_pipe: 2
+      PH:
+        bc_1s: 4
+        bc_2s: 11
+        chb_solid: 47
+        chb_perf: 5
+        ceiling: 0
+        fixtures: 10
+        sprinkler_pipe: 1
+    notes: >
+      Table D-13, p.311; note d: floors with identical assignments lumped (quantities
+      shown applied to each story in range); note e: 4 units electrical distribution
+      equipment + 1 diesel generator at PH; note f: 1 elevator at GF. Stories include
+      10 occupied floors + PH (roof deck penthouse). Basement not modelled in P-58.
+
+  "S1-M (Hi)":
+    stories: 5
+    per_story:
+      1:
+        bc_1s: 42
+        bc_2s: 62
+        chb_solid: 19
+        chb_perf: 37
+        ceiling: 0
+        fixtures: 100
+        stairs: 3
+      2:
+        bc_1s: 42
+        bc_2s: 62
+        chb_solid: 19
+        chb_perf: 37
+        ceiling: 0
+        fixtures: 100
+        stairs: 3
+        elev: 25
+        elec_dt: 5
+      3:
+        bc_1s: 42
+        bc_2s: 62
+        steel_splice: 51
+        steel_baseplate: 53
+        chb_solid: 19
+        chb_perf: 37
+        ceiling: 0
+        fixtures: 100
+        stairs: 3
+      4:
+        bc_1s: 42
+        bc_2s: 62
+        chb_solid: 19
+        chb_perf: 37
+        ceiling: 0
+        fixtures: 100
+        stairs: 1
+      PH:
+        bc_1s: 4
+        bc_2s: 0
+        chb_solid: 15
+        chb_perf: 4
+        ceiling: 0
+        fixtures: 4
+    notes: "Table D-13, p.311; Steel MRF (SMRF components)"
+
+  # ─── GROUP 4: SECONDARY SIMPLIFIED ─────────────────────────────────────
+
+  CWS-L:
+    stories: 2
+    per_story:
+      1:
+        bc_1s: 22
+        bc_2s: 26
+        chb_solid: 12
+        chb_perf: 14
+        ceiling: 0
+        fixtures: 44
+        stairs: 1
+      2:
+        bc_1s: 11
+        bc_2s: 13
+        chb_solid: 4
+        chb_perf: 4
+        ceiling: 26
+        fixtures: 0
+    notes: "Table D-13, p.311; mixed concrete/wood construction; story 1 like C1-L (Pre/Lo), story 2 much lighter"
+
+  W-L:
+    stories: 1
+    per_story:
+      1:
+        bc_1s: 0
+        bc_2s: 0
+        chb_solid: 0
+        chb_perf: 0
+        ceiling: 48
+        fixtures: 10
+    notes: "Table D-13, p.311; wood frame only; no structural beam-column joints; ceiling partition quantity"
+
+  N-L:
+    stories: 1
+    per_story:
+      1:
+        bc_1s: 0
+        bc_2s: 0
+        chb_solid: 0
+        chb_perf: 0
+        ceiling: 12
+        fixtures: 5
+    notes: "Table D-13, p.311; non-engineered makeshift building; very few components"
+
+  S3-L:
+    stories: 1
+    per_story:
+      1:
+        bc_1s: 0.5
+        bc_2s: 0
+        chb_solid: 7
+        chb_perf: 7
+    notes: "Table D-13, p.311; light steel frame; 0.5 = half a beam-column joint equivalent (1-side)"
+
+  CHB-L:
+    stories: 1
+    per_story:
+      1:
+        bc_1s: 0
+        bc_2s: 0
+        chb_solid: 7
+        chb_perf: 7
+        ceiling: 4
+        fixtures: 2
+    notes: "Table D-13, p.311; CHB masonry; no structural frame components"
+
+  # ─── GROUP 5: MERGED ─────────────────────────────────────────────────────
+  # Merged archetypes use parent's component model. Quantities not independently listed.
+
+  "PC-L":
+    merged_into: "C1-L (Pre/Lo)"
+    per_story: null
+    notes: "Merged archetype; use C1-L (Pre/Lo) component quantities"
+
+  "PTC1-M (Pre/Lo)":
+    merged_into: "C1-M (Pre/Lo)"
+    per_story: null
+    notes: "Merged archetype; use C1-M (Pre/Lo) component quantities"
+
+  "PTC4-M (Lo)":
+    merged_into: "PTC1-M (Mid)"
+    per_story: null
+    notes: "Merged archetype; use PTC1-M (Mid) component quantities"
+
+  "C4-L (Lo/Mid)":
+    merged_into: "C1-L (Mid/Hi)"
+    per_story: null
+    notes: "Merged archetype; use C1-L (Mid/Hi) component quantities"
+
+  "C4-M (Mid)":
+    merged_into: "C1-M (Hi)"
+    per_story: null
+    notes: "Merged archetype; use C1-M (Hi) component quantities"

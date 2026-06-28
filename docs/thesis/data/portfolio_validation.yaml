@@ -1,0 +1,823 @@
+# portfolio_validation.yaml
+# Validation targets extracted from:
+#   Jeswani, Kevin Kamlesh (2021). The Seismic Resilience of Critical
+#   Spatially-Distributed Building Portfolios. MASc Thesis, University of Toronto.
+#
+# SCHEMA: Every value entry includes:
+#   value: <scalar or list [median, p90]>
+#   unit: "<unit string>"
+#   source: { section: "...", figure/table: "...", printed_page: <int> }
+#   provenance_confidence: high | medium | low
+#   notes: ""  (scenario + city; REVIEW NEEDED if low)
+#
+# TOLERANCE TARGET: Package must reproduce median values within ±20%.
+#
+# SCENARIOS (5 total; Appendix E covers all except WVF Mw=7.3 which is in Ch7):
+#   A: WVF Mw=6.5  (West Valley Fault, near-fault, shallow crustal)
+#   B: WVF Mw=7.3  (West Valley Fault, near-fault, shallow crustal) *** PRIMARY TARGET ***
+#   C: EVF Mw=6.9  (East Valley Fault, near-fault, shallow crustal)
+#         [Appendix E figure labels say "EVF Mw=6.6"; Table 7-1 shows Mw=6.9 as simulation input]
+#   D: GNW Mw=7.6  (General Nakar West, far-field 30-45 km, shallow crustal)
+#         [Appendix E figure labels and body text say "GNW Mw=7.2"; Table 7-1 shows Mw=7.6]
+#   E: MNLT Mw=7.9 (Manila Trench Central, far-field, subduction interface)
+#         [Appendix E figure labels and body text say "MNLT Mw=8.15"; Table 7-1 shows Mw=7.9]
+#
+# NOTE ON MW DISCREPANCY (REVIEW NEEDED):
+#   Table 7-1 (p.155, PDF p.182) gives Mw for scenarios D and E as 7.6 and 7.9 respectively.
+#   Body text (Sec 7.2.1, p.154) and ALL Appendix E figure headings label them 7.2 (GNW) and 8.15 (MNLT).
+#   This is a genuine internal inconsistency in the thesis. The figure-label Mw values (7.2, 8.15) are
+#   the characteristic magnitudes (Mchar) cited from Peñarubia et al. (2020); Table 7-1 likely
+#   reflects the Mw actually input to the GMPE (possibly rounded differently). The simulation code
+#   must resolve which value was actually used. The body text, section labels, and Appendix E
+#   all consistently use 7.2 and 8.15 — those are the *scenario identifiers* used throughout the thesis.
+#
+# CITIES COVERED: Makati City and Quezon City public school building portfolios
+#
+# PORTFOLIO CONSTANTS:
+portfolio_constants:
+  makati_replacement_cost:
+    value: 10.6
+    unit: "PHP bil."
+    source: { section: "7.3.1", table: "text", printed_page: 159 }
+    provenance_confidence: high
+    notes: "Makati total replacement cost (2021 PHP)"
+  quezon_city_replacement_cost:
+    value: 20.0
+    unit: "PHP bil."
+    source: { section: "7.3.1", table: "text", printed_page: 159 }
+    provenance_confidence: high
+    notes: "Quezon City total replacement cost (2021 PHP)"
+  makati_population:
+    value: 94300
+    unit: "students"
+    source: { section: "7.3.1", table: "text", printed_page: 159 }
+    provenance_confidence: high
+    notes: "Makati public school population, as of 2016/2017"
+  quezon_city_population:
+    value: 466000
+    unit: "students"
+    source: { section: "7.3.1", table: "text", printed_page: 159 }
+    provenance_confidence: high
+    notes: "Quezon City public school population, as of 2016/2017"
+  monte_carlo_realizations:
+    value: 1000
+    unit: "realizations"
+    source: { section: "7.1", table: "text", printed_page: 152 }
+    provenance_confidence: high
+    notes: "R=1000 Monte Carlo realizations per scenario"
+  spatial_correlation_model:
+    value: "Loth and Baker (2013)"
+    unit: "—"
+    source: { section: "7.1", table: "text", printed_page: 153 }
+    provenance_confidence: high
+    notes: "CONFIRMED: intra-event residual, multi-period cross-correlation"
+  intensity_measure:
+    value: "Sa(T1) = Sa(0.5s)"
+    unit: "g"
+    source: { section: "7.1", table: "Figure 7-3 caption", printed_page: 161 }
+    provenance_confidence: high
+    notes: "Sa(0.5s) used as portfolio-level IM; buildings assigned site Sa(0.5s)"
+  primary_resilience_metric:
+    value: "90% portfolio Functional Recovery time"
+    unit: "days"
+    source: { section: "7.3.4.1", table: "text", printed_page: 162 }
+    provenance_confidence: high
+    notes: "90th-percentile of portfolio recovered; chosen over 100% due to large tail"
+
+# ===========================================================================
+# SCENARIO B: WVF Mw=7.3 — PRIMARY REPLICATION TARGET
+# (Ch7 Section 7.3.4 + Section 7.4; Figure 7-5 for Makati, Figure 7-14 for QC)
+# ===========================================================================
+WVF_Mw73:
+  scenario_id: "B"
+  fault: "West Valley Fault (WVF) / Marikina West Valley"
+  mw_simulation: 7.3
+  mw_label: 7.3
+  source_section: "7.3.4"
+  distance_rjb_km: "0-9.5"
+  distance_rrup_km: "0-9.5"
+  notes: "Near-fault shallow crustal. Governing scenario. Detailed results in Ch7; others in Appendix E."
+
+  MAKATI:
+    # --- MONETARY LOSS (text values) ---
+    monetary_loss_median:
+      value: 2.8
+      unit: "PHP bil."
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case). Replacement cost PHP 10.6 bil."
+    monetary_loss_p90:
+      value: 4.5
+      unit: "PHP bil."
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case) 90th percentile"
+    loss_ratio_median:
+      value: 0.26
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case). PHP 2.8 bil / PHP 10.6 bil = 0.264"
+    loss_ratio_p90:
+      value: 0.42
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case)"
+
+    # --- MONETARY LOSS (figure CDF read) ---
+    monetary_loss_median_fig:
+      value: 2.8
+      unit: "PHP bil."
+      source: { section: "7.3.4.1", figure: "Figure 7-5 CDF panel 1", printed_page: 163 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati. CDF read at P=0.5 on red base curve; x-axis 0-6 b.PHP. Consistent with text."
+
+    # --- INJURIES ---
+    injuries_median:
+      value: 13650
+      unit: "count"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case). Injury ratio 14.5%."
+    injuries_p90:
+      value: 19500
+      unit: "count"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case) 90th percentile. Injury ratio 20.7%."
+    injury_ratio_median:
+      value: 0.145
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati. 13650/94300 = 14.5%"
+    injury_ratio_p90:
+      value: 0.207
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati. 19500/94300 = 20.7%"
+    noncollapse_injury_fraction_existing:
+      value: "0.78-0.99"
+      unit: "fraction of total"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "Non-structural component injuries dominate in existing case"
+
+    # --- FATALITIES ---
+    fatalities_median:
+      value: 320
+      unit: "count"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case). Fatality ratio 0.3%."
+    fatalities_p90:
+      value: 950
+      unit: "count"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati existing (base case) 90th percentile. Fatality ratio 1.0%."
+    fatality_ratio_median:
+      value: 0.003
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati. 320/94300 = 0.34% ~ 0.3%"
+    fatality_ratio_p90:
+      value: 0.010
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati. 950/94300 = 1.0%"
+
+    # --- FUNCTIONAL RECOVERY (90% portfolio threshold) ---
+    recovery_90pct_median_days:
+      value: 970
+      unit: "days"
+      source: { section: "7.4.4", table: "text", printed_page: 181 }
+      provenance_confidence: medium
+      notes: "WVF Mw=7.3 Makati. Time to 90% portfolio Functional Recovery. REVIEW NEEDED: North American REDi values used — authors note subject to further review."
+    recovery_90pct_p90_days:
+      value: 1070
+      unit: "days"
+      source: { section: "7.4.4", table: "text", printed_page: 181 }
+      provenance_confidence: medium
+      notes: "WVF Mw=7.3 Makati 90th percentile recovery. REVIEW NEEDED: North American REDi."
+
+    # --- MITIGATED CASE ---
+    mitigated_loss_ratio_median:
+      value: 0.18
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati MITIGATED (structural retrofit of C1-M Pre/Lo)"
+    mitigated_loss_ratio_p90:
+      value: 0.33
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati MITIGATED"
+    mitigated_injury_ratio_median:
+      value: 0.011
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati MITIGATED (non-structural mitigation)"
+    mitigated_injury_ratio_p90:
+      value: 0.026
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati MITIGATED"
+    mitigated_fatality_ratio_median:
+      value: 0.0004
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati MITIGATED (structural retrofit). 0.04% rate."
+    mitigated_fatality_ratio_p90:
+      value: 0.002
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati MITIGATED"
+
+    # --- DOWNGRADED SCENARIO (bounds check) ---
+    downgraded_loss_ratio_median:
+      value: 0.40
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati DOWNGRADED (RCMRFs downgraded one era, replicating Gilani & Miyamoto 2017). Lower bound of plausible true range."
+    downgraded_loss_ratio_p90:
+      value: 0.60
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Makati DOWNGRADED"
+
+  QUEZON_CITY:
+    # --- MONETARY LOSS ---
+    monetary_loss_median:
+      value: 6.2
+      unit: "PHP bil."
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City existing (base case). Replacement cost PHP 20.0 bil."
+    monetary_loss_p90:
+      value: 9.4
+      unit: "PHP bil."
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City existing (base case) 90th percentile"
+    loss_ratio_median:
+      value: 0.31
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City. PHP 6.2 bil / PHP 20.0 bil = 0.31"
+    loss_ratio_p90:
+      value: 0.47
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City existing (base case)"
+
+    # --- INJURIES ---
+    # IMPORTANT DISCREPANCY IN THESIS TEXT:
+    # Section 7.4.2 text (rendered from PDF p.208) states:
+    #   "{1000, 2500} in Quezon City, corresponding to injury ratios of {9.1%, 11.7%}"
+    # INCONSISTENCY: 1000 injuries / 466,000 students = 0.21%, NOT 9.1%.
+    # The figure CDF (Figure 7-14, x-axis to 60×1000) reads median ~40,000-42,000 injuries.
+    # 42,406 injuries / 466,000 = 9.1% — matches the stated ratio.
+    # The text "{1000, 2500}" is ALMOST CERTAINLY a typographical error for "{10,000, 25,000}"
+    # or more likely "{40,000, 55,000}" given the CDF and ratio. The ratios (9.1%, 11.7%) are
+    # the authoritative values. Use injury_ratio as validation target; count is low-confidence.
+    injuries_median_text:
+      value: 1000
+      unit: "count"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: low
+      notes: "WVF Mw=7.3 Quezon City. REVIEW NEEDED: Almost certainly a typo. Text says '{1000, 2500}' but injury ratio of 9.1% × 466,000 students = 42,406 injuries. Figure 7-14 CDF also shows ~40,000 at median. DO NOT use raw count as validation target — use injury_ratio_median instead."
+    injuries_p90_text:
+      value: 2500
+      unit: "count"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: low
+      notes: "WVF Mw=7.3 Quezon City. REVIEW NEEDED: See injuries_median_text note above."
+    injury_ratio_median:
+      value: 0.091
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City. 9.1% of 466,000 students. Consistent with CDF reading."
+    injury_ratio_p90:
+      value: 0.117
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City. 11.7% of 466,000 students."
+    injuries_median_derived:
+      value: 42400
+      unit: "count"
+      source: { section: "7.4.2", table: "derived from ratio", printed_page: 181 }
+      provenance_confidence: medium
+      notes: "WVF Mw=7.3 Quezon City. Derived: 9.1% × 466,000 = 42,406. Consistent with Figure 7-14 CDF (~40,000-45,000 at P=0.5). Use injury_ratio as primary target."
+    injuries_p90_derived:
+      value: 54500
+      unit: "count"
+      source: { section: "7.4.2", table: "derived from ratio", printed_page: 181 }
+      provenance_confidence: medium
+      notes: "WVF Mw=7.3 Quezon City. Derived: 11.7% × 466,000 = 54,522."
+
+    # --- FATALITIES ---
+    fatalities_median:
+      value: 900
+      unit: "count"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City existing (base case). Fatality ratio 0.2%."
+    fatalities_p90:
+      value: 2500
+      unit: "count"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City existing (base case) 90th percentile. Fatality ratio 0.3%."
+    fatality_ratio_median:
+      value: 0.002
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City. 900/466,000 = 0.19% ~ 0.2%"
+    fatality_ratio_p90:
+      value: 0.003
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City. 2500/466,000 = 0.54% — text says 0.3%; slight rounding discrepancy, use 0.3% from text."
+    fatality_ratio_p90_text:
+      value: 0.003
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "As stated in text: 0.3% of QC students"
+
+    # --- FUNCTIONAL RECOVERY ---
+    recovery_90pct_median_days:
+      value: 640
+      unit: "days"
+      source: { section: "7.4.4", table: "text", printed_page: 181 }
+      provenance_confidence: medium
+      notes: "WVF Mw=7.3 Quezon City. Time to 90% portfolio Functional Recovery. REVIEW NEEDED: North American REDi values used."
+    recovery_90pct_p90_days:
+      value: 655
+      unit: "days"
+      source: { section: "7.4.4", table: "text", printed_page: 181 }
+      provenance_confidence: medium
+      notes: "WVF Mw=7.3 Quezon City 90th percentile. Narrow spread (640 vs 655) noted in thesis."
+
+    # --- MITIGATED ---
+    mitigated_fatality_ratio_median:
+      value: 0.001
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City MITIGATED. 0.1% rate."
+    mitigated_fatality_ratio_p90:
+      value: 0.002
+      unit: "ratio"
+      source: { section: "7.4.3", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City MITIGATED"
+    mitigated_injury_ratio_median:
+      value: 0.023
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City MITIGATED"
+    mitigated_injury_ratio_p90:
+      value: 0.031
+      unit: "ratio"
+      source: { section: "7.4.2", table: "text", printed_page: 181 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City MITIGATED"
+
+    # --- DOWNGRADED ---
+    downgraded_loss_ratio_median:
+      value: 0.38
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City DOWNGRADED scenario"
+    downgraded_loss_ratio_p90:
+      value: 0.57
+      unit: "ratio"
+      source: { section: "7.4.1", table: "text", printed_page: 180 }
+      provenance_confidence: high
+      notes: "WVF Mw=7.3 Quezon City DOWNGRADED scenario"
+
+# ===========================================================================
+# SCENARIO A: WVF Mw=6.5 — FROM APPENDIX E (Figures E-1, E-9)
+# All values read from CDF plots (Figure E-1 for Makati, Figure E-9 for QC)
+# ===========================================================================
+WVF_Mw65:
+  scenario_id: "A"
+  fault: "West Valley Fault (WVF) / Marikina West Valley"
+  mw_simulation: 6.5
+  mw_label: 6.5
+  source_section: "E.1"
+  distance_rjb_km: "0-9.5"
+  distance_rrup_km: "0-9.5"
+  notes: "Near-fault shallow crustal. All values from Appendix E figure CDF readings."
+
+  MAKATI:
+    # CDF reads from Figure E-1 (PDF p.353, printed p.326)
+    # Loss CDF: x-axis 0-6 b.PHP; loss ratio axis 0-0.4 (top); median at ~1.5 b.PHP
+    loss_ratio_median:
+      value: 0.14
+      unit: "ratio"
+      source: { section: "E.1.1", figure: "Figure E-1 CDF panel 1", printed_page: 326 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Makati. CDF read at P=0.5 on red base curve; x-axis 0-6 b.PHP, loss ratio axis 0-0.4. Median ~1.5 b.PHP / 10.6 bil = 0.14."
+    monetary_loss_median:
+      value: 1.5
+      unit: "PHP bil."
+      source: { section: "E.1.1", figure: "Figure E-1 CDF panel 1", printed_page: 326 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Makati. CDF read."
+    # Injury CDF: x-axis 0-30 (×1000); injury ratio 0-0.3; median ~3,000-4,000
+    injury_ratio_median:
+      value: 0.04
+      unit: "ratio"
+      source: { section: "E.1.1", figure: "Figure E-1 CDF panel 2", printed_page: 326 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Makati. CDF read; injury ratio axis 0-0.3 top. Median ~4% of 94,300 = ~3,800 injuries."
+    injuries_median:
+      value: 3800
+      unit: "count"
+      source: { section: "E.1.1", figure: "Figure E-1 CDF panel 2", printed_page: 326 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Makati. Derived from 4% × 94,300."
+    # Fatality CDF: x-axis 0-3 (×1000); fatality ratio 0-0.03; median appears very low ~50-100
+    fatality_ratio_median:
+      value: 0.002
+      unit: "ratio"
+      source: { section: "E.1.1", figure: "Figure E-1 CDF panel 3", printed_page: 326 }
+      provenance_confidence: low
+      notes: "WVF Mw=6.5 Makati. REVIEW NEEDED: CDF very compressed near 0, hard to read precisely. Estimate 0.2% = ~190 fatalities. Very sensitive to tail behavior."
+    # Recovery CDF: x-axis 0-1000 days; median appears ~400-500 days
+    recovery_90pct_median_days:
+      value: 450
+      unit: "days"
+      source: { section: "E.1.1", figure: "Figure E-1 CDF panel 4", printed_page: 326 }
+      provenance_confidence: low
+      notes: "WVF Mw=6.5 Makati. REVIEW NEEDED: Read from disruption/recovery panel. Less severe than Mw=7.3 (~970 days). Estimate."
+
+  QUEZON_CITY:
+    # CDF reads from Figure E-9 (PDF p.361, printed p.334)
+    # Loss: x-axis 0-10 b.PHP, loss ratio 0-0.4; median ~1.5-2 b.PHP
+    loss_ratio_median:
+      value: 0.09
+      unit: "ratio"
+      source: { section: "E.1.2", figure: "Figure E-9 CDF panel 1", printed_page: 334 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Quezon City. CDF read; x-axis 0-10 b.PHP, loss ratio 0-0.4. Median ~1.8 b.PHP / 20.0 bil = 0.09."
+    monetary_loss_median:
+      value: 1.8
+      unit: "PHP bil."
+      source: { section: "E.1.2", figure: "Figure E-9 CDF panel 1", printed_page: 334 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Quezon City."
+    # Injury: x-axis 0-60 (×1000); injury ratio 0-0.1; median ~20 (×1000)
+    injury_ratio_median:
+      value: 0.04
+      unit: "ratio"
+      source: { section: "E.1.2", figure: "Figure E-9 CDF panel 2", printed_page: 334 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Quezon City. Injury ratio axis 0-0.1; median ~4% of 466,000 = ~18,600."
+    injuries_median:
+      value: 18600
+      unit: "count"
+      source: { section: "E.1.2", figure: "Figure E-9 CDF panel 2", printed_page: 334 }
+      provenance_confidence: medium
+      notes: "WVF Mw=6.5 Quezon City. Derived."
+    # Fatality: x-axis 0-3 (×1000); fatality ratio 0-0.006; very low
+    fatality_ratio_median:
+      value: 0.001
+      unit: "ratio"
+      source: { section: "E.1.2", figure: "Figure E-9 CDF panel 3", printed_page: 334 }
+      provenance_confidence: low
+      notes: "WVF Mw=6.5 Quezon City. REVIEW NEEDED: Very low values, hard to read. Estimate 0.1% = ~466."
+    # Recovery: x-axis 0-600 days; recovery curve median ~150-200 days
+    recovery_90pct_median_days:
+      value: 175
+      unit: "days"
+      source: { section: "E.1.2", figure: "Figure E-9 CDF panel 4", printed_page: 334 }
+      provenance_confidence: low
+      notes: "WVF Mw=6.5 Quezon City. REVIEW NEEDED: Recovery curve reads median at CDF=0.5. Blue Recovery curve median. Less severe scenario."
+
+# ===========================================================================
+# SCENARIO C: EVF Mw=6.6 (label) / Mw=6.9 (Table 7-1 simulation input)
+# FROM APPENDIX E (Figures E-17 Makati, E-18 QC)
+# ===========================================================================
+EVF_Mw66:
+  scenario_id: "C"
+  fault: "Marikina East Valley Fault (EVF)"
+  mw_label: 6.6
+  mw_simulation: 6.9
+  source_section: "E.2"
+  distance_rjb_km: "2.9-20.0"
+  notes: "REVIEW NEEDED: Section/figure headings say Mw=6.6; Table 7-1 simulation parameters show Mw=6.9. Use mw_simulation=6.9 for code input; label as 6.6 for thesis comparison."
+
+  MAKATI:
+    # CDF reads from Figure E-17 (PDF p.369, printed p.342)
+    # Loss: x-axis 0-4 b.PHP; loss ratio 0-0.4; median ~0.6-0.8 b.PHP
+    loss_ratio_median:
+      value: 0.07
+      unit: "ratio"
+      source: { section: "E.2.1", figure: "Figure E-17 CDF panel 1", printed_page: 342 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6 label / 6.9 simulation, Makati. x-axis 0-4 b.PHP, loss ratio 0-0.4. Median read ~0.7 b.PHP / 10.6 = 0.066."
+    monetary_loss_median:
+      value: 0.70
+      unit: "PHP bil."
+      source: { section: "E.2.1", figure: "Figure E-17 CDF panel 1", printed_page: 342 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6/6.9 Makati."
+    injury_ratio_median:
+      value: 0.06
+      unit: "ratio"
+      source: { section: "E.2.1", figure: "Figure E-17 CDF panel 2", printed_page: 342 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6/6.9 Makati. Injury ratio axis 0-0.2; median ~6% of 94,300 = ~5,660."
+    injuries_median:
+      value: 5660
+      unit: "count"
+      source: { section: "E.2.1", figure: "Figure E-17 CDF panel 2", printed_page: 342 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6/6.9 Makati. Derived."
+    fatality_ratio_median:
+      value: 0.003
+      unit: "ratio"
+      source: { section: "E.2.1", figure: "Figure E-17 CDF panel 3", printed_page: 342 }
+      provenance_confidence: low
+      notes: "EVF Mw=6.6/6.9 Makati. REVIEW NEEDED: Fatality ratio axis 0-0.02; median read ~0.3%."
+    recovery_90pct_median_days:
+      value: 550
+      unit: "days"
+      source: { section: "E.2.1", figure: "Figure E-17 CDF panel 4", printed_page: 342 }
+      provenance_confidence: low
+      notes: "EVF Mw=6.6/6.9 Makati. REVIEW NEEDED: Recovery axis 0-1000 days. Blue recovery curve median ~550 days."
+
+  QUEZON_CITY:
+    # CDF reads from Figure E-18 (PDF p.370, printed p.343)
+    loss_ratio_median:
+      value: 0.09
+      unit: "ratio"
+      source: { section: "E.2.2", figure: "Figure E-18 CDF panel 1", printed_page: 343 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6/6.9 Quezon City. Loss axis 0-10 b.PHP, ratio 0-0.4; median ~1.8 b.PHP / 20.0 = 0.09."
+    monetary_loss_median:
+      value: 1.8
+      unit: "PHP bil."
+      source: { section: "E.2.2", figure: "Figure E-18 CDF panel 1", printed_page: 343 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6/6.9 Quezon City."
+    injury_ratio_median:
+      value: 0.03
+      unit: "ratio"
+      source: { section: "E.2.2", figure: "Figure E-18 CDF panel 2", printed_page: 343 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6/6.9 Quezon City. Injury ratio 0-0.1; median ~3% of 466,000 = ~14,000."
+    injuries_median:
+      value: 14000
+      unit: "count"
+      source: { section: "E.2.2", figure: "Figure E-18 CDF panel 2", printed_page: 343 }
+      provenance_confidence: medium
+      notes: "EVF Mw=6.6/6.9 Quezon City. Derived."
+    recovery_90pct_median_days:
+      value: 150
+      unit: "days"
+      source: { section: "E.2.2", figure: "Figure E-18 CDF panel 4", printed_page: 343 }
+      provenance_confidence: low
+      notes: "EVF Mw=6.6/6.9 Quezon City. REVIEW NEEDED: Recovery axis 0-600 days. QC recovery tends to be less than Makati for far-field events."
+
+# ===========================================================================
+# SCENARIO D: GNW Mw=7.2 (label) / Mw=7.6 (Table 7-1 simulation input)
+# FROM APPENDIX E (Figures E-19 Makati, E-20 QC)
+# ===========================================================================
+GNW_Mw72:
+  scenario_id: "D"
+  fault: "General Nakar West (GNW)"
+  mw_label: 7.2
+  mw_simulation: 7.6
+  source_section: "E.3"
+  distance_rjb_km: "10.9-45.8"
+  distance_rrup_km: "29.7-45.8"
+  notes: "Far-field (30-45 km) shallow crustal sinistral. REVIEW NEEDED: Figure labels/body text use Mw=7.2; Table 7-1 shows Mw=7.6 as simulation input. Use mw_simulation=7.6 for GMPE input."
+
+  MAKATI:
+    # CDF reads from Figure E-19 (PDF p.371, printed p.344)
+    # Loss: x-axis 0-3 b.PHP; loss ratio 0-0.2; median appears ~0.5 b.PHP
+    loss_ratio_median:
+      value: 0.045
+      unit: "ratio"
+      source: { section: "E.3.1", figure: "Figure E-19 CDF panel 1", printed_page: 344 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Makati. Loss axis 0-3 b.PHP, ratio 0-0.2. Red base CDF; median ~0.5 b.PHP / 10.6 = 0.047."
+    monetary_loss_median:
+      value: 0.48
+      unit: "PHP bil."
+      source: { section: "E.3.1", figure: "Figure E-19 CDF panel 1", printed_page: 344 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Makati."
+    injury_ratio_median:
+      value: 0.06
+      unit: "ratio"
+      source: { section: "E.3.1", figure: "Figure E-19 CDF panel 2", printed_page: 344 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Makati. Injury ratio axis 0-0.2; median ~6% of 94,300 = ~5,660."
+    injuries_median:
+      value: 5660
+      unit: "count"
+      source: { section: "E.3.1", figure: "Figure E-19 CDF panel 2", printed_page: 344 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Makati. Derived."
+    fatality_ratio_median:
+      value: 0.004
+      unit: "ratio"
+      source: { section: "E.3.1", figure: "Figure E-19 CDF panel 3", printed_page: 344 }
+      provenance_confidence: low
+      notes: "GNW Mw=7.2/7.6 Makati. REVIEW NEEDED: Fatality ratio 0-0.02; median ~0.4%. Low confidence from CDF reading."
+    recovery_90pct_median_days:
+      value: 500
+      unit: "days"
+      source: { section: "E.3.1", figure: "Figure E-19 CDF panel 4", printed_page: 344 }
+      provenance_confidence: low
+      notes: "GNW Mw=7.2/7.6 Makati. REVIEW NEEDED: Recovery axis 0-1000 days. Blue recovery curve at 50th percentile."
+
+  QUEZON_CITY:
+    # CDF reads from Figure E-20 (PDF p.372, printed p.345)
+    # Loss: x-axis 0-4 b.PHP; ratio 0-0.2; median ~0.8 b.PHP
+    loss_ratio_median:
+      value: 0.04
+      unit: "ratio"
+      source: { section: "E.3.2", figure: "Figure E-20 CDF panel 1", printed_page: 345 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Quezon City. Loss axis 0-4 b.PHP, ratio 0-0.2. Median ~0.8 b.PHP / 20.0 = 0.04."
+    monetary_loss_median:
+      value: 0.80
+      unit: "PHP bil."
+      source: { section: "E.3.2", figure: "Figure E-20 CDF panel 1", printed_page: 345 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Quezon City."
+    injury_ratio_median:
+      value: 0.025
+      unit: "ratio"
+      source: { section: "E.3.2", figure: "Figure E-20 CDF panel 2", printed_page: 345 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Quezon City. Injury ratio axis 0-0.08; median ~2.5% of 466,000 = ~11,650."
+    injuries_median:
+      value: 11650
+      unit: "count"
+      source: { section: "E.3.2", figure: "Figure E-20 CDF panel 2", printed_page: 345 }
+      provenance_confidence: medium
+      notes: "GNW Mw=7.2/7.6 Quezon City. Derived."
+    fatality_ratio_median:
+      value: 0.0005
+      unit: "ratio"
+      source: { section: "E.3.2", figure: "Figure E-20 CDF panel 3", printed_page: 345 }
+      provenance_confidence: low
+      notes: "GNW Mw=7.2/7.6 Quezon City. REVIEW NEEDED: Fatality ratio axis 0-0.002; median very low ~0.05%."
+    recovery_90pct_median_days:
+      value: 200
+      unit: "days"
+      source: { section: "E.3.2", figure: "Figure E-20 CDF panel 4", printed_page: 345 }
+      provenance_confidence: low
+      notes: "GNW Mw=7.2/7.6 Quezon City. REVIEW NEEDED: Recovery axis 0-600 days. Blue recovery CDF median."
+
+# ===========================================================================
+# SCENARIO E: MNLT Mw=8.15 (label) / Mw=7.9 (Table 7-1 simulation input)
+# Manila Trench Central Segment
+# FROM APPENDIX E (Figures E-21 Makati, E-22 QC)
+# ===========================================================================
+MNLT_Mw815:
+  scenario_id: "E"
+  fault: "Manila Trench Central Segment (MNLT)"
+  mw_label: 8.15
+  mw_simulation: 7.9
+  source_section: "E.4"
+  distance_rjb_km: "105.6-124.7"
+  distance_rrup_km: "100.6-117.6"
+  notes: "Far-field subduction interface. REVIEW NEEDED: Figure labels/body text use Mw=8.15; Table 7-1 shows Mw=7.9 as simulation input. Verify which was used in GMPE calls."
+
+  MAKATI:
+    # CDF reads from Figure E-21 (PDF p.373, printed p.346)
+    # Loss: x-axis 0-4 b.PHP; ratio 0-0.3; red base CDF median ~1.5-1.8 b.PHP
+    loss_ratio_median:
+      value: 0.15
+      unit: "ratio"
+      source: { section: "E.4.1", figure: "Figure E-21 CDF panel 1", printed_page: 346 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Makati. Loss axis 0-4 b.PHP, ratio 0-0.3. Red base CDF median ~1.6 b.PHP / 10.6 = 0.15."
+    monetary_loss_median:
+      value: 1.6
+      unit: "PHP bil."
+      source: { section: "E.4.1", figure: "Figure E-21 CDF panel 1", printed_page: 346 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Makati."
+    # Injury: ratio axis 0-0.2; median ~7%
+    injury_ratio_median:
+      value: 0.07
+      unit: "ratio"
+      source: { section: "E.4.1", figure: "Figure E-21 CDF panel 2", printed_page: 346 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Makati. Injury ratio axis 0-0.2; median ~7% of 94,300 = ~6,600."
+    injuries_median:
+      value: 6600
+      unit: "count"
+      source: { section: "E.4.1", figure: "Figure E-21 CDF panel 2", printed_page: 346 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Makati. Derived."
+    # Fatality: ratio 0-0.02; median ~0.5%
+    fatality_ratio_median:
+      value: 0.005
+      unit: "ratio"
+      source: { section: "E.4.1", figure: "Figure E-21 CDF panel 3", printed_page: 346 }
+      provenance_confidence: low
+      notes: "MNLT Mw=8.15/7.9 Makati. REVIEW NEEDED: Fatality ratio axis 0-0.02; median ~0.5% = ~470 fatalities."
+    # Recovery: axis 0-1000 days; median ~400 days
+    recovery_90pct_median_days:
+      value: 400
+      unit: "days"
+      source: { section: "E.4.1", figure: "Figure E-21 CDF panel 4", printed_page: 346 }
+      provenance_confidence: low
+      notes: "MNLT Mw=8.15/7.9 Makati. REVIEW NEEDED: Recovery axis 0-1000 days. Blue recovery CDF median."
+
+  QUEZON_CITY:
+    # CDF reads from Figure E-22 (PDF p.374, printed p.347)
+    # Loss: x-axis 0-6 b.PHP; ratio 0-0.3; median ~1.0-1.5 b.PHP
+    loss_ratio_median:
+      value: 0.065
+      unit: "ratio"
+      source: { section: "E.4.2", figure: "Figure E-22 CDF panel 1", printed_page: 347 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Quezon City. Loss axis 0-6 b.PHP, ratio 0-0.3. Median ~1.3 b.PHP / 20.0 = 0.065."
+    monetary_loss_median:
+      value: 1.3
+      unit: "PHP bil."
+      source: { section: "E.4.2", figure: "Figure E-22 CDF panel 1", printed_page: 347 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Quezon City."
+    # Injury: ratio 0-0.1; median ~3%
+    injury_ratio_median:
+      value: 0.025
+      unit: "ratio"
+      source: { section: "E.4.2", figure: "Figure E-22 CDF panel 2", printed_page: 347 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Quezon City. Injury ratio axis 0-0.1; median ~2.5% of 466,000 = ~11,650."
+    injuries_median:
+      value: 11650
+      unit: "count"
+      source: { section: "E.4.2", figure: "Figure E-22 CDF panel 2", printed_page: 347 }
+      provenance_confidence: medium
+      notes: "MNLT Mw=8.15/7.9 Quezon City. Derived."
+    # Fatality: ratio 0-0.004; very low
+    fatality_ratio_median:
+      value: 0.001
+      unit: "ratio"
+      source: { section: "E.4.2", figure: "Figure E-22 CDF panel 3", printed_page: 347 }
+      provenance_confidence: low
+      notes: "MNLT Mw=8.15/7.9 Quezon City. REVIEW NEEDED: Fatality ratio axis 0-0.004; very low values."
+    # Recovery: axis 0-600 days; median ~200 days
+    recovery_90pct_median_days:
+      value: 200
+      unit: "days"
+      source: { section: "E.4.2", figure: "Figure E-22 CDF panel 4", printed_page: 347 }
+      provenance_confidence: low
+      notes: "MNLT Mw=8.15/7.9 Quezon City. REVIEW NEEDED: Recovery axis 0-600 days."
+
+# ===========================================================================
+# SUMMARY TABLE (convenience reference for package calibration)
+# ===========================================================================
+# PRIMARY VALIDATION TARGETS (high-confidence, text-sourced):
+# All scenarios: WVF Mw=7.3, Makati City, Existing (base case)
+#   Loss ratio:        Median=0.26,  P90=0.42
+#   Monetary loss:     Median=PHP 2.8 bil., P90=PHP 4.5 bil.
+#   Injury ratio:      Median=14.5%, P90=20.7%
+#   Injuries:          Median=13,650, P90=19,500
+#   Fatality ratio:    Median=0.3%,  P90=1.0%
+#   Fatalities:        Median=320,   P90=950
+#   90% FR recovery:   Median=970 days, P90=1070 days  [REVIEW: North American REDi]
+#
+# WVF Mw=7.3, Quezon City, Existing (base case)
+#   Loss ratio:        Median=0.31,  P90=0.47
+#   Monetary loss:     Median=PHP 6.2 bil., P90=PHP 9.4 bil.
+#   Injury ratio:      Median=9.1%,  P90=11.7%
+#   Fatality ratio:    Median=0.2%,  P90=0.3%
+#   Fatalities:        Median=900,   P90=2,500
+#   90% FR recovery:   Median=640 days, P90=655 days  [REVIEW: North American REDi]
+#
+# OTHER SCENARIOS: All values from figure CDF reading (medium/low confidence).
+# Exact figure values should be verified against a re-run of original Python code if available.

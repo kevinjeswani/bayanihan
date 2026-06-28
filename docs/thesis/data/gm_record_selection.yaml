@@ -1,0 +1,1215 @@
+# Ground-Motion Record Selection — Appendix A
+# Source: Jeswani, K.K. (2021). The Seismic Resilience of Critical Spatially-Distributed
+#         Building Portfolios. MASc Thesis, University of Toronto.
+# Tables A-2, A-3 (printed pages 216/217 / PDF pages 243/244)
+# Table A-4 (printed page 219 / PDF page 246)
+#
+# PURPOSE: Seed GM records used for spectrally-matched NRHA suites.
+# 11 records selected per soil group (10 shallow crustal + 1 subduction interface).
+# 9/10 shallow crustal records are pulse-like (velocity pulses from NGA-West2).
+# Spectral matching performed with RSPMatchBi (Grant, 2011/2019).
+# Reference spectral target: 2,475-year TSa,max (RotD100) per Shahi & Baker (2013).
+
+metadata:
+  document: "MASc Thesis Appendix A: Seismic Hazard Definition"
+  author: "Kevin Jeswani"
+  year: 2021
+  appendix: "A"
+  tables: ["Table A-2", "Table A-3", "Table A-4"]
+  printed_pages: [216, 217, 219]
+  pdf_pages: [243, 244, 246]
+  nrha_suites:
+    - Soil D
+    - Soil C
+  records_per_suite:
+    value: 11
+    unit: "records"
+    notes: "10 shallow crustal (9 pulse-like + 1 non-pulse) + 1 subduction interface"
+  spectral_intensities:
+    - {label: "SLE", return_period_yr: 75}
+    - {label: "probable", return_period_yr: 175}
+    - {label: "DBE", return_period_yr: 475}
+    - {label: "rare", return_period_yr: 975}
+    - {label: "MCE", return_period_yr: 2475}
+
+# =============================================================
+# TABLE A-2: SOIL D GROUND-MOTION SEED RECORDS
+# =============================================================
+soil_D_records:
+  site_class: "Soil D"
+  vs30_range: "180–360 m/s"
+  source: {appendix: "A", table: "Table A-2", printed_page: 216}
+  provenance_confidence: high
+
+  records:
+
+    R159:
+      record_number: 1
+      nga_id: "R159"
+      earthquake: "Imperial Valley-06"
+      year:
+        value: 1979
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Agrarias"
+      Mw:
+        value: 6.53
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 0.65
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 242
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 1.0
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: "Arias Intensity"
+      Tp_s:
+        value: 2.34
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: "Pulse period; indicates pulse-like record"
+      pulse_like: true
+
+    R723:
+      record_number: 2
+      nga_id: "R723"
+      earthquake: "Superstition Hills-02"
+      year:
+        value: 1987
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Parachute Test Site"
+      Mw:
+        value: 6.54
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 0.95
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 349
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 3.7
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 2.39
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R764:
+      record_number: 3
+      nga_id: "R764"
+      earthquake: "Loma Prieta"
+      year:
+        value: 1989
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Gilroy - Historic Bldg."
+      Mw:
+        value: 6.93
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-R"
+      Rrup_km:
+        value: 10.97
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 309
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 0.7
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 1.64
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R900:
+      record_number: 4
+      nga_id: "R900"
+      earthquake: "Landers"
+      year:
+        value: 1992
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Yermo Fire Station"
+      Mw:
+        value: 7.28
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 23.62
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 354
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 0.9
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 7.50
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R1044:
+      record_number: 5
+      nga_id: "R1044"
+      earthquake: "Northridge-01"
+      year:
+        value: 1994
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Newhall - Fire Sta"
+      Mw:
+        value: 6.69
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-R"
+      Rrup_km:
+        value: 5.92
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 269
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 5.7
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 1.37
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R1106:
+      record_number: 6
+      nga_id: "R1106"
+      earthquake: "Kobe, Japan"
+      year:
+        value: 1995
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "KJMA"
+      Mw:
+        value: 6.9
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 0.96
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 312
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 8.4
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 1.09
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R1176:
+      record_number: 7
+      nga_id: "R1176"
+      earthquake: "Kocaeli, Turkey"
+      year:
+        value: 1999
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Yarimca"
+      Mw:
+        value: 7.51
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 4.83
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 297
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 1.3
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 4.95
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R1244:
+      record_number: 8
+      nga_id: "R1244"
+      earthquake: "Chi-Chi, Taiwan"
+      year:
+        value: 1999
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "CHY101"
+      Mw:
+        value: 7.62
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-R"
+      Rrup_km:
+        value: 9.94
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 259
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 3.0
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 5.34
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R1602:
+      record_number: 9
+      nga_id: "R1602"
+      earthquake: "Duzce, Turkey"
+      year:
+        value: 1999
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Bolu"
+      Mw:
+        value: 7.14
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 12.04
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 294
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 3.7
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 0.88
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R6:
+      record_number: 10
+      nga_id: "R6"
+      earthquake: "Imperial Valley-02"
+      year:
+        value: 1940
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "El Centro Array #9"
+      Mw:
+        value: 6.95
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 6.09
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 213
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 1.6
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: null
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: "Non-pulse record; no Tp"
+      pulse_like: false
+
+    UCS_VINA:
+      record_number: 11
+      nga_id: "UCS-VINA"
+      earthquake: "Maule (Chile)"
+      year:
+        value: 2010
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Vina del Mar - El Centro"
+      Mw:
+        value: 8.8
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "SUB"
+      Rrup_km:
+        value: 66.4
+        unit: "km"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 289
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 0
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: null
+        unit: "s"
+        source: {appendix: "A", table: "Table A-2", printed_page: 216}
+        provenance_confidence: high
+        notes: "Subduction record; non-pulse"
+      pulse_like: false
+      tectonic_regime: "subduction_interface"
+      database: "Universidad de Chile RENADIC archives (UCS, 2010)"
+
+# =============================================================
+# TABLE A-3: SOIL C GROUND-MOTION SEED RECORDS
+# =============================================================
+soil_C_records:
+  site_class: "Soil C"
+  vs30_range: "360–760 m/s"
+  source: {appendix: "A", table: "Table A-3", printed_page: 216}
+  provenance_confidence: high
+
+  records:
+
+    R451:
+      record_number: 1
+      nga_id: "R451"
+      earthquake: "Morgan Hill"
+      year:
+        value: 1984
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Coyote Lake Dam - Southwest Abutment"
+      Mw:
+        value: 6.19
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 0.53
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 561
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 3.9
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 1.07
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R802:
+      record_number: 2
+      nga_id: "R802"
+      earthquake: "Loma Prieta"
+      year:
+        value: 1989
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Saratoga - Aloha Ave"
+      Mw:
+        value: 6.93
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 8.5
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 381
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 1.5
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 4.57
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R828:
+      record_number: 3
+      nga_id: "R828"
+      earthquake: "Cape Mendocino"
+      year:
+        value: 1992
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Petrolia"
+      Mw:
+        value: 7.01
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-R"
+      Rrup_km:
+        value: 8.18
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 422
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 3.8
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 3.00
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R982:
+      record_number: 4
+      nga_id: "R982"
+      earthquake: "Northridge-01"
+      year:
+        value: 1994
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Jensen Filter Plant Administrative Building"
+      Mw:
+        value: 6.69
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 5.43
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 373
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 5.3
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 3.16
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R1148:
+      record_number: 5
+      nga_id: "R1148"
+      earthquake: "Kocaeli, Turkey"
+      year:
+        value: 1999
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Arcelik"
+      Mw:
+        value: 7.51
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-R"
+      Rrup_km:
+        value: 13.49
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 523
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 0.3
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 7.79
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R4065:
+      record_number: 6
+      nga_id: "R4065"
+      earthquake: "Parkfield-02, CA"
+      year:
+        value: 2004
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "PARKFIELD - EADES"
+      Mw:
+        value: 6.0
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 2.85
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 384
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 0.8
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 1.22
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R2734:
+      record_number: 7
+      nga_id: "R2734"
+      earthquake: "Chi-Chi, Taiwan-04"
+      year:
+        value: 1999
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "CHY074"
+      Mw:
+        value: 6.2
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 6.2
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 553
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 1.6
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 2.44
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R3473:
+      record_number: 8
+      nga_id: "R3473"
+      earthquake: "Chi-Chi, Taiwan-06"
+      year:
+        value: 1999
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "TCU078"
+      Mw:
+        value: 6.3
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-R"
+      Rrup_km:
+        value: 11.52
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 443
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 1.0
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 4.15
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R4040:
+      record_number: 9
+      nga_id: "R4040"
+      earthquake: "Bam, Iran"
+      year:
+        value: 2003
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Bam"
+      Mw:
+        value: 6.6
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 1.7
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 487
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 8.0
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: 2.02
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      pulse_like: true
+
+    R57:
+      record_number: 10
+      nga_id: "R57"
+      earthquake: "San Fernando"
+      year:
+        value: 1971
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "Castaic - Old Ridge Route"
+      Mw:
+        value: 6.61
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "C-SS"
+      Rrup_km:
+        value: 22.63
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 450
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 1.0
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: null
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: "Non-pulse record"
+      pulse_like: false
+
+    UCS_ANTU:
+      record_number: 11
+      nga_id: "UCS-ANTU"
+      earthquake: "Maule (Chile)"
+      year:
+        value: 2010
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      station: "La Pintana"
+      Mw:
+        value: 8.8
+        unit: "Mw"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      fault_type: "SUB"
+      Rrup_km:
+        value: 72.6
+        unit: "km"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Vs30_m_s:
+        value: 621
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      AI_m_s:
+        value: 0
+        unit: "m/s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: ""
+      Tp_s:
+        value: null
+        unit: "s"
+        source: {appendix: "A", table: "Table A-3", printed_page: 216}
+        provenance_confidence: high
+        notes: "Subduction record; non-pulse"
+      pulse_like: false
+      tectonic_regime: "subduction_interface"
+      database: "Universidad de Chile RENADIC archives (UCS, 2010)"
+
+# =============================================================
+# TABLE A-4: SPECTRAL MATCHING CHANGE-MEASURE BOUNDS
+# =============================================================
+spectral_matching_change_measures:
+  description: "Acceptable bounds for spectral-matching change measures; SM vs. AS (Amplitude Scaled)"
+  reference: "NIST (2011) GCR 11-917-15"
+  source: {appendix: "A", table: "Table A-4", printed_page: 219}
+  provenance_confidence: high
+
+  parameters:
+
+    delta_PGA:
+      type: "Peak Ground Motion"
+      description: "Ratio of SM to AS peak ground acceleration"
+      lower_bound:
+        value: 0.4
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 1.9
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    delta_PGV:
+      type: "Peak Ground Motion"
+      description: "Ratio of SM to AS peak ground velocity"
+      lower_bound:
+        value: 0.5
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 1.7
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    delta_PGD:
+      type: "Peak Ground Motion"
+      description: "Ratio of SM to AS peak ground displacement"
+      lower_bound:
+        value: 0.5
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 3.8
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    delta_AI:
+      type: "Cumulative Squared"
+      description: "Ratio of final Arias intensity: AImax,SM / AImax,AS"
+      lower_bound:
+        value: 0.4
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 2.0
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    delta_CSV:
+      type: "Cumulative Squared"
+      description: "Ratio of final cumulative squared velocity"
+      lower_bound:
+        value: 0.4
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 2.7
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    delta_CSD:
+      type: "Cumulative Squared"
+      description: "Ratio of final cumulative squared displacement"
+      lower_bound:
+        value: 0.4
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 7.1
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    max_delta_AI_norm:
+      type: "Max difference in normalized peak"
+      description: "Max difference over time of normalized Arias intensity"
+      lower_bound:
+        value: 0.0
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 0.2
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    max_delta_CSV_norm:
+      type: "Max difference in normalized peak"
+      description: "Max difference over time of normalized cumulative squared velocity"
+      lower_bound:
+        value: 0.0
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 0.2
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    max_delta_CSD_norm:
+      type: "Max difference in normalized peak"
+      description: "Max difference over time of normalized cumulative squared displacement"
+      lower_bound:
+        value: 0.0
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 0.4
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    delta_IE:
+      type: "Input Energy"
+      description: "Input energy ratio: 0.5*AI²max,SM / 0.5*AI²max,AS; replacement for NIST GCR11-917-95 input energy parameter"
+      reference_note: "After Shiwua & Rutman (2014)"
+      lower_bound:
+        value: 0.6
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+      upper_bound:
+        value: 1.9
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: high
+        notes: ""
+
+    delta_Tp:
+      type: "Pulse Period"
+      description: "Change in pulse period: Tp,SM / Tp,AS (Pulse-ID script; Shahi & Baker, 2014)"
+      lower_bound:
+        value: 0.75
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: medium
+        notes: "Assumed bounds (indicated by asterisk in thesis table)"
+      upper_bound:
+        value: 1.25
+        unit: "dimensionless"
+        source: {appendix: "A", table: "Table A-4", printed_page: 219}
+        provenance_confidence: medium
+        notes: "Assumed bounds (indicated by asterisk in thesis table)"

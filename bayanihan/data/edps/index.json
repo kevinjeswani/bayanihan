@@ -1,0 +1,265 @@
+{
+  "_provenance": "Built by prototypes/2026-06-26_build_edp_store.py from 32 recovered PACT-style multi-stripe EDP tables (sandbox/thesis-data/{Modelled,Non-Modelled}). Author's own PERFORM-3D / SPO2IDA outputs. Keyed by package archetype ID + native soil bin. See docs/learnings/2026-06-26_edp_ingestion_design.md.",
+  "soil_bins": [
+    "C",
+    "C1",
+    "C2",
+    "D"
+  ],
+  "archetypes": {
+    "C1-L (Mid/Hi)": {
+      "C1": {
+        "source_file": "C1L_MCHC_C1_EDP-2020-07-10.csv",
+        "n_stories": 2,
+        "modelled": true,
+        "median_collapse_sa": 1.85054684,
+        "beta_collapse": 0.149963589
+      },
+      "C2": {
+        "source_file": "C1L_MCHC_C2_EDP-2020-07-10.csv",
+        "n_stories": 2,
+        "modelled": true,
+        "median_collapse_sa": 1.851,
+        "beta_collapse": 0.15
+      },
+      "D": {
+        "source_file": "C1L_MCHC_D_EDP-2020-07-10.csv",
+        "n_stories": 2,
+        "modelled": true,
+        "median_collapse_sa": 1.85054684,
+        "beta_collapse": 0.149963589
+      }
+    },
+    "C1-M (Hi)": {
+      "C1": {
+        "source_file": "C1M_HC_C1_EDP-2020-07-10.csv",
+        "n_stories": 4,
+        "modelled": true,
+        "median_collapse_sa": 1.729025481,
+        "beta_collapse": 0.180570948
+      },
+      "C2": {
+        "source_file": "C1M_HC_C2_EDP-2020-07-10.csv",
+        "n_stories": 4,
+        "modelled": true,
+        "median_collapse_sa": 1.729025481,
+        "beta_collapse": 0.181
+      },
+      "D": {
+        "source_file": "C1M_HC_D_EDP-2020-07-10.csv",
+        "n_stories": 4,
+        "modelled": true,
+        "median_collapse_sa": 1.729,
+        "beta_collapse": 0.181
+      }
+    },
+    "C1-M (Mid)": {
+      "C1": {
+        "source_file": "C1M_MC_C1_EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 1.717,
+        "beta_collapse": 0.171
+      },
+      "C2": {
+        "source_file": "C1M_MC_C2_EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 1.717,
+        "beta_collapse": 0.171
+      },
+      "D": {
+        "source_file": "C1M_MC_D_EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 1.717,
+        "beta_collapse": 0.171
+      }
+    },
+    "C1-M (Pre/Lo)": {
+      "C1": {
+        "source_file": "C1M_PCLC_C1_EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 1.112,
+        "beta_collapse": 0.23
+      },
+      "C2": {
+        "source_file": "C1M_PCLC_C2_EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 1.112,
+        "beta_collapse": 0.23
+      },
+      "D": {
+        "source_file": "C1M_PCLC_D_EDP-2020-07-15.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 1.112,
+        "beta_collapse": 0.23
+      }
+    },
+    "C1-M (Pre/Lo) FRP": {
+      "C1": {
+        "source_file": "C1M_PCLC_R1_C1__EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 2.1221,
+        "beta_collapse": 0.2104
+      },
+      "C2": {
+        "source_file": "C1M_PCLC_R1_C2_EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 2.1221,
+        "beta_collapse": 0.2104
+      },
+      "D": {
+        "source_file": "C1M_PCLC_R1_D_EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": true,
+        "median_collapse_sa": 2.1221,
+        "beta_collapse": 0.2104
+      }
+    },
+    "C1-H (Hi)": {
+      "C": {
+        "source_file": "C1H_HC_C_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 11,
+        "modelled": false,
+        "median_collapse_sa": 2.717294976,
+        "beta_collapse": 0.9
+      }
+    },
+    "C1-L (Pre/Lo)": {
+      "C": {
+        "source_file": "C1L_PCLC_C_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 2,
+        "modelled": false,
+        "median_collapse_sa": 1.0,
+        "beta_collapse": 0.94
+      },
+      "D": {
+        "source_file": "C1L_PCLC_D_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 2,
+        "modelled": false,
+        "median_collapse_sa": 1.0,
+        "beta_collapse": 0.94
+      }
+    },
+    "CHB-L": {
+      "C": {
+        "source_file": "CHBL_C__PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 1,
+        "modelled": false,
+        "median_collapse_sa": 0.346421099,
+        "beta_collapse": 0.94
+      }
+    },
+    "CWS-L": {
+      "C": {
+        "source_file": "CWSL_C_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 2,
+        "modelled": false,
+        "median_collapse_sa": 2.1,
+        "beta_collapse": 0.94
+      }
+    },
+    "N-L": {
+      "C": {
+        "source_file": "NL_C_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 1,
+        "modelled": false,
+        "median_collapse_sa": 0.470909734,
+        "beta_collapse": 0.94
+      }
+    },
+    "PTC1-M (Hi)": {
+      "C1": {
+        "source_file": "PTC1M_HC_C1_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 4,
+        "modelled": false,
+        "median_collapse_sa": 1.729025481,
+        "beta_collapse": 0.180570948
+      },
+      "C2": {
+        "source_file": "PTC1M_HC_C2_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 4,
+        "modelled": false,
+        "median_collapse_sa": 1.729025481,
+        "beta_collapse": 0.180570948
+      },
+      "D": {
+        "source_file": "PTC1M_HC_D_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 4,
+        "modelled": false,
+        "median_collapse_sa": 1.729025481,
+        "beta_collapse": 0.180570948
+      }
+    },
+    "PTC1-M (Mid)": {
+      "C1": {
+        "source_file": "PTC1M_MC_C1_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": false,
+        "median_collapse_sa": 1.717,
+        "beta_collapse": 0.171
+      },
+      "C2": {
+        "source_file": "PTC1M_MC_C2_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": false,
+        "median_collapse_sa": 1.717,
+        "beta_collapse": 0.171
+      },
+      "D": {
+        "source_file": "PTC1M_MC_D_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 3,
+        "modelled": false,
+        "median_collapse_sa": 1.717,
+        "beta_collapse": 0.171
+      }
+    },
+    "S1-M (Hi)": {
+      "D": {
+        "source_file": "S1M_HC_D_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 5,
+        "modelled": false,
+        "median_collapse_sa": 4.255182482,
+        "beta_collapse": 0.9
+      },
+      "C1": {
+        "source_file": "S1M_HC_sC1_PSEUDO-EDP-2020-06-11.csv",
+        "n_stories": 5,
+        "modelled": false,
+        "median_collapse_sa": 4.255182482,
+        "beta_collapse": 0.9
+      },
+      "C2": {
+        "source_file": "S1M_HC_sC2_PSEUDO-EDP-2020-06-11.csv",
+        "n_stories": 5,
+        "modelled": false,
+        "median_collapse_sa": 4.255182482,
+        "beta_collapse": 0.9
+      }
+    },
+    "S3-L": {
+      "C": {
+        "source_file": "S3L_C__PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 1,
+        "modelled": false,
+        "median_collapse_sa": 1.014544267,
+        "beta_collapse": 0.94
+      }
+    },
+    "W-L": {
+      "C": {
+        "source_file": "W1L_C_PSEUDO-EDP-2020-07-10.csv",
+        "n_stories": 1,
+        "modelled": false,
+        "median_collapse_sa": 0.746341632,
+        "beta_collapse": 0.94
+      }
+    }
+  }
+}

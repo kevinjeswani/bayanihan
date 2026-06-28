@@ -1,0 +1,335 @@
+archetype,story,component_id,quantity,units,direction,thesis_source,provenance_confidence
+C1-H (Hi),1,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.ELEC.DT,50.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.ELEV,50.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),1,PH.S.DRCMRF.1S,48.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),1,PH.S.DRCMRF.2S,76.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),2,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.ELEC.DT,50.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.ELEV,50.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),2,PH.S.DRCMRF.1S,48.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),2,PH.S.DRCMRF.2S,76.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),3,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),3,PH.S.DRCMRF.1S,48.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),3,PH.S.DRCMRF.2S,76.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),4,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),4,PH.S.DRCMRF.1S,48.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),4,PH.S.DRCMRF.2S,76.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),5,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),5,PH.S.DRCMRF.1S,48.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),5,PH.S.DRCMRF.2S,76.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),6,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),6,PH.S.DRCMRF.1S,48.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),6,PH.S.DRCMRF.2S,76.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),7,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),7,PH.S.DRCMRF.1S,48.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),7,PH.S.DRCMRF.2S,76.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),8,PH.NS.CHB.PU,71.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.CHB.SU,40.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.CLG.NS,71.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.SPR.DROP,2.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.SPR.PIPE,4.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),8,PH.S.DRCMRF.1S,38.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),8,PH.S.DRCMRF.2S,86.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),9,PH.NS.CHB.PU,43.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.CHB.SU,7.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.CLG.NS,11.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.FIX.NS,20.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.SPR.DROP,1.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.SPR.PIPE,2.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),9,PH.S.DRCMRF.1S,38.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),9,PH.S.DRCMRF.2S,50.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),10,PH.NS.CHB.PU,43.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.CHB.SU,7.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.CLG.NS,11.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.CW,32.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.ELEC.DT,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.ELEV,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.FIX.NS,40.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.SPR.DROP,1.0,100 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.SPR.PIPE,2.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),10,PH.S.DRCMRF.1S,38.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),10,PH.S.DRCMRF.2S,50.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),11,PH.NS.CHB.PU,5.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),11,PH.NS.CHB.SU,47.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),11,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),11,PH.NS.SPR.PIPE,1.0,1000 LF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-H (Hi),11,PH.S.DRCMRF.1S,4.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-H (Hi),11,PH.S.DRCMRF.2S,11.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Mid/Hi),1,PH.NS.CHB.PU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),1,PH.NS.CHB.SU,12.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),1,PH.NS.FIX.NS,44.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),1,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),1,PH.S.DRCMRF.1S,22.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Mid/Hi),1,PH.S.DRCMRF.2S,26.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Mid/Hi),2,PH.NS.CHB.PU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),2,PH.NS.CHB.SU,13.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),2,PH.NS.CLG.NS,13.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),2,PH.NS.FIX.NS,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Mid/Hi),2,PH.S.DRCMRF.1S,22.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Mid/Hi),2,PH.S.DRCMRF.2S,26.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Pre/Lo),1,PH.NS.CHB.PU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),1,PH.NS.CHB.SU,12.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),1,PH.NS.FIX.NS,44.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),1,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),1,PH.S.NDRCMRF.1S,22.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Pre/Lo),1,PH.S.NDRCMRF.2S,26.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Pre/Lo),2,PH.NS.CHB.PU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),2,PH.NS.CHB.SU,13.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),2,PH.NS.CLG.NS,13.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),2,PH.NS.FIX.NS,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-L (Pre/Lo),2,PH.S.NDRCMRF.1S,22.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-L (Pre/Lo),2,PH.S.NDRCMRF.2S,26.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),1,PH.NS.CHB.PU,11.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),1,PH.NS.CHB.SU,13.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),1,PH.NS.CLG.NS,1.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),1,PH.NS.FIX.NS,32.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),1,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),1,PH.S.DRCMRF.1S,13.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),1,PH.S.DRCMRF.2S,21.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),2,PH.NS.CHB.PU,11.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),2,PH.NS.CHB.SU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),2,PH.NS.CLG.NS,1.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),2,PH.NS.FIX.NS,32.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),2,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),2,PH.S.DRCMRF.1S,13.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),2,PH.S.DRCMRF.2S,21.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),3,PH.NS.CHB.PU,11.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),3,PH.NS.CHB.SU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),3,PH.NS.CLG.NS,1.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),3,PH.NS.FIX.NS,32.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),3,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),3,PH.S.DRCMRF.1S,13.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),3,PH.S.DRCMRF.2S,21.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),4,PH.NS.CHB.PU,11.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),4,PH.NS.CHB.SU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),4,PH.NS.CLG.NS,11.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),4,PH.NS.FIX.NS,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Hi),4,PH.S.DRCMRF.1S,13.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Hi),4,PH.S.DRCMRF.2S,21.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Mid),1,PH.NS.CHB.PU,9.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),1,PH.NS.CHB.SU,20.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),1,PH.NS.CLG.NS,2.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),1,PH.NS.FIX.NS,41.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),1,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),1,PH.S.DRCMRF.1S,26.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Mid),1,PH.S.DRCMRF.2S,38.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Mid),2,PH.NS.CHB.PU,9.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),2,PH.NS.CHB.SU,20.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),2,PH.NS.CLG.NS,2.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),2,PH.NS.FIX.NS,41.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),2,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),2,PH.S.DRCMRF.1S,26.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Mid),2,PH.S.DRCMRF.2S,38.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Mid),3,PH.NS.CHB.PU,9.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),3,PH.NS.CHB.SU,20.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),3,PH.NS.CLG.NS,8.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),3,PH.NS.FIX.NS,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Mid),3,PH.S.DRCMRF.1S,24.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Mid),3,PH.S.DRCMRF.2S,40.0,1 EA,1,Table D-13 (p.311); ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Pre/Lo),1,PH.NS.CHB.PU,9.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),1,PH.NS.CHB.SU,20.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),1,PH.NS.CLG.NS,2.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),1,PH.NS.FIX.NS,41.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),1,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),1,PH.S.NDRCMRF.1S,26.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Pre/Lo),1,PH.S.NDRCMRF.2S,38.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Pre/Lo),2,PH.NS.CHB.PU,9.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),2,PH.NS.CHB.SU,20.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),2,PH.NS.CLG.NS,2.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),2,PH.NS.FIX.NS,41.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),2,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),2,PH.S.NDRCMRF.1S,26.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Pre/Lo),2,PH.S.NDRCMRF.2S,38.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Pre/Lo),3,PH.NS.CHB.PU,9.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),3,PH.NS.CHB.SU,20.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),3,PH.NS.CLG.NS,8.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),3,PH.NS.FIX.NS,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+C1-M (Pre/Lo),3,PH.S.NDRCMRF.1S,24.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+C1-M (Pre/Lo),3,PH.S.NDRCMRF.2S,40.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),high
+CHB-L,1,PH.NS.CHB.PU,7.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+CHB-L,1,PH.NS.CHB.SU,7.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+CHB-L,1,PH.NS.CLG.NS,4.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+CHB-L,1,PH.NS.FIX.NS,2.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+CWS-L,1,PH.NS.CHB.PU,14.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,medium
+CWS-L,1,PH.NS.CHB.SU,12.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,medium
+CWS-L,1,PH.NS.FIX.NS,44.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,medium
+CWS-L,1,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,medium
+CWS-L,1,PH.S.NDRCMRF.1S,22.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),medium
+CWS-L,1,PH.S.NDRCMRF.2S,26.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),medium
+CWS-L,2,PH.NS.CHB.PU,4.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,medium
+CWS-L,2,PH.NS.CHB.SU,4.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,medium
+CWS-L,2,PH.NS.CLG.NS,26.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,medium
+CWS-L,2,PH.S.NDRCMRF.1S,11.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),medium
+CWS-L,2,PH.S.NDRCMRF.2S,13.0,1 EA,1,Table D-13 (p.311); non-ductile RCMRF (Table 6-2; §6.2.4),medium
+N-L,1,PH.NS.CLG.NS,12.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+N-L,1,PH.NS.FIX.NS,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.NS.CHB.PU,28.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.NS.CHB.SU,25.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.NS.CLG.NS,3.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.NS.CW,11.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.NS.ELEC.WM,6.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.NS.FIX.NS,88.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),1,PH.S.PTRCMRF.1S,30.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Hi),1,PH.S.PTRCMRF.2S,34.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Hi),2,PH.NS.CHB.PU,38.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.NS.CHB.SU,27.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.NS.CLG.NS,3.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.NS.CW,11.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.NS.ELEC.WM,6.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.NS.ELEV,51.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.NS.FIX.NS,108.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),2,PH.S.PTRCMRF.1S,30.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Hi),2,PH.S.PTRCMRF.2S,38.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Hi),3,PH.NS.CHB.PU,38.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),3,PH.NS.CHB.SU,25.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),3,PH.NS.CLG.NS,3.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),3,PH.NS.CW,11.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),3,PH.NS.ELEC.WM,6.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),3,PH.NS.FIX.NS,108.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),3,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),3,PH.S.PTRCMRF.1S,30.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Hi),3,PH.S.PTRCMRF.2S,38.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Hi),4,PH.NS.CHB.PU,38.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),4,PH.NS.CHB.SU,29.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),4,PH.NS.CLG.NS,24.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),4,PH.NS.CW,11.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),4,PH.NS.ELEC.WM,6.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),4,PH.NS.FIX.NS,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Hi),4,PH.S.PTRCMRF.1S,30.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Hi),4,PH.S.PTRCMRF.2S,38.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Mid),1,PH.NS.CHB.PU,9.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),1,PH.NS.CHB.SU,19.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),1,PH.NS.CLG.NS,3.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),1,PH.NS.CW,8.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),1,PH.NS.ELEC.WM,3.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),1,PH.NS.FIX.NS,63.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),1,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),1,PH.S.PTRCMRF.1S,26.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Mid),1,PH.S.PTRCMRF.2S,18.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Mid),2,PH.NS.CHB.PU,13.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.NS.CHB.SU,19.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.NS.CLG.NS,3.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.NS.CW,8.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.NS.ELEC.WM,6.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.NS.ELEV,30.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.NS.FIX.NS,63.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.NS.STAIRS,2.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),2,PH.S.PTRCMRF.1S,27.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Mid),2,PH.S.PTRCMRF.2S,23.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Mid),3,PH.NS.CHB.PU,13.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),3,PH.NS.CHB.SU,19.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),3,PH.NS.CLG.NS,13.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),3,PH.NS.CW,8.0,30 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),3,PH.NS.ELEC.WM,3.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),3,PH.NS.FIX.NS,30.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+PTC1-M (Mid),3,PH.S.PTRCMRF.1S,27.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+PTC1-M (Mid),3,PH.S.PTRCMRF.2S,23.0,1 EA,1,"Table D-13 (p.311); PT RCMRF (Table 6-2; ductile fragility, PT costs)",high
+S1-M (Hi),1,PH.NS.CHB.PU,37.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),1,PH.NS.CHB.SU,19.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),1,PH.NS.FIX.NS,100.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),1,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),1,PH.S.SMRF.1S,42.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),1,PH.S.SMRF.2S,62.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),2,PH.NS.CHB.PU,37.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),2,PH.NS.CHB.SU,19.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),2,PH.NS.ELEC.DT,5.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),2,PH.NS.ELEV,25.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),2,PH.NS.FIX.NS,100.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),2,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),2,PH.S.SMRF.1S,42.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),2,PH.S.SMRF.2S,62.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),3,PH.NS.CHB.PU,37.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),3,PH.NS.CHB.SU,19.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),3,PH.NS.FIX.NS,100.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),3,PH.NS.STAIRS,3.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),3,PH.S.BASEPLT,53.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),3,PH.S.SMRF.1S,42.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),3,PH.S.SMRF.2S,62.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),3,PH.S.SPLICE,51.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),4,PH.NS.CHB.PU,37.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),4,PH.NS.CHB.SU,19.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),4,PH.NS.FIX.NS,100.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),4,PH.NS.STAIRS,1.0,1 EA,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),4,PH.S.SMRF.1S,42.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),4,PH.S.SMRF.2S,62.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S1-M (Hi),5,PH.NS.CHB.PU,4.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),5,PH.NS.CHB.SU,15.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),5,PH.NS.FIX.NS,4.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+S1-M (Hi),5,PH.S.SMRF.1S,4.0,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+S3-L,1,PH.NS.CHB.PU,7.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S3-L,1,PH.NS.CHB.SU,7.0,125 SF,1,Table D-13 (p.311); Table 6-2 fragility basis,high
+S3-L,1,PH.S.SMRF.1S,0.5,1 EA,1,Table D-13 (p.311); steel MRF (Table 6-2),high
+W-L,1,PH.NS.CLG.NS,48.0,250 SF,0,Table D-13 (p.311); Table 6-2 fragility basis,high
+W-L,1,PH.NS.FIX.NS,10.0,1 EA,0,Table D-13 (p.311); Table 6-2 fragility basis,high

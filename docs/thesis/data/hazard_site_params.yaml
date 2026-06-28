@@ -1,0 +1,607 @@
+# Seismic Hazard Site Parameters — Chapter 3
+# Source: Jeswani, K.K. (2021). The Seismic Resilience of Critical Spatially-Distributed
+#         Building Portfolios. MASc Thesis, University of Toronto.
+# Covers: site-class/soil model, target-spectrum anchors (return periods, Vs30 reference),
+#         site amplification, rupture-scenario definitions.
+# All values from Chapter 3 (printed pages 19–35) unless cross-referenced to Chapter 7.
+
+metadata:
+  document: "MASc Thesis Chapter 3: Seismic Hazard Definition"
+  author: "Kevin Jeswani"
+  year: 2021
+  psha_model: "PEM2020 (Peñarubia et al., 2020) via OpenQuake (GEM, 2020b)"
+  study_region: "Metro Manila, Philippines — Makati and Quezon City public school portfolios"
+
+# ============================================================
+# SECTION 1: TARGET INTENSITY LEVELS (Table 3-1)
+# ============================================================
+intensity_levels:
+  _source:
+    section: "3.1.1"
+    table: "Table 3-1"
+    printed_page: 22
+
+  SLE_frequent:
+    label: "Frequent (SLE — Serviceability Level Event)"
+    return_period:
+      value: 75
+      unit: "years"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    poe_50yr:
+      value: 0.63
+      unit: "dimensionless"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: "63% probability of exceedance in 50 years"
+    mafe:
+      value: 0.01250
+      unit: "per year"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: "Mean Annual Frequency of Exceedance"
+    governing_sources: "Far-fault shallow crustal (PFS, GNW, Lubang) and/or Manila Trench interface; also subduction intraslab events"
+
+  probable:
+    label: "Probable"
+    return_period:
+      value: 175
+      unit: "years"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    poe_50yr:
+      value: 0.30
+      unit: "dimensionless"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: "30% probability of exceedance in 50 years"
+    mafe:
+      value: 0.00523
+      unit: "per year"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    governing_sources: "Far-fault shallow crustal and/or subduction interface events"
+
+  DBE_design:
+    label: "Design-Level (DBE — Design Basis Earthquake)"
+    return_period:
+      value: 475
+      unit: "years"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: "10% PoE in 50 years — standard design level; largest hazard contribution: WVF and EVF (near-fault shallow crustal, within 25 km, Mw 6.5–7.75)"
+    poe_50yr:
+      value: 0.10
+      unit: "dimensionless"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    mafe:
+      value: 0.00210
+      unit: "per year"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    governing_sources: "Near-fault shallow crustal: WVF, EVF (primary); second cluster: Manila Trench interface/intraslab at 100–150 km, Mw up to 8.0"
+
+  rare:
+    label: "Rare"
+    return_period:
+      value: 975
+      unit: "years"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    poe_50yr:
+      value: 0.05
+      unit: "dimensionless"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: "5% probability of exceedance in 50 years"
+    mafe:
+      value: 0.00103
+      unit: "per year"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    governing_sources: "Near-fault shallow crustal: WVF, EVF"
+
+  MCE_very_rare:
+    label: "Very Rare (MCE — Maximum Considered Earthquake)"
+    return_period:
+      value: 2475
+      unit: "years"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: "2% PoE in 50 years — governing for ground-motion selection and spectral matching in this study"
+    poe_50yr:
+      value: 0.02
+      unit: "dimensionless"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    mafe:
+      value: 0.00040
+      unit: "per year"
+      source: {section: "3.1.1", table: "Table 3-1", printed_page: 22}
+      provenance_confidence: high
+      notes: ""
+    governing_sources: "Near-fault shallow crustal: WVF, EVF"
+
+# ============================================================
+# SECTION 2: PSHA HAZARD CURVE REFERENCE CONDITIONS
+# ============================================================
+psha_reference_conditions:
+  vs30_reference:
+    value: 760
+    unit: "m/s"
+    source: {section: "3.1.1", table: null, printed_page: 23}
+    provenance_confidence: high
+    notes: "PEM2020 reference site condition for all GEM-provided Sa values."
+
+  horizontal_component:
+    value: "geomean"
+    unit: "dimensionless"
+    source: {section: "3.1.1", table: null, printed_page: 23}
+    provenance_confidence: high
+    notes: "Average horizontal component (geometric mean) used for all PSHA outputs from GEM."
+
+  spectral_periods_provided:
+    value: [0, 0.2, 0.5, 0.8, 1.0, 2.0]
+    unit: "seconds"
+    source: {section: "3.1.1", table: null, printed_page: 22}
+    provenance_confidence: high
+    notes: "Periods T at which GEM provided mean Sa values across all five intensity levels."
+
+  psha_provider:
+    value: "Global Earthquake Model (GEM, 2019b) — Philippine Earthquake Model PEM2020 (GEM, 2020c)"
+    unit: "dimensionless"
+    source: {section: "3.1.1", table: null, printed_page: 22}
+    provenance_confidence: high
+    notes: "OpenQuake platform (GEM, 2020b)"
+
+# ============================================================
+# SECTION 3: SITE-CLASS (SOIL) MODEL (Section 3.1.2)
+# ============================================================
+site_class_model:
+  source_model:
+    value: "GMMA hybrid soil model — Allen et al. (2014)"
+    unit: "dimensionless"
+    source: {section: "3.1.2", table: null, printed_page: 25}
+    provenance_confidence: high
+    notes: "Greater Metro Manila Area (GMMA) hybrid model adopted for classifying site conditions at school campuses."
+
+  hybrid_method:
+    value: "Mean Vs30 between topographic gradient-based and borehole-based (SPT-N) methods"
+    unit: "dimensionless"
+    source: {section: "3.1.2", table: null, printed_page: 25}
+    provenance_confidence: high
+    notes: "Allen et al. (2014) determined Vs30 at 263 points across GMMA."
+
+  primary_model_points:
+    value: 263
+    unit: "sites"
+    source: {section: "3.1.2", table: null, printed_page: 25}
+    provenance_confidence: high
+    notes: "Number of spatial estimation points in the Allen et al. (2014) hybrid model."
+
+  supplemental_measurements:
+    value: 32
+    unit: "sites"
+    source: {section: "3.1.2", table: null, printed_page: 25}
+    provenance_confidence: high
+    notes: "Additional Vs30 values from Grutas & Yamanaka (2012) via microtremor array measurements, used to supplement the hybrid model."
+
+  interpolation_method:
+    value: "Inverse Distance Weighted (IDW)"
+    unit: "dimensionless"
+    source: {section: "3.1.2", table: null, printed_page: 25}
+    provenance_confidence: high
+    notes: "Spatial interpolation method used to assign Vs30 to each school campus location (ESRI, 2019)."
+
+  site_classes:
+
+    soil_C:
+      label: "Soil C (Stiff Soil)"
+      vs30_range_min:
+        value: 360
+        unit: "m/s"
+        source: {section: "3.1.2", table: null, printed_page: 25}
+        provenance_confidence: high
+        notes: ""
+      vs30_range_max:
+        value: 760
+        unit: "m/s"
+        source: {section: "3.1.2", table: null, printed_page: 25}
+        provenance_confidence: high
+        notes: ""
+      campus_count:
+        value: 152
+        unit: "campus sites"
+        source: {section: "3.1.2", table: null, printed_page: 25}
+        provenance_confidence: high
+        notes: "Number of school campus sites classified as Soil C across Makati and Quezon City."
+      representative_vs30_for_amplification:
+        value: 760
+        unit: "m/s"
+        source: {section: "3.1.3", table: null, printed_page: 27}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: The text states BA08 site amplification factors 'corresponding to the Vs30 at each site' were applied — implying site-specific Vs30 values, not a single representative value. The 760 m/s is the reference (no amplification). Actual Soil C representative Vs30 used for BA08 factors not explicitly stated; likely median of IDW-interpolated values within 360–760 m/s range."
+
+    soil_D:
+      label: "Soil D (Soft Soil)"
+      vs30_range_min:
+        value: 180
+        unit: "m/s"
+        source: {section: "3.1.2", table: null, printed_page: 25}
+        provenance_confidence: high
+        notes: ""
+      vs30_range_max:
+        value: 360
+        unit: "m/s"
+        source: {section: "3.1.2", table: null, printed_page: 25}
+        provenance_confidence: high
+        notes: ""
+      campus_count:
+        value: 32
+        unit: "campus sites"
+        source: {section: "3.1.2", table: null, printed_page: 25}
+        provenance_confidence: high
+        notes: "Number of school campus sites classified as Soil D across Makati and Quezon City."
+
+# ============================================================
+# SECTION 4: SITE AMPLIFICATION (Section 3.1.3)
+# ============================================================
+site_amplification:
+  method:
+    value: "BA08 (Boore & Atkinson 2008) period-dependent site amplification factors"
+    unit: "dimensionless"
+    source: {section: "3.1.3", table: null, printed_page: 27}
+    provenance_confidence: high
+    notes: "BA08 chosen because it uses the same reference Vs30 = 760 m/s as the PEM2020 GEM-provided Sa values."
+
+  input:
+    value: "PEM2020 geomean Sa (at Vs30=760 m/s reference) × BA08 site amplification factors per site Vs30"
+    unit: "dimensionless"
+    source: {section: "3.1.3", table: null, printed_page: 27}
+    provenance_confidence: high
+    notes: "Applied to produce site-specific target geomean Sa curves for each school campus."
+
+  output_figure: "Figure 3-6: (a,c) Sa on Vs30=760 m/s reference; (b,d) Sa with BA08 site amplification factors applied"
+
+# ============================================================
+# SECTION 5: NEAR-FAULT DIRECTIVITY AMPLIFICATION (Section 3.2.2)
+# ============================================================
+directivity_amplification:
+  model:
+    value: "Shahi & Baker (2013) — SB13 average directivity amplification"
+    unit: "dimensionless"
+    source: {section: "3.2.2", table: null, printed_page: 28}
+    provenance_confidence: high
+    notes: "Applied to near-fault sites. Considers probability of directivity, fault-strike geometry, pulse period."
+
+  fault_type:
+    value: "Vertical strike-slip (SS)"
+    unit: "dimensionless"
+    source: {section: "3.2.2", table: null, printed_page: 28}
+    provenance_confidence: high
+    notes: "WVF is a vertical strike-slip fault; Rjb = Rrup for vertical SS faults."
+
+  magnitudes_used:
+    value: [6.2, 6.5, 7.0, 7.2, 7.5]
+    unit: "Mw"
+    source: {section: "3.2.2", table: null, printed_page: 28}
+    provenance_confidence: high
+    notes: "Corresponding to the five selected intensity levels (SLE to MCE). Approximated from WVF MFD (Peñarubia et al., 2020; PHIVOLCS, 2017)."
+
+  amplification_range:
+    value: "2–7% increase"
+    unit: "dimensionless"
+    source: {section: "3.2.2", table: null, printed_page: 29}
+    provenance_confidence: high
+    notes: "Average directivity amplification effects are 'fairly low (2-7% increase)' for low- and mid-rise structures in the portfolio."
+
+  period_dependence:
+    value: "Distribution shifts toward longer periods with increasing magnitude"
+    unit: "dimensionless"
+    source: {section: "3.2.2", table: null, printed_page: 29}
+    provenance_confidence: high
+    notes: "See Figure 3-7: Mean SB13 Sa average directivity amplification factors."
+
+# ============================================================
+# SECTION 6: DIRECTIONALITY RATIOS (Section 3.2.3)
+# ============================================================
+directionality_ratios:
+  model:
+    value: "Shahi & Baker (2013) — SB13"
+    unit: "dimensionless"
+    source: {section: "3.2.3", table: null, printed_page: 29}
+    provenance_confidence: high
+    notes: "Used to convert geomean Sa to maximum-direction (RotD100) target spectrum."
+
+  RotD100_to_RotD50_ratio:
+    min_value: 1.19
+    min_period: 0.01
+    max_value: 1.29
+    max_period: 10.0
+    unit: "dimensionless"
+    source: {section: "3.2.3", table: null, printed_page: 30}
+    provenance_confidence: high
+    notes: "Sa,RotD100 / Sa,RotD50 ratio ranging from 1.19 at T=0.01s to 1.29 at T=10s (Shahi & Baker, 2013). Used to define TSa,max."
+
+  RotD0_to_RotD100_ratio:
+    min_value: 0.600
+    min_period_note: "T=3s"
+    max_value: 0.717
+    max_period_note: "T=0.1s"
+    unit: "dimensionless"
+    source: {section: "3.2.3", table: null, printed_page: 30}
+    provenance_confidence: high
+    notes: "Mean Sa,RotD0 / Sa,RotD100 values from Hong & Goda (2007), as implemented in Grant (2011). Ranging from 0.717 at T=0.1s to 0.600 at T=3s. Used to define TSa,min (orthogonal to maximum response)."
+
+  spectral_matching_tool:
+    value: "RspMatchBi (Grant, 2011; 2019) — bidirectional time-domain spectral matching"
+    unit: "dimensionless"
+    source: {section: "3.2.3", table: null, printed_page: 29}
+    provenance_confidence: high
+    notes: ""
+
+# ============================================================
+# SECTION 7: RUPTURE SCENARIO DEFINITIONS
+# ============================================================
+rupture_scenarios:
+  note: >
+    WVF and EVF govern the 475- to 2,475-year hazard. Magnitude-per-intensity-level
+    assignments (§3.2.2) approximate the WVF MFD. Full rupture parameters for portfolio
+    loss estimation (Chapter 7) are in Table 7-2 (printed page 158 / PDF page 185).
+
+  # --- Ground-motion selection scenarios (Chapter 3) ---
+  WVF_gm_selection:
+    fault_name: "West Valley Fault (WVF)"
+    alternate_name: "Marikina West Valley Fault"
+    fault_type:
+      value: "Vertical strike-slip"
+      unit: "dimensionless"
+      source: {section: "3.2.2", table: null, printed_page: 28}
+      provenance_confidence: high
+      notes: ""
+    location:
+      value: "Divides eastern Makati and Quezon City, Metro Manila"
+      unit: "dimensionless"
+      source: {section: "3.1", table: null, printed_page: 20}
+      provenance_confidence: high
+      notes: ""
+    distance_to_portfolio:
+      value: "within 25 km"
+      unit: "km"
+      source: {section: "3.1", table: null, printed_page: 20}
+      provenance_confidence: high
+      notes: "WVF is the primary near-fault threat to MM school portfolio."
+    magnitudes_per_intensity:
+      SLE_75yr:
+        value: 6.2
+        unit: "Mw"
+        source: {section: "3.2.2", table: null, printed_page: 28}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Text states M={6.2,6.5,7,7.2,7.5} 'corresponding to the five selected intensities' but does not explicitly map each M to each TR. Assignment here assumes ascending M with ascending TR (most natural reading). Confirm against Figure 3-7 or Appendix."
+      probable_175yr:
+        value: 6.5
+        unit: "Mw"
+        source: {section: "3.2.2", table: null, printed_page: 28}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same mapping assumption as SLE."
+      DBE_475yr:
+        value: 7.0
+        unit: "Mw"
+        source: {section: "3.2.2", table: null, printed_page: 28}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same mapping assumption."
+      rare_975yr:
+        value: 7.2
+        unit: "Mw"
+        source: {section: "3.2.2", table: null, printed_page: 28}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same mapping assumption."
+      MCE_2475yr:
+        value: 7.5
+        unit: "Mw"
+        source: {section: "3.2.2", table: null, printed_page: 28}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same mapping assumption. WVF max Mw per PEM2020 MFD (Peñarubia et al., 2020; PHIVOLCS, 2017)."
+    near_fault_threshold:
+      value: "15–20 km"
+      unit: "km"
+      source: {section: "3.2.1", table: null, printed_page: 28}
+      provenance_confidence: high
+      notes: "NIST (2011) GCR 11-917-15: design spectrum for sites within 15–20 km of active fault should be adjusted for average directivity."
+    pulse_fraction_2475yr:
+      value: "80–93%"
+      unit: "dimensionless"
+      source: {section: "3.2.4", table: null, printed_page: 31}
+      provenance_confidence: high
+      notes: "So et al. (2015) and Pokhrel et al. (2014): 80–93% of 2,475-year GM suites for MM should be pulse-like motions, based on disaggregation at periods of interest T=0.3–0.6s."
+
+  # --- Portfolio loss estimation scenarios (Chapter 7, Table 7-2) ---
+  WVF_scenario_A:
+    fault_name: "Marikina West Valley Fault (WVF)"
+    scenario_id: "A"
+    mw:
+      value: 6.5
+      unit: "Mw"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: ""
+    rjb_range:
+      min_value: 0
+      max_value: 9.5
+      unit: "km"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: "Range across Makati and Quezon City school portfolio."
+    rrup_range:
+      value: "same as Rjb for vertical SS fault (Rjb=Rrup)"
+      unit: "km"
+      source: {section: "3.2.2", table: null, printed_page: 28}
+      provenance_confidence: high
+      notes: ""
+
+  WVF_scenario_B:
+    fault_name: "Marikina West Valley Fault (WVF)"
+    scenario_id: "B"
+    mw:
+      value: 7.3
+      unit: "Mw"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: "This is the governing scenario discussed in §7.3.4."
+    rjb_range:
+      min_value: 0
+      max_value: 9.5
+      unit: "km"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: "Same Rjb range as Scenario A."
+    rrup_range:
+      value: "same as Rjb for vertical SS fault"
+      unit: "km"
+      source: {section: "3.2.2", table: null, printed_page: 28}
+      provenance_confidence: high
+      notes: ""
+
+  EVF_scenario_C:
+    fault_name: "Marikina East Valley Fault (EVF)"
+    scenario_id: "C"
+    mw:
+      value: 6.9
+      unit: "Mw"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: "EVF is subparallel to WVF (§3.1)."
+    rjb_range:
+      min_value: 2.9
+      max_value: 20.0
+      unit: "km"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: ""
+
+  GNW_scenario_D:
+    fault_name: "General Nakar West Fault (GNW)"
+    scenario_id: "D"
+    mw:
+      value: 7.6
+      unit: "Mw"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: "One of the closest faults near MM aside from EVF/WVF (Peñarubia et al., 2020)."
+    rjb_range:
+      min_value: 10.9
+      max_value: 45.8
+      unit: "km"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: ""
+    rrup_range:
+      min_value: 29.7
+      max_value: 45.8
+      unit: "km"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: ""
+
+  Manila_Trench_scenario_E:
+    fault_name: "Manila Trench (Subduction Interface)"
+    scenario_id: "E"
+    mw:
+      value: 7.9
+      unit: "Mw"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: "Governs second hazard cluster in 475-yr disaggregation (100–150 km, Mw up to 8.0 per §3.1)."
+    rjb_range:
+      min_value: 105.6
+      max_value: 124.7
+      unit: "km"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: ""
+    rrup_range:
+      min_value: 100.6
+      max_value: 117.6
+      unit: "km"
+      source: {section: "7.x", table: "Table 7-2", printed_page: 158}
+      provenance_confidence: high
+      notes: ""
+    tectonic_regime: "subduction_interface"
+    gm_record_source:
+      value: "2010 Maule, Chile Earthquake — Universidad de Chile RENADIC archives (UCS, 2010)"
+      unit: "dimensionless"
+      source: {section: "3.2.4", table: null, printed_page: 31}
+      provenance_confidence: high
+      notes: "One subduction GM record pair selected per Soil C and per Soil D."
+
+# ============================================================
+# SECTION 8: GROUND-MOTION RECORD SUITE COMPOSITION (Section 3.2.4)
+# ============================================================
+gm_suite:
+  shallow_crustal_records:
+    pulse_like:
+      value: 9
+      unit: "records"
+      source: {section: "3.2.4", table: null, printed_page: 31}
+      provenance_confidence: high
+      notes: "Selected from NGA-West2 database (PEER, 2013) using 2,475-year TSa,max (RotD100)."
+    non_pulse:
+      value: 1
+      unit: "records"
+      source: {section: "3.2.4", table: null, printed_page: 31}
+      provenance_confidence: high
+      notes: ""
+    total_shallow_crustal:
+      value: 10
+      unit: "records"
+      source: {section: "3.2.4", table: null, printed_page: 31}
+      provenance_confidence: high
+      notes: ""
+    database: "NGA-West2 (PEER, 2013)"
+
+  subduction_interface_records:
+    records_per_soil_group:
+      value: 1
+      unit: "record pairs"
+      source: {section: "3.2.4", table: null, printed_page: 31}
+      provenance_confidence: high
+      notes: "One pair per Soil C, one pair per Soil D."
+    source_event: "2010 Maule, Chile Earthquake"
+    database: "Universidad de Chile RENADIC archives (UCS, 2010)"
+
+  baseline_correction_tool:
+    value: "SeismoSignal (SeismoSoft, 2016)"
+    unit: "dimensionless"
+    source: {section: "3.2.4", table: null, printed_page: 31}
+    provenance_confidence: high
+    notes: "Applied as necessary."
+
+  spectral_calculation_tool:
+    value: "RotDSpectro MATLAB script (Kong, 2016), provided by Thangappa (2019a; 2019b)"
+    unit: "dimensionless"
+    source: {section: "3.2.4", table: null, printed_page: 31}
+    provenance_confidence: high
+    notes: "Used to calculate Sa,RotD100, Sa,RotD50, and Sa,RotD0 for all records."
+
+  spectral_matching_tool:
+    value: "RspMatchBi (Grant, 2011; 2019) — bidirectional time-domain spectral matching"
+    unit: "dimensionless"
+    source: {section: "3.2.5", table: null, printed_page: 32}
+    provenance_confidence: high
+    notes: "Procedure adapted from Grant (2012) and Almufti et al. (2015) to preserve velocity pulses."
+
+  pulse_identification_tool:
+    value: "Shahi & Baker (2014) pulse-ID algorithm"
+    unit: "dimensionless"
+    source: {section: "3.2.5", table: null, printed_page: 32}
+    provenance_confidence: high
+    notes: "Identifies velocity pulses in orthogonal GM record pairs prior to spectral matching."

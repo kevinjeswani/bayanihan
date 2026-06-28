@@ -1,0 +1,1410 @@
+# archetypes.yaml
+# Canonical archetype definitions for bayanihan
+# Source: Jeswani (2021) MASc thesis, Chapters 4 and 5
+# Printed pages: Ch4 pp. 56-63 (Tables 4-6, 4-7); Ch5 pp. 66-73 (Tables 5-1, 5-2, 5-3, 5-5)
+# PDF pages: ~83-88 (Ch4), ~92-100 (Ch5)
+#
+# ARCHETYPE COUNT: 20 unique archetype IDs (including C1-M Pre/Lo FRP retrofit variant)
+#   - 5 NRHA-modelled (C1-L Mid/Hi, C1-M Hi, C1-M Mid, C1-M Pre/Lo, C1-M Pre/Lo FRP)
+#   - 2 EDP-proxy (PTC1-M Mid, PTC1-M Hi)
+#   - 3 Primary-Simplified (C1-L Pre/Lo, C1-H Hi, S1-M Hi)
+#   - 5 Secondary-Simplified (CWS-L, S3-L, CHB-L, W-L, N-L)
+#   - 5 Merged (no independent model): PC-L, PTC1-M Pre/Lo, PTC4-M Lo, C4-L Lo/Mid, C4-M Mid
+#
+# Cities: Makati (MKT) and Quezon City (QC) public school portfolios
+# Code eras per Table 4-3:
+#   Pre-Code:  Construction completion pre-1975 (QC) / start pre-1974 (MKT)  → NSCP pre-1972
+#   Low-Code:  Construction completion 1975-1994 / start 1974-1993            → NSCP 1972/1982/1986
+#   Mid-Code:  Construction completion 1995-2003 / start 1994-2002            → NSCP 1992
+#   High-Code: Construction completion 2004+ / start 2003+                    → NSCP 2001/2010/2015
+
+schema_version: "1.0"
+extraction_date: "2026-06-26"
+extractor: "claude-sonnet-4-6 (automated thesis extraction)"
+
+archetypes:
+
+  # ═══════════════════════════════════════════════════
+  # GROUP 1: PRIMARY — NRHA MODELLED
+  # ═══════════════════════════════════════════════════
+
+  C1-L_MidHi:
+    id: "C1-L (Mid/Hi)"
+    label: "Low-rise RCMRF, Mid-to-High Code"
+    city: ["Makati", "Quezon City"]
+    structural_system:
+      value: "RCMRF with CHB infill (150mm solid struts)"
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    height_class: "Low-rise"
+    stories:
+      value: 2
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Mid-Code / High-Code (NSCP 1992 and 2001+)"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6", printed_page: 57}
+      provenance_confidence: high
+      notes: "Grouped together; differences in response expected to be marginal"
+    layout:
+      value: "6-Classroom; Plan 31.5m (7 bays @ 4.5m) x 9.5m (2 bays @ 2.5m & 7m); Height 6.7m"
+      unit: "m"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "200x400–200x500mm"
+      columns: "350x350mm"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+    drawings_available:
+      value: true
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "DepEd EFD (2018) standard school building designs"
+    fundamental_period_T1:
+      value: 0.49
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Longitudinal direction; with CHB infill"
+    T1_transverse_infill:
+      value: 0.24
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Dominated by torsional response due to CHB infills"
+    T1_longitudinal_bare:
+      value: 0.47
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Without CHB infill"
+    T1_transverse_bare:
+      value: 0.25
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 3320
+      unit: "kN"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 597
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: "Derived: Plan 31.5m x 9.5m x 2 stories = 598.5m² rounded to 597m² (consistent with Table 5-5 C1-L Pre/Lo footprint)"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "QC concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 11826600
+      unit: "PHP_2020"
+      source: "Derived: 597 m² × ₱19,800/m² = ₱11,826,600 (Table 4-5 unit cost × Table 5-2 floor area)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from layout Table 5-2; cost_per_m2 from Table 4-5; product is replacement cost"
+    edp_method: "NRHA"
+    failure_modes: ["Side-sway collapse", "Weak-column-strong-beam", "No shear failure expected"]
+    modelling_notes: "Lumped plasticity beam-columns (flexural/axial-flexural only); concentric CHB infill struts; ductile behaviour"
+
+  C1-M_Hi:
+    id: "C1-M (Hi)"
+    label: "Mid-rise RCMRF, High Code"
+    city: ["Makati", "Quezon City"]
+    structural_system:
+      value: "RCMRF with CHB infill (150mm solid struts)"
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    height_class: "Mid-rise"
+    stories:
+      value: 4
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "High-Code (NSCP 2001+)"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6 / 4-7", printed_page: 57}
+      provenance_confidence: high
+      notes: "Construction completion 2004+"
+    layout:
+      value: "~30-Room; Plan 27m (6 bays @ 4.5m) x 9.5m (2 bays @ 2.5m & 7m); Height 13.13m"
+      unit: "m"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "300x400–400x550mm and 250x450mm"
+      columns: "400x400–575x575mm"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+    drawings_available:
+      value: true
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "DepEd EFD (2018) standard school building designs; same early-2010s drawings note re stirrup spacing"
+    fundamental_period_T1:
+      value: 0.67
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Longitudinal direction"
+    T1_transverse_infill:
+      value: 0.53
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    T1_longitudinal_bare:
+      value: 0.69
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    T1_transverse_bare:
+      value: 0.49
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 9210
+      unit: "kN"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 1026
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: "Derived: Plan 27m x 9.5m x 4 stories = 1,026m²"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "QC concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 20314800
+      unit: "PHP_2020"
+      source: "Derived: 1,026 m² × ₱19,800/m² = ₱20,314,800 (Table 4-5 unit cost × Table 5-2 floor area)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from layout Table 5-2; cost_per_m2 from Table 4-5"
+    edp_method: "NRHA"
+    failure_modes: ["Ductile side-sway collapse", "Strong-column-weak-beam"]
+    modelling_notes: "Lumped plasticity; beam hinging before column hinging; concentric CHB infill struts; shape factors increased slightly for P-M-M interaction"
+
+  C1-M_Mid:
+    id: "C1-M (Mid)"
+    label: "Mid-rise RCMRF, Mid Code"
+    city: ["Quezon City"]
+    structural_system:
+      value: "RCMRF with CHB infill (150mm solid eccentric struts)"
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    height_class: "Mid-rise"
+    stories:
+      value: 3
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Mid-Code (NSCP 1992)"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 60}
+      provenance_confidence: high
+      notes: "Construction completion 1995-2003"
+    layout:
+      value: "Plan 33m (4 bays @ 6m, 2 bays @ 2.5m, 1 bay @ 4m) x 9.25m (1 bay @ 1.75m & 2 bays @ 3.75m); Height 10.4m"
+      unit: "m"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "250x400–300x600mm"
+      columns: "350x350–400x400mm"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+    drawings_available:
+      value: false
+      source: {section: "5.1.2", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "Re-designed using NSCP 1992 provisions; DPWH Low-Code drawings as reference"
+    fundamental_period_T1:
+      value: 0.59
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Longitudinal direction"
+    T1_transverse_infill:
+      value: 0.36
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Dominated by torsional response due to CHB infills"
+    T1_longitudinal_bare:
+      value: 0.55
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    T1_transverse_bare:
+      value: 0.361
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 8210
+      unit: "kN"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 918
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: "Derived: Plan 33m x 9.25m x 3 stories = 915.75m² rounded to 918m²"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "QC concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 18176400
+      unit: "PHP_2020"
+      source: "Derived: 918 m² × ₱19,800/m² = ₱18,176,400 (Table 4-5 unit cost × Table 5-2 floor area)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from layout Table 5-2; cost_per_m2 from Table 4-5"
+    edp_method: "NRHA"
+    failure_modes: ["Side-sway collapse", "Weak-column-strong-beam (particularly hallway bay)"]
+    modelling_notes: "Elastic shear; lumped plasticity; eccentric CHB infill struts for short-column effects"
+
+  C1-M_PreLo:
+    id: "C1-M (Pre/Lo)"
+    label: "Mid-rise RCMRF, Pre/Low Code (non-ductile)"
+    city: ["Makati", "Quezon City"]
+    structural_system:
+      value: "RCMRF with CHB infill (150mm solid eccentric struts); non-ductile detailing"
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    height_class: "Mid-rise"
+    stories:
+      value: 3
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: "3-5 stories in inventory; 3-storey index building selected"
+    code_era:
+      value: "Pre-Code / Low-Code (NSCP 1972/1982)"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6 / 4-7", printed_page: 56}
+      provenance_confidence: high
+      notes: "Construction completion pre-1975 to 1994; Pre- and Low-Code grouped together"
+    layout:
+      value: "Same plan as C1-M (Mid); Plan 33m x 9.25m; Height 10.4m"
+      unit: "m"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "200x400–300x600mm"
+      columns: "350x350–450x450mm"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+    drawings_available:
+      value: false
+      source: {section: "5.1.2", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "Re-designed using NSCP 1972/1982 provisions. End-moment capacities 20-60% greater than C1-M (Mid) due to higher base shear demands; beam and column shear deficient"
+    fundamental_period_T1:
+      value: 0.50
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Longitudinal direction"
+    T1_transverse_infill:
+      value: 0.33
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Dominated by torsional response due to CHB infills"
+    T1_longitudinal_bare:
+      value: 0.47
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    T1_transverse_bare:
+      value: 0.34
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 8160
+      unit: "kN"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 918
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: "Same plan as C1-M (Mid): Plan 33m x 9.25m x 3 stories = 918m²"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "QC concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 18176400
+      unit: "PHP_2020"
+      source: "Derived: 918 m² × ₱19,800/m² = ₱18,176,400 (Table 4-5 unit cost × Table 5-2 floor area)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from layout Table 5-2; cost_per_m2 from Table 4-5"
+    edp_method: "NRHA"
+    failure_modes: ["Column and beam shear failure due to improper detailing", "Weak-column-strong-beam"]
+    modelling_notes: "Inelastic shear hinges (Zimos 2015 backbone) in series with flexural hinges; eccentric CHB infill struts; NSP invalid for this archetype"
+
+  C1-M_PreLo_FRP:
+    id: "C1-M (Pre/Lo) FRP"
+    label: "Mid-rise RCMRF, Pre/Low Code — FRP Shear Retrofit"
+    city: ["Makati", "Quezon City"]
+    structural_system:
+      value: "RCMRF with FRP-wrapped beam-columns (1st & 2nd stories); CHB infill isolated from frame"
+      unit: "dimensionless"
+      source: {section: "5.1.3", table: "Table 5-2", printed_page: 69}
+      provenance_confidence: high
+      notes: "Retrofit design using SikaWrap-230C carbon fibre fabric (0.13mm thick, 3200 GPa strength)"
+    height_class: "Mid-rise"
+    stories:
+      value: 3
+      unit: "dimensionless"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Pre/Low-Code — retrofitted to improve shear capacity"
+      unit: "dimensionless"
+      source: {section: "5.1.3", printed_page: 69}
+      provenance_confidence: high
+      notes: "Based on C1-M (Pre/Lo) re-design; FRP retrofit increases shear capacity; CHB infill isolated"
+    layout:
+      value: "Same as C1-M (Pre/Lo)"
+      unit: "m"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "Same as C1-M (Pre/Lo) plus FRP wrapping"
+      columns: "Same as C1-M (Pre/Lo) plus FRP wrapping"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+    drawings_available:
+      value: false
+      source: {section: "5.1.3", printed_page: 69}
+      provenance_confidence: high
+      notes: "Retrofit design — not an existing building"
+    fundamental_period_T1:
+      value: 0.46
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Longitudinal; bare frame only (infills isolated)"
+    T1_transverse_infill:
+      value: null
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Not applicable — infills isolated from frame in FRP retrofit"
+    T1_longitudinal_bare:
+      value: 0.44
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    T1_transverse_bare:
+      value: 0.42
+      unit: "s"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 8160
+      unit: "kN"
+      source: {section: "5.3.1", table: "Table 5-4", printed_page: 87}
+      provenance_confidence: high
+      notes: "Same weight as C1-M (Pre/Lo)"
+    total_floor_area:
+      value: 918
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: high
+      notes: "Same plan as C1-M (Pre/Lo): Plan 33m x 9.25m x 3 stories = 918m²"
+    cost_per_m2:
+      value: 22000
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — ₱22,000/m² applies a ~10% retrofit cost premium over the ₱19,800/m² concrete baseline (Table 4-5). Retrofit costs not directly tabulated in thesis."
+    replacement_cost_PHP:
+      value: 20196000
+      unit: "PHP_2020"
+      source: "Derived: 918 m² × ₱22,000/m² = ₱20,196,000 (Table 5-2 floor area × illustrative retrofit unit cost)"
+      provenance_confidence: medium
+      notes: "Unit cost is illustrative (see cost_per_m2 note); floor_area from Table 5-2"
+    edp_method: "NRHA"
+    failure_modes: ["Ductile side-sway collapse (shear failure prevented by FRP)"]
+    modelling_notes: "Shear hinges removed; same modelling as ductile archetypes; improved confinement from FRP jacketing per ACI-440; capping rotations from Li and Harries (2018)"
+
+  # ═══════════════════════════════════════════════════
+  # GROUP 2: PRIMARY — EDP PROXY (NRHA EDPs from RCMRF counterpart)
+  # ═══════════════════════════════════════════════════
+
+  PTC1-M_Mid:
+    id: "PTC1-M (Mid)"
+    label: "Mid-rise Post-Tensioned RCMRF, Mid Code (Makati)"
+    city: ["Makati"]
+    structural_system:
+      value: "RCMRF with post-tensioned beams and CHB infill"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: "PTMRFs; PT beams confirmed by Makati GSD (2018) structural drawings"
+    height_class: "Mid-rise"
+    stories:
+      value: 5
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: "5-storey archetype; EDP proxy from 3-storey C1-M (Mid) model"
+    code_era:
+      value: "Mid-Code (NSCP 1992)"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6", printed_page: 57}
+      provenance_confidence: high
+      notes: "Mid-Code PTMRFs; construction started 1994–2002"
+    layout:
+      value: "~15-Room; Plan 32m (4 bays @ 8m) x 9m (2 bays @ 3m & 6m); Height 16.45m"
+      unit: "m"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "300x400–300x800mm"
+      columns: "500x500–850x850mm"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+    drawings_available:
+      value: false
+      source: {section: "5.1.5", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "Re-designed; detailed PTMRF model not built — EDP proxy approach used instead"
+    fundamental_period_T1:
+      value: 0.45
+      unit: "s"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "T_avg used in P-58 (= EDP proxy from C1-M Mid; T_avg = 0.45s)"
+    seismic_weight_W:
+      value: null
+      unit: "kN"
+      source: {}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Weight not tabulated in thesis text for PTC1-M archetypes; total floor area 1,080m² per Table 6-5"
+    total_floor_area:
+      value: 1080
+      unit: "m²"
+      source: {section: "6.2", table: "Table 6-5", printed_page: 131}
+      provenance_confidence: high
+      notes: "Total floor area from Table 6-5 (Jeswani 2021, p.131)"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "Makati concrete construction; QC concrete median ₱19,800/m² per Table 4-5 used as basis (no separate Makati-specific unit cost tabulated)"
+    replacement_cost_PHP:
+      value: 21384000
+      unit: "PHP_2020"
+      source: "Derived: 1,080 m² × ₱19,800/m² = ₱21,384,000 (Table 6-5 floor area × Table 4-5 unit cost)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from Table 6-5; cost_per_m2 from Table 4-5"
+    edp_method: "NRHA (via EDP proxy from C1-M Mid)"
+    edp_proxy_source: "C1-M (Mid)"
+    failure_modes: ["Side-sway collapse", "Possible PT anchorage failure", "Possibly less residual drifts vs. C1-M (Mid)"]
+    modelling_notes: "EDPs of C1-M (Mid) assigned. Different structural and non-structural components used to reflect Makati building typologies and PT repair costs"
+
+  PTC1-M_Hi:
+    id: "PTC1-M (Hi)"
+    label: "Mid-rise Post-Tensioned RCMRF, High Code (Makati)"
+    city: ["Makati"]
+    structural_system:
+      value: "RCMRF with post-tensioned beams and CHB infill"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: "PTMRFs; confirmed by Makati GSD (2018) structural drawings"
+    height_class: "Mid-rise"
+    stories:
+      value: 5
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: "5-storey archetype; EDP proxy from 4-storey C1-M (Hi) model"
+    code_era:
+      value: "High-Code (NSCP 2001+)"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6", printed_page: 57}
+      provenance_confidence: high
+      notes: "Construction started 2003+"
+    layout:
+      value: "~30-Room; Plan 64m (8 bays @ ~8m) x 8.5m (2 bays @ 2.5m & 6m); Height 18.6m"
+      unit: "m"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "250x400–300x600mm"
+      columns: "400x400–750x750mm"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+    drawings_available:
+      value: true
+      source: {section: "5.1.5", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "Drawings available from Makati GSD (2018); detailed PTMRF model not built — EDP proxy approach"
+    fundamental_period_T1:
+      value: 0.65
+      unit: "s"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "T_avg used in P-58 (= EDP proxy from C1-M Hi; T_avg = 0.65s)"
+    seismic_weight_W:
+      value: null
+      unit: "kN"
+      source: {}
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Weight not tabulated in thesis text for PTC1-M archetypes; total floor area 2,737m² per Table 6-5"
+    total_floor_area:
+      value: 2737
+      unit: "m²"
+      source: {section: "6.2", table: "Table 6-5", printed_page: 131}
+      provenance_confidence: high
+      notes: "Total floor area from Table 6-5 (Jeswani 2021, p.131)"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "Makati concrete construction; QC concrete median ₱19,800/m² per Table 4-5 used as basis"
+    replacement_cost_PHP:
+      value: 54192600
+      unit: "PHP_2020"
+      source: "Derived: 2,737 m² × ₱19,800/m² = ₱54,192,600 (Table 6-5 floor area × Table 4-5 unit cost)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from Table 6-5; cost_per_m2 from Table 4-5"
+    edp_method: "NRHA (via EDP proxy from C1-M Hi)"
+    edp_proxy_source: "C1-M (Hi)"
+    failure_modes: ["Side-sway collapse", "Same as C1-M (Hi); Less cracking"]
+    modelling_notes: "EDPs of C1-M (Hi) assigned. Different structural and non-structural components used to reflect Makati building typologies and PT repair costs"
+
+  # ═══════════════════════════════════════════════════
+  # GROUP 3: PRIMARY — SIMPLIFIED (FEMA P-58 / HAZUS / UPD-ICE)
+  # ═══════════════════════════════════════════════════
+
+  C1-L_PreLo:
+    id: "C1-L (Pre/Lo)"
+    label: "Low-rise RCMRF, Pre/Low Code (non-ductile)"
+    city: ["Makati", "Quezon City"]
+    structural_system:
+      value: "RCMRF with CHB infill; non-ductile detailing"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: ""
+    height_class: "Low-rise"
+    stories:
+      value: 2
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Pre-Code / Low-Code (NSCP pre-1972 / 1972/1982)"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6 / 4-7", printed_page: 56}
+      provenance_confidence: high
+      notes: "Construction completion pre-1975 to 1994"
+    layout:
+      value: "~6-Classroom; Plan 27m (7 bays @ 3.5-4m) x 7m (1 bay); Height 7m"
+      unit: "m"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "250x300–250x600mm"
+      columns: "200x300–300x300mm"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 72}
+      provenance_confidence: high
+    drawings_available:
+      value: false
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "Re-designed; simplified model used"
+    fundamental_period_T1:
+      value: 0.30
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: "Code-based period from Table 5-5; T_avg = 0.30s in Table 6-6"
+    seismic_weight_W:
+      value: 3715
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 599
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    cost_per_m2:
+      value: 12000
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — older pre/low-code RCMRF buildings are expected to have lower replacement cost than the ₱19,800/m² median for modern RC. ₱12,000/m² is a conservative illustrative value; no specific unit cost for pre-1994 construction is tabulated in Table 4-5."
+    replacement_cost_PHP:
+      value: 7188000
+      unit: "PHP_2020"
+      source: "Derived: 599 m² × ₱12,000/m² = ₱7,188,000 (Table 5-5 floor area × illustrative unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area from Table 5-5 (high confidence); unit cost is illustrative (medium confidence)"
+    edp_method: "Simplified (FEMA P-58 / UPD-ICE)"
+    hazus_equivalent: "C1-L (Pre)"
+    failure_modes: ["Non-Ductile; Similar to C1-M (Pre/Lo); Using general computational Philippine fragility (UPD-ICE)"]
+    modelling_notes: "Soil C and Soil D EDPs generated; UPD-ICE Complete fragility converted to collapse median Sa"
+
+  C1-H_Hi:
+    id: "C1-H (Hi)"
+    label: "High-rise RCMRF with basement, High Code (Makati)"
+    city: ["Makati"]
+    structural_system:
+      value: "RCMRF with basement (and roof deck penthouse)"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: ""
+    height_class: "High-rise"
+    stories:
+      value: 10
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: "10 stories + 1 basement + 1 roof deck penthouse = 12 levels total"
+    code_era:
+      value: "High-Code (NSCP 2001+)"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6", printed_page: 57}
+      provenance_confidence: high
+      notes: ""
+    layout:
+      value: "Plan 70m (14 bays @ 5m) x 28.5m (3 bays @ 9.5m); Height ~36m"
+      unit: "m"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "300x600–450x800mm"
+      columns: "300x600–400x400mm"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+    drawings_available:
+      value: true
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "Structural drawings available; simplified model used for scope"
+    fundamental_period_T1:
+      value: 1.32
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: "Code-based period from Table 5-5; T_avg = 1.32s in Table 6-6"
+    seismic_weight_W:
+      value: 191849
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 17577
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "QC concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54). High-Code Makati building."
+    replacement_cost_PHP:
+      value: 348024600
+      unit: "PHP_2020"
+      source: "Derived: 17,577 m² × ₱19,800/m² = ₱348,024,600 (Table 5-5 floor area × Table 4-5 unit cost)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from Table 5-5; cost_per_m2 from Table 4-5"
+    edp_method: "Simplified (FEMA P-58 / HAZUS High-Code)"
+    hazus_equivalent: "C1-H (High)"
+    failure_modes: ["Ductile side-sway collapse"]
+    modelling_notes: "HAZUS High-Code pushover properties selected directly. Only on Soil C sites. Judgement-based collapse fragility"
+
+  S1-M_Hi:
+    id: "S1-M (Hi)"
+    label: "Mid-rise Steel MRF, High Code (Quezon City)"
+    city: ["Quezon City"]
+    structural_system:
+      value: "Steel moment resisting frame (SMRF) with concrete-encased columns and CHB infill"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: ""
+    height_class: "Mid-rise"
+    stories:
+      value: 4
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: "4 stories + 1 roof deck penthouse = 5 levels total"
+    code_era:
+      value: "High-Code (NSCP 2001+)"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 60}
+      provenance_confidence: high
+      notes: ""
+    layout:
+      value: "Irregular plan: 48.5m (typ. 4.5m bays) x 9.5m (2.5m & 7m bays) + 28.5x7m + 4.5x12m; Height 16.3m"
+      unit: "m"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: ""
+    member_sizes:
+      beams: "W12x72–W12x96 steel"
+      columns: "W12x106–W12x150 concrete-encased steel"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+    drawings_available:
+      value: true
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: "Available structural drawings"
+    fundamental_period_T1:
+      value: 0.84
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: "Code-based period; T_avg = 0.84s in Table 6-6"
+    seismic_weight_W:
+      value: 30767
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 2783
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    cost_per_m2:
+      value: 30500
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "QC steel construction median ₱30,500/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 84881500
+      unit: "PHP_2020"
+      source: "Derived: 2,783 m² × ₱30,500/m² = ₱84,881,500 (Table 5-5 floor area × Table 4-5 steel unit cost)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from Table 5-5; cost_per_m2 from Table 4-5 (steel)"
+    edp_method: "Simplified (FEMA P-58 / UPD-ICE computational pushover curves)"
+    hazus_equivalent: "S1-M (High)"
+    failure_modes: ["Residual plastic drifts", "Possible broken weld connections (FEMA 2015)"]
+    modelling_notes: "UPD-ICE computational pushover curves (Pacheco et al., 2014) used. Soil C and Soil D EDPs. Judgement-based collapse fragility"
+
+  # ═══════════════════════════════════════════════════
+  # GROUP 4: SECONDARY — SIMPLIFIED
+  # ═══════════════════════════════════════════════════
+
+  CWS-L:
+    id: "CWS-L"
+    label: "Low-rise RCMRF with wooden frame (mixed construction)"
+    city: ["Quezon City"]
+    structural_system:
+      value: "RCMRF with wooden frame infill"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: "'Semi-Concrete' type buildings"
+    height_class: "Low-rise"
+    stories:
+      value: 2
+      unit: "dimensionless"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Unknown / N/A (pre-code era semi-concrete construction)"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: medium
+      notes: ""
+    layout:
+      value: "Avg. Floor Area 600m²; Height 6.9m"
+      unit: "m"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    drawings_available:
+      value: false
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: ""
+    fundamental_period_T1:
+      value: 0.30
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: "Code-based period; T_avg = 0.30s in Table 6-6"
+    seismic_weight_W:
+      value: 2786
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 599
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: "Note: Table 5-5 shows 600m² avg; Table 6-5 shows 599m² for total floor area"
+    cost_per_m2:
+      value: 12000
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — semi-concrete mixed construction; no specific unit cost in Table 4-5. ₱12,000/m² is a conservative illustrative estimate."
+    replacement_cost_PHP:
+      value: 7188000
+      unit: "PHP_2020"
+      source: "Derived: 599 m² × ₱12,000/m² = ₱7,188,000 (Table 5-5 floor area × illustrative unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area from Table 5-5 (high confidence); unit cost is illustrative (medium confidence)"
+    edp_method: "Simplified (FEMA P-58 / HAZUS / UPD-ICE heuristic)"
+    hazus_equivalent: "C1-L (Mid)"
+    failure_modes: ["Based on heuristic or empirical Philippine fragilities (UPD-ICE)"]
+    modelling_notes: "Soil C EDPs only"
+
+  S3-L:
+    id: "S3-L"
+    label: "Low-rise light steel frame with bracing (prefab type)"
+    city: ["Quezon City"]
+    structural_system:
+      value: "Light steel frame and bracing"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: "'Prefab' type — Lopez (2018-2020)"
+    height_class: "Low-rise"
+    stories:
+      value: 1
+      unit: "dimensionless"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Pre-Code to Low-Code"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: medium
+      notes: ""
+    layout:
+      value: "Avg. Floor Area 110m²; Height 4.0m"
+      unit: "m"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    drawings_available:
+      value: false
+      source: {}
+      provenance_confidence: high
+      notes: ""
+    fundamental_period_T1:
+      value: 0.14
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: "Code-based period; T_avg = 0.14s in Table 6-6"
+    seismic_weight_W:
+      value: 138
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 110
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    cost_per_m2:
+      value: 30500
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "QC steel construction median ₱30,500/m² per Table 4-5 (Jeswani 2021, p.54). Light steel prefab."
+    replacement_cost_PHP:
+      value: 3355000
+      unit: "PHP_2020"
+      source: "Derived: 110 m² × ₱30,500/m² = ₱3,355,000 (Table 5-5 floor area × Table 4-5 steel unit cost)"
+      provenance_confidence: high
+      notes: "Single source: floor_area from Table 5-5; cost_per_m2 from Table 4-5 (steel)"
+    edp_method: "Simplified (FEMA P-58 / HAZUS)"
+    hazus_equivalent: "S3-L (Low)"
+    failure_modes: ["Based on empirical Philippine fragilities (UPD-ICE)"]
+    modelling_notes: "Soil C EDPs only; residual drift limit 2.0% (easiest to re-center)"
+
+  CHB-L:
+    id: "CHB-L"
+    label: "Low-rise CHB masonry building"
+    city: ["Quezon City"]
+    structural_system:
+      value: "Reinforced or unreinforced concrete hollow block (CHB) masonry"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: ""
+    height_class: "Low-rise"
+    stories:
+      value: 1
+      unit: "dimensionless"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Pre-Code"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: medium
+      notes: "'Prefab' and 'Semi-Concrete' type"
+    layout:
+      value: "Avg. Floor Area 100m²; Height 4.0m"
+      unit: "m"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    drawings_available:
+      value: false
+      source: {}
+      provenance_confidence: high
+      notes: ""
+    fundamental_period_T1:
+      value: 0.14
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 236
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 100
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    cost_per_m2:
+      value: 12000
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — CHB masonry; no specific unit cost in Table 4-5. ₱12,000/m² is a conservative illustrative estimate."
+    replacement_cost_PHP:
+      value: 1200000
+      unit: "PHP_2020"
+      source: "Derived: 100 m² × ₱12,000/m² = ₱1,200,000 (Table 5-5 floor area × illustrative unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area from Table 5-5 (high confidence); unit cost is illustrative (medium confidence)"
+    edp_method: "Simplified (FEMA P-58 / HAZUS URM)"
+    hazus_equivalent: "URM-L (Pre)"
+    failure_modes: ["Collapse driven", "CHB/infill in-plane and out-of-plane failure"]
+    modelling_notes: "Soil C EDPs only"
+
+  W-L:
+    id: "W-L"
+    label: "Low-rise wood frame building (Gabaldon / Wood type)"
+    city: ["Quezon City"]
+    structural_system:
+      value: "Wooden frame and walls"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: "'Wood' and 'Gabaldon' building names"
+    height_class: "Low-rise"
+    stories:
+      value: 1
+      unit: "dimensionless"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Pre-Code"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: medium
+      notes: ""
+    layout:
+      value: "Avg. Floor Area 369m²; Height 4.0m"
+      unit: "m"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    drawings_available:
+      value: false
+      source: {}
+      provenance_confidence: high
+      notes: ""
+    fundamental_period_T1:
+      value: 0.14
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 111
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 369
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    cost_per_m2:
+      value: 8000
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — Gabaldon/wood frame; no specific unit cost in Table 4-5. ₱8,000/m² is a conservative illustrative estimate for wood construction."
+    replacement_cost_PHP:
+      value: 2952000
+      unit: "PHP_2020"
+      source: "Derived: 369 m² × ₱8,000/m² = ₱2,952,000 (Table 5-5 floor area × illustrative unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area from Table 5-5 (high confidence); unit cost is illustrative (medium confidence)"
+    edp_method: "Simplified (FEMA P-58 / HAZUS W1)"
+    hazus_equivalent: "W1-L (Pre)"
+    failure_modes: ["Collapse driven; light-weight — more resilient than CHB-L"]
+    modelling_notes: "Soil C EDPs only; no soft-storey collapse mode assigned"
+
+  N-L:
+    id: "N-L"
+    label: "Low-rise non-engineered wood frame with CHB/G.I. (makeshift)"
+    city: ["Quezon City"]
+    structural_system:
+      value: "Wood frame with CHB or galvanized iron (G.I.) sheet infill"
+      unit: "dimensionless"
+      source: {section: "5.1.5", table: "Table 5-3", printed_page: 73}
+      provenance_confidence: high
+      notes: "'Makeshift' building names and types — Bautista et al. (2014)"
+    height_class: "Low-rise"
+    stories:
+      value: 1
+      unit: "dimensionless"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    code_era:
+      value: "Pre-Code / Non-engineered"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: medium
+      notes: ""
+    layout:
+      value: "Avg. Floor Area 145m²; Height 4.0m"
+      unit: "m"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    drawings_available:
+      value: false
+      source: {}
+      provenance_confidence: high
+      notes: ""
+    fundamental_period_T1:
+      value: 0.14
+      unit: "s"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    seismic_weight_W:
+      value: 29
+      unit: "kN"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 145
+      unit: "m²"
+      source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+      provenance_confidence: high
+      notes: ""
+    cost_per_m2:
+      value: 6000
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — non-engineered makeshift wood/CHB/GI construction; no specific unit cost in Table 4-5. ₱6,000/m² is a conservative illustrative estimate."
+    replacement_cost_PHP:
+      value: 870000
+      unit: "PHP_2020"
+      source: "Derived: 145 m² × ₱6,000/m² = ₱870,000 (Table 5-5 floor area × illustrative unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area from Table 5-5 (high confidence); unit cost is illustrative (medium confidence)"
+    edp_method: "Simplified (FEMA P-58 / HAZUS ~W1)"
+    hazus_equivalent: "~W1-L (Pre)"
+    failure_modes: ["Collapse driven; CHB/G.I. infills likely to fail"]
+    modelling_notes: "Soil C EDPs only; no soft-storey collapse mode assigned"
+
+  # ═══════════════════════════════════════════════════
+  # GROUP 5: MERGED — No independent model or fragility
+  # ═══════════════════════════════════════════════════
+
+  PC-L:
+    id: "PC-L"
+    label: "Low-rise Precast RCMRF or RCSW (merged)"
+    city: ["Quezon City"]
+    structural_system:
+      value: "Precast RCMRF or reinforced concrete shear walls"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 200
+      unit: "m²"
+      source: {}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — no floor area tabulated for PC-L in thesis; 200m² estimated for a 1-story precast building"
+    cost_per_m2:
+      value: 15000
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — precast construction; no specific unit cost in Table 4-5. ₱15,000/m² is an illustrative estimate between concrete and older construction costs."
+    replacement_cost_PHP:
+      value: 3000000
+      unit: "PHP_2020"
+      source: "Derived: 200 m² × ₱15,000/m² = ₱3,000,000 (illustrative floor area × illustrative unit cost)"
+      provenance_confidence: medium
+      notes: "Both floor_area and cost_per_m2 are illustrative for this merged archetype"
+    stories:
+      value: 1
+      unit: "dimensionless"
+      source: {}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — no story count tabulated for PC-L; 1 story assumed"
+    edp_method: "Merged with C1-L (Pre/Lo)"
+    merged_into: "C1-L (Pre/Lo)"
+    merge_rationale: "Precast RCMRF or precast RCSW merged with standard C1-L (Pre/Lo); limited presence in building stock"
+    notes: "PC-L may not exist in QC portfolio (PC1 may not exist per Table 4-7)"
+
+  PTC1-M_PreLo_merged:
+    id: "PTC1-M (Pre/Lo)"
+    label: "Mid-rise Pre/Low Code PTMRF (merged)"
+    city: ["Makati"]
+    structural_system:
+      value: "RCMRF with post-tensioned girders; non-ductile"
+      unit: "dimensionless"
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 918
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: medium
+      notes: "Assumed same as C1-M (Pre/Lo) parent: Plan 33m x 9.25m x 3 stories = 918m²"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "Concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 18176400
+      unit: "PHP_2020"
+      source: "Derived: 918 m² × ₱19,800/m² = ₱18,176,400 (assumed floor area × Table 4-5 unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area assumed equal to C1-M (Pre/Lo) parent; cost_per_m2 from Table 4-5"
+    stories:
+      value: 3
+      unit: "dimensionless"
+      source: {section: "5.1.1", table: "Table 5-1", printed_page: 67}
+      provenance_confidence: medium
+      notes: "Assumed 3 stories per parent archetype C1-M (Pre/Lo)"
+    edp_method: "Merged with C1-M (Pre/Lo)"
+    merged_into: "C1-M (Pre/Lo)"
+    merge_rationale: "No significant differences in non-structural contents, non-ductile mechanisms, and expected global performance"
+    notes: "Only 1 of 4 buildings is pre-code; Low-Code, construction starting 1993/94 (Makati GSD, 2018)"
+
+  PTC4-M_Lo_merged:
+    id: "PTC4-M (Lo)"
+    label: "Mid-rise Low Code PTMRF + RCSW (merged)"
+    city: ["Makati"]
+    structural_system:
+      value: "RCMRF with post-tensioned girders and elevator core RCSW"
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6", printed_page: 57}
+      provenance_confidence: high
+      notes: "Available structural drawings; only 1 building"
+    total_floor_area:
+      value: 1200
+      unit: "m²"
+      source: {}
+      provenance_confidence: medium
+      notes: "*ILLUSTRATIVE* — no floor area tabulated in thesis for PTC4-M; 1,200m² estimated for a 4-story PTMRF+RCSW building"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "Concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 23760000
+      unit: "PHP_2020"
+      source: "Derived: 1,200 m² × ₱19,800/m² = ₱23,760,000 (illustrative floor area × Table 4-5 unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area is illustrative (medium confidence); cost_per_m2 from Table 4-5 (high confidence)"
+    stories:
+      value: 4
+      unit: "dimensionless"
+      source: {section: "4.4.4", table: "Table 4-6", printed_page: 57}
+      provenance_confidence: medium
+      notes: "4 stories assumed"
+    edp_method: "Merged with PTC1-M (Mid)"
+    merged_into: "PTC1-M (Mid)"
+    merge_rationale: "Limited numbers; dual system expected marginally more resilient"
+    notes: ""
+
+  C4-L_LoMid_merged:
+    id: "C4-L (Lo/Mid)"
+    label: "Low-rise RCMRF + RCSW, Low-to-Mid Code (merged)"
+    city: ["Makati", "Quezon City"]
+    structural_system:
+      value: "RCMRF with CHB infill and transverse shear walls (RCSWs)"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: high
+      notes: ""
+    total_floor_area:
+      value: 597
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: medium
+      notes: "Assumed same as C1-L (Mid/Hi) parent: Plan 31.5m x 9.5m x 2 stories = 597m²"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "Concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 11826600
+      unit: "PHP_2020"
+      source: "Derived: 597 m² × ₱19,800/m² = ₱11,826,600 (assumed floor area × Table 4-5 unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area assumed equal to C1-L (Mid/Hi) parent; cost_per_m2 from Table 4-5"
+    stories:
+      value: 2
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: medium
+      notes: "Low-rise: 2 stories assumed per parent archetype C1-L (Mid/Hi)"
+    edp_method: "Merged with C1-L (Mid/Hi)"
+    merged_into: "C1-L (Mid/Hi)"
+    merge_rationale: "Slightly more resilient than RCMRF-only counterpart but limited numbers; merged with higher code era"
+    notes: "Confirmed RCSW by rebar scanning (Makati)"
+
+  C4-M_Mid_merged:
+    id: "C4-M (Mid)"
+    label: "Mid-rise RCMRF + RCSW, Mid Code (merged)"
+    city: ["Quezon City"]
+    structural_system:
+      value: "RCMRF with CHB infill and transverse RCSWs"
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: high
+      notes: "Possible use of 1994 RCMRF/SW DPWH Standard"
+    total_floor_area:
+      value: 918
+      unit: "m²"
+      source: {section: "5.1.4", table: "Table 5-2", printed_page: 70}
+      provenance_confidence: medium
+      notes: "Assumed same as C1-M parent archetype: Plan 33m x 9.25m x 3 stories = 918m²"
+    cost_per_m2:
+      value: 19800
+      unit: "PHP_2020/m²"
+      source: {section: "4.5", table: "Table 4-5", printed_page: 54}
+      provenance_confidence: high
+      notes: "Concrete construction median ₱19,800/m² per Table 4-5 (Jeswani 2021, p.54)"
+    replacement_cost_PHP:
+      value: 18176400
+      unit: "PHP_2020"
+      source: "Derived: 918 m² × ₱19,800/m² = ₱18,176,400 (assumed floor area × Table 4-5 unit cost)"
+      provenance_confidence: medium
+      notes: "Floor area assumed equal to C1-M mid-rise parent; cost_per_m2 from Table 4-5"
+    stories:
+      value: 3
+      unit: "dimensionless"
+      source: {section: "4.4.5", table: "Table 4-7", printed_page: 61}
+      provenance_confidence: medium
+      notes: "Mid-rise: 3 stories assumed per parent archetype C1-M (Hi)"
+    edp_method: "Merged with C1-M (Hi)"
+    merged_into: "C1-M (Hi)"
+    merge_rationale: "Slightly more resilient than RCMRF-only counterpart; limited numbers; merged with higher code era"
+    notes: ""

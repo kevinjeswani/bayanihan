@@ -1,0 +1,1032 @@
+# Chapter 4: Portfolio Inventory Characteristics
+# Source: Jeswani, K.K. (2021). MASc thesis, University of Toronto.
+#   "The Seismic Resilience of Critical Spatially-Distributed Building Portfolios"
+#   Chapter 4: Makati and Quezon City Public-School Building Stock (pp. 36–64)
+#
+# Schema: every leaf value uses:
+#   value:      <v>
+#   unit:       "count | m2 | km2 | PHP/m2 | dimensionless | ..."
+#   source:     { section: "4.x", table/figure: "...", printed_page: <n> }
+#   provenance_confidence: high | medium | low
+#   notes:      ""   # "REVIEW NEEDED: ..." if low
+
+# ---------------------------------------------------------------------------
+# 1. PORTFOLIO TOTALS
+# ---------------------------------------------------------------------------
+portfolio_totals:
+  description: "Combined Makati + Quezon City public-school building portfolio"
+
+  total_buildings_approximate:
+    value: 1021
+    unit: "count"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: medium
+    notes: >
+      Text states "over 1,000 buildings". Makati=96, QC=925 (as of Jan 2018
+      after demolition removal). 96+925=1021. The thesis says "approximately 925"
+      for QC so true total is approximately 1,021. Some sources round to 1,000+.
+
+  total_students_served:
+    value: 560000
+    unit: "count"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: medium
+    notes: "Text: 'over 560,000 students'. Enrollment years differ: Makati=2017-18, QC=2015-16."
+
+  cities_covered:
+    value: ["Makati City", "Quezon City"]
+    unit: "dimensionless"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: high
+    notes: ""
+
+# ---------------------------------------------------------------------------
+# 2. MAKATI CITY PORTFOLIO
+# ---------------------------------------------------------------------------
+makati:
+  description: "Makati City public-school building portfolio"
+
+  total_buildings:
+    value: 96
+    unit: "count"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: high
+    notes: "96 buildings across 40 elementary/secondary school campuses + 1 university campus + 1 DepEd office"
+
+  campus_count:
+    value: 40
+    unit: "count"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: high
+    notes: "40 elementary/secondary school campuses; plus one university campus and one DepEd office"
+
+  area_km2:
+    value: 26
+    unit: "km2"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: high
+    notes: "Distributed across 26 km² in Makati City"
+
+  enrollment_reference_year:
+    value: "2017-2018"
+    unit: "dimensionless"
+    source: { section: "4.2", printed_page: 42 }
+    provenance_confidence: high
+    notes: "DepEd Makati (2018) provided 2017-2018 student enrolment"
+
+  rvs_buildings_screened:
+    value: 53
+    unit: "count"
+    source: { section: "4.3.1", printed_page: 44 }
+    provenance_confidence: high
+    notes: ""
+
+  rvs_coverage_percent:
+    value: 55
+    unit: "percent"
+    source: { section: "4.3.1", printed_page: 44 }
+    provenance_confidence: high
+    notes: "53 of 96 buildings = 55%"
+
+  rebar_scanned_buildings:
+    value: 5
+    unit: "count"
+    source: { section: "4.3.1", printed_page: 44 }
+    provenance_confidence: high
+    notes: "Rebar scanning with SY+2 (2018) to distinguish RCSWs from CHB walls in older buildings"
+
+  rcsw_confirmed_by_rebar_scan:
+    value: 2
+    unit: "count"
+    source: { section: "4.3.1", printed_page: 45 }
+    provenance_confidence: high
+    notes: "Only 2 of 5 rebar-scanned 2-storey buildings confirmed to have RCSWs"
+
+  plan_shape_rectangular_percent:
+    value: 73
+    unit: "percent"
+    source: { section: "4.4.2", figure: "Figure 4-9a", printed_page: 53 }
+    provenance_confidence: high
+    notes: "Most common plan shape in Makati school building stock"
+
+  code_era_distribution_midrise:
+    description: "3- to 5-storey (mid-rise) RCMRF code era distribution by building count"
+    low_code:
+      value: 22
+      unit: "percent"
+      source: { section: "4.4.2", figure: "Figure 4-9b", printed_page: 53 }
+      provenance_confidence: high
+      notes: ""
+    mid_code:
+      value: 42
+      unit: "percent"
+      source: { section: "4.4.2", figure: "Figure 4-9b", printed_page: 53 }
+      provenance_confidence: high
+      notes: ""
+    high_code:
+      value: 24
+      unit: "percent"
+      source: { section: "4.4.2", figure: "Figure 4-9b", printed_page: 53 }
+      provenance_confidence: high
+      notes: ""
+
+  inventory_data_fields:
+    value:
+      - "construction start/completion date"
+      - "number of stories"
+      - "approximate floor areas per building"
+      - "number of academic classrooms"
+      - "number of instructional rooms"
+      - "number of function rooms"
+      - "approximate lot areas"
+      - "school campus addresses"
+    unit: "dimensionless"
+    source: { section: "4.4.2", table: "Table 4-4", printed_page: 52 }
+    provenance_confidence: high
+    notes: "8 fields in original Makati inventory"
+
+# ---------------------------------------------------------------------------
+# 3. QUEZON CITY PORTFOLIO
+# ---------------------------------------------------------------------------
+quezon_city:
+  description: "Quezon City public-school building portfolio"
+
+  total_buildings:
+    value: 925
+    unit: "count"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: medium
+    notes: >
+      Text states "approximately 925 buildings" as of Jan 2018 (after removal of
+      ~139 demolished buildings from the 2013 inventory of ~1071 entries).
+      Section 4.4.3 uses 932 for the post-demolition count before final exclusions.
+
+  total_buildings_jan2018_pre_exclusion:
+    value: 932
+    unit: "count"
+    source: { section: "4.4.3", printed_page: 54 }
+    provenance_confidence: high
+    notes: >
+      932 school buildings in QC as of January 2018, per Section 4.4.3.
+      This is after removing ~139 demolished buildings from 2013 inventory.
+      The '~925' in Section 4.1.2 rounds this figure. Used 932 for archetype analysis.
+
+  buildings_demolished_2013_2017:
+    value: 139
+    unit: "count"
+    source: { section: "4.4.3", printed_page: 54 }
+    provenance_confidence: high
+    notes: "~90 of 139 demolished were 1-storey structures. Removed from 2013 inventory."
+
+  demolished_1storey_count:
+    value: 90
+    unit: "count"
+    source: { section: "4.4.3", printed_page: 54 }
+    provenance_confidence: high
+    notes: "Of 139 demolished buildings between 2013-2017, 90 were 1-storey"
+
+  campus_count:
+    value: 142
+    unit: "count"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: high
+    notes: "142 schools across Quezon City"
+
+  area_km2:
+    value: 165
+    unit: "km2"
+    source: { section: "4.1.2", printed_page: 39 }
+    provenance_confidence: high
+    notes: "Distributed across 165 km² in Quezon City"
+
+  enrollment_reference_year:
+    value: "2015-2016"
+    unit: "dimensionless"
+    source: { section: "4.2", printed_page: 42 }
+    provenance_confidence: high
+    notes: "DepEd (2015) provided 2015-2016 student enrolment per school"
+
+  rvs_buildings_screened:
+    value: 129
+    unit: "count"
+    source: { section: "4.3.2", printed_page: 48 }
+    provenance_confidence: high
+    notes: ""
+
+  rvs_coverage_percent:
+    value: 14
+    unit: "percent"
+    source: { section: "4.3.2", printed_page: 48 }
+    provenance_confidence: high
+    notes: "129 of 932 buildings = ~13.8%, rounded to 14% in text"
+
+  plan_shape_rectangular_percent:
+    value: 95
+    unit: "percent"
+    source: { section: "4.4.3", figure: "Figure 4-10a", printed_page: 55 }
+    provenance_confidence: high
+    notes: "Rectangular plan-shaped buildings dominated the QC building stock"
+
+  code_era_distribution_midrise:
+    description: "3- to 4-storey (mid-rise) structure code era distribution"
+    mid_code:
+      value: 17
+      unit: "percent"
+      source: { section: "4.4.3", figure: "Figure 4-10b", printed_page: 55 }
+      provenance_confidence: high
+      notes: ""
+    high_code:
+      value: 32
+      unit: "percent"
+      source: { section: "4.4.3", figure: "Figure 4-10b", printed_page: 55 }
+      provenance_confidence: high
+      notes: ""
+
+  rcmrf_total_percent:
+    value: 73
+    unit: "percent"
+    source: { section: "4.4.5", printed_page: 61 }
+    provenance_confidence: high
+    notes: >
+      QC school building stock primarily consisted of RCMRFs, totaling ~73%
+      (most probable bound). Additional ~5% possible by C4-M (1994 DPWH standard).
+
+  c4m_possible_percent:
+    value: 5
+    unit: "percent"
+    source: { section: "4.4.5", printed_page: 61 }
+    provenance_confidence: medium
+    notes: "Possible contribution from C4-M (RCMRF/SW dual system per 1994 DPWH standard)"
+
+  newer_larger_buildings_percent:
+    value: 47
+    unit: "percent"
+    source: { section: "4.4.5", figure: "Figure 4-13", printed_page: 62 }
+    provenance_confidence: high
+    notes: >
+      C1-M (Hi) and S1-M (Hi) archetypes combined account for ~47% of QC building stock
+      by count. Reflects strong city prioritization of building replacement.
+
+  inventory_data_fields:
+    value:
+      - "building name"
+      - "construction type"
+      - "construction completion date"
+      - "number of stories"
+      - "ground floor footprint area"
+      - "number of instructional/non-instructional rooms"
+      - "number of comfort rooms"
+      - "total floor areas"
+      - "typical room floor area"
+      - "funding source"
+      - "contract amount per building"
+      - "campus address"
+    unit: "dimensionless"
+    source: { section: "4.4.3", table: "Table 4-5", printed_page: 54 }
+    provenance_confidence: high
+    notes: "12 fields in original QC inventory per campus"
+
+  contract_cost_concrete_median:
+    value: 19800
+    unit: "PHP/m2"
+    source: { section: "4.4.3", table: "Table 4-5", printed_page: 54 }
+    provenance_confidence: high
+    notes: >
+      Lognormal distribution fit for 98 'Concrete' buildings (built 2010+, inflation-adjusted).
+      Median e^μ = ₱19,800/m². Dispersion β = σ_ln(X) = 0.29.
+
+  contract_cost_concrete_dispersion:
+    value: 0.29
+    unit: "dimensionless"
+    source: { section: "4.4.3", table: "Table 4-5", printed_page: 54 }
+    provenance_confidence: high
+    notes: "β = σ_ln(X) for lognormal distribution of 'Concrete' building contract amounts"
+
+  contract_cost_steel_median:
+    value: 30500
+    unit: "PHP/m2"
+    source: { section: "4.4.3", table: "Table 4-5", printed_page: 54 }
+    provenance_confidence: high
+    notes: >
+      Lognormal distribution fit for 13 'Steel' buildings (built 2010+, inflation-adjusted).
+      Median e^μ = ₱30,500/m². Dispersion β = 0.20.
+
+  contract_cost_steel_dispersion:
+    value: 0.20
+    unit: "dimensionless"
+    source: { section: "4.4.3", table: "Table 4-5", printed_page: 54 }
+    provenance_confidence: high
+    notes: "β = σ_ln(X) for lognormal distribution of 'Steel' building contract amounts"
+
+  excluded_from_analysis:
+    description: "Buildings excluded from portfolio analysis due to insignificant contribution (<0.1%)"
+    value:
+      - type: "PC-L (precast)"
+        count: 1
+      - type: "MH (manufactured housing unit)"
+        count: 2
+      - type: "Unknown (no construction date/stories/floor area/similar name)"
+        count: 5
+    unit: "count"
+    source: { section: "4.4.5", printed_page: 61 }
+    provenance_confidence: high
+    notes: "Total excluded: 8 buildings"
+
+# ---------------------------------------------------------------------------
+# 4. CONSTRUCTION CODE ERAS
+# ---------------------------------------------------------------------------
+construction_code_eras:
+  description: >
+    Code era sorting matrix developed by the author based on UPD-ICE (Pacheco et al., 2014;
+    Tingatinga E. et al., 2019) and subject matter experts (Lopez, 2018-2020).
+    Two-year lag assumed between construction start and NSCP edition implemented.
+  source: { section: "4.4.1", table: "Table 4-3", printed_page: 52 }
+
+  eras:
+    pre_code:
+      label: "Pre-Code"
+      code_abbreviation: "Pre"
+      nscp_edition: "Pre-1972"
+      makati_construction_start_before: 1974
+      makati_construction_completion_before: 1975
+      qc_construction_completion_before: 1975
+      provenance_confidence: high
+      notes: ""
+
+    low_code:
+      label: "Low-Code"
+      code_abbreviation: "Lo"
+      nscp_editions: [1972, 1982, 1986]
+      makati_construction_start_range: "1974–1993"
+      makati_construction_completion_range: "1975–1994"
+      qc_construction_completion_range: "1975–1994"
+      provenance_confidence: high
+      notes: ""
+
+    mid_code:
+      label: "Mid-Code"
+      code_abbreviation: "Mid"
+      nscp_edition: "1992"
+      makati_construction_start_range: "1994–2002"
+      makati_construction_completion_range: "1995–2003"
+      qc_construction_completion_range: "1995–2003"
+      provenance_confidence: high
+      notes: ""
+
+    high_code:
+      label: "High-Code"
+      code_abbreviation: "Hi"
+      nscp_editions: [2001, 2010, 2015]
+      makati_construction_start_from: 2003
+      makati_construction_completion_from: 2004
+      qc_construction_completion_from: 2004
+      provenance_confidence: high
+      notes: ""
+
+  date_handling:
+    makati_primary_field: "construction start date"
+    makati_fallback: "completion date (assumed start = completion - 1 year)"
+    qc_primary_field: "construction completion date"
+    qc_unknown_date: "labelled 'UNK' and excluded from final analysis"
+    lag_years: 2
+    lag_source: "Lopez (2018-2020)"
+    provenance_confidence: high
+    notes: ""
+
+# ---------------------------------------------------------------------------
+# 5. RAPID VISUAL SCREENING (RVS) SUMMARY
+# ---------------------------------------------------------------------------
+rapid_visual_screening:
+  description: "RVS conducted in early 2018 as per FEMA P-154 (2015)"
+  standard: "FEMA P-154 (2015)"
+  year: 2018
+  source: { section: "4.3", printed_page: 44 }
+
+  fema_154_score_cutoff:
+    value: 2.0
+    unit: "dimensionless"
+    source: { section: "4.1.3", printed_page: 41 }
+    provenance_confidence: high
+    notes: "Proposed cut-off below which greater collapse probability exists (pre-code, severe irregularities, poor soil conditions, deteriorated structural conditions)"
+
+  dpwh_2011_rvs_below_cutoff_percent:
+    value: 86
+    unit: "percent"
+    source: { section: "4.1.3", printed_page: 41 }
+    provenance_confidence: high
+    notes: >
+      Result from the 2010-2011 DPWH RVS of 816 school buildings in Metro Manila.
+      86% had FEMA-154 scores below the 2.0 cut-off, indicating greater collapse
+      probability and need for detailed evaluation.
+
+  dpwh_2011_rvs_total_buildings:
+    value: 816
+    unit: "count"
+    source: { section: "4.1.3", printed_page: 41 }
+    provenance_confidence: high
+    notes: ""
+
+  dpwh_2011_rvs_makati_share:
+    value: 1
+    unit: "percent"
+    source: { section: "4.1.3", printed_page: 41 }
+    provenance_confidence: medium
+    notes: "Text states 'less than 1%' of 816 MM school buildings were in Makati"
+
+  dpwh_2011_rvs_qc_share:
+    value: 12
+    unit: "percent"
+    source: { section: "4.1.3", printed_page: 41 }
+    provenance_confidence: high
+    notes: "12% of 816 MM school buildings were in Quezon City (Lopez, 2018-2020)"
+
+  makati_buildings_screened:
+    value: 53
+    unit: "count"
+    source: { section: "4.3.1", printed_page: 44 }
+    provenance_confidence: high
+    notes: "55% of 96 Makati buildings"
+
+  makati_coverage:
+    value: 55
+    unit: "percent"
+    source: { section: "4.3.1", printed_page: 44 }
+    provenance_confidence: high
+    notes: ""
+
+  qc_buildings_screened:
+    value: 129
+    unit: "count"
+    source: { section: "4.3.2", printed_page: 48 }
+    provenance_confidence: high
+    notes: "14% of 932 QC buildings"
+
+  qc_coverage:
+    value: 14
+    unit: "percent"
+    source: { section: "4.3.2", printed_page: 48 }
+    provenance_confidence: high
+    notes: ""
+
+  features_recorded:
+    value:
+      - "Vertical irregularities"
+      - "Horizontal irregularities"
+      - "Redundancies in SFRS"
+      - "Possibility of pounding"
+      - "Seismic gaps (presence/absence)"
+      - "Primary structural system type"
+      - "Building name and approximate construction date"
+    unit: "dimensionless"
+    source: { section: "4.3", printed_page: 44 }
+    provenance_confidence: high
+    notes: ""
+
+  gmma_rap_typology_distribution:
+    description: "GMMA-RAP (Bautista et al., 2014) broad categorization of all public schools in Metro Manila"
+    c1:
+      value: 95.23
+      unit: "percent"
+      source: { section: "4.1.3", printed_page: 41 }
+      provenance_confidence: high
+      notes: "C1: RCMRF with CHB infill"
+    cws:
+      value: 4.43
+      unit: "percent"
+      source: { section: "4.1.3", printed_page: 41 }
+      provenance_confidence: high
+      notes: ""
+    w1:
+      value: 0.17
+      unit: "percent"
+      source: { section: "4.1.3", printed_page: 41 }
+      provenance_confidence: high
+      notes: ""
+    w2:
+      value: 0.17
+      unit: "percent"
+      source: { section: "4.1.3", printed_page: 41 }
+      provenance_confidence: high
+      notes: "Wood frames >500 m²"
+
+# ---------------------------------------------------------------------------
+# 6. MAKATI INDEX BUILDINGS (ARCHETYPES)
+# ---------------------------------------------------------------------------
+makati_index_buildings:
+  description: >
+    Representative index buildings for Makati City seismic risk assessment.
+    'Most probable' and 'possible' bounds were defined.
+    Extrapolation made from RVS-screened buildings to full inventory.
+  source: { section: "4.4.4", table: "Table 4-6", printed_page: 56 }
+
+  key_assumption:
+    description: >
+      Most 4- and 5-storey (and possibly 3-storey) Makati school buildings are PTMRFs
+      (post-tensioned moment frame beams). More accurate for buildings constructed
+      from 1993 onwards (Makati GSD, 2018). Non-PT Low-Code buildings identified
+      by longitudinal column spacing of ~4 m (vs. ~8 m for Mid-/High-Code).
+    source: { section: "4.4.4", printed_page: 56 }
+    provenance_confidence: high
+    notes: ""
+
+  archetypes:
+    C1-L_PreLo:
+      archetype_id: "C1-L (Pre/Lo)"
+      upd_ice_code: "C1-L"
+      code_era: ["Pre-Code", "Low-Code"]
+      height_class: "Low-rise"
+      stories: "1–2"
+      system: "RCMRF (with CHB infill)"
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      sorting_rationale: "Construction started pre-1993"
+      floor_area_share_most_probable_percent: 1
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Floor area share read from Figure 4-11 pie chart (~1%)"
+
+    C1-L_MidHi:
+      archetype_id: "C1-L (Mid/Hi)"
+      upd_ice_code: "C1-L"
+      code_era: ["Mid-Code", "High-Code"]
+      height_class: "Low-rise"
+      stories: "1–2"
+      system: "RCMRF (with CHB infill)"
+      modelled_in_ch6: true
+      modelling_method: "Full NL model"
+      sorting_rationale: "Construction 1994+"
+      floor_area_share_most_probable_percent: 0.3
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Floor area share read from Figure 4-11 pie chart (~0.3%)"
+
+    C1-M_PreLo:
+      archetype_id: "C1-M (Pre/Lo)"
+      upd_ice_code: "C1-M"
+      code_era: ["Pre-Code", "Low-Code"]
+      height_class: "Mid-rise"
+      stories: "3–5"
+      system: "RCMRF (with CHB infill)"
+      modelled_in_ch6: true
+      modelling_method: "Full NL model"
+      sorting_rationale: >
+        Construction started pre-1993; buildings with longitudinal column spacing
+        of ~4 m vs. 8 m (architectural drawings & RVS). Otherwise classified as PTC1-M (Pre/Lo).
+        1 old hospital not built by Makati gov't.
+      floor_area_share_most_probable_percent: 14
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Floor area share read from Figure 4-11 pie chart (~14%). Key difference in most-probable vs. possible distribution."
+
+    PTC1-M_PreLo:
+      archetype_id: "PTC1-M (Pre/Lo)"
+      upd_ice_code: "C1-M"
+      code_era: ["Pre-Code", "Low-Code"]
+      height_class: "Mid-rise"
+      stories: "3–5"
+      system: "RCMRF (with CHB infill); possibly with PTB"
+      modelled_in_ch6: false
+      modelling_method: "Merged (with other archetype)"
+      sorting_rationale: >
+        Pre: No structural drawings — possibly with PTB; RVS shows large spans & shallow girders.
+        Low: Low-Code, but construction starting 1993/94 PTMRFs (Makati GSD, 2018).
+      floor_area_share_most_probable_percent: 6
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Floor area share read from Figure 4-11 pie chart (~6%). Merged in analysis."
+
+    PTC1-M_Mid:
+      archetype_id: "PTC1-M (Mid)"
+      upd_ice_code: "C1-M"
+      code_era: ["Mid-Code"]
+      height_class: "Mid-rise"
+      stories: "3–5"
+      system: "RCMRF (with CHB infill) & PTB"
+      modelled_in_ch6: true
+      modelling_method: "EDP-proxy method"
+      sorting_rationale: "Mid-Code PTMRFs (Makati GSD, 2018)"
+      floor_area_share_most_probable_percent: 32
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Floor area share read from Figure 4-11 pie chart (~32%). Most dominant archetype by floor area."
+
+    PTC1-M_Hi:
+      archetype_id: "PTC1-M (Hi)"
+      upd_ice_code: "C1-M"
+      code_era: ["High-Code"]
+      height_class: "Mid-rise"
+      stories: "3–6"
+      system: "RCMRF (with CHB infill) & PTB"
+      modelled_in_ch6: true
+      modelling_method: "EDP-proxy method"
+      sorting_rationale: "Available structural drawings and confirmed by Makati GSD (2018)"
+      floor_area_share_most_probable_percent: 25
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Floor area share read from Figure 4-11 pie chart (~25%). PTC1-M (Mid) + PTC1-M (Hi) = ~57% of total floor area."
+
+    C4-L_LoMid:
+      archetype_id: "C4-L (Lo/Mid)"
+      upd_ice_code: "C4-L"
+      code_era: ["Low-Code", "Mid-Code"]
+      height_class: "Low-rise"
+      stories: "2"
+      system: "RCMRF (with CHB Infill) transverse shear walls"
+      modelled_in_ch6: false
+      modelling_method: "Merged"
+      sorting_rationale: "Confirmed RCSW by rebar scanning"
+      floor_area_share_most_probable_percent: 0.4
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Floor area share read from Figure 4-11 pie chart (~0.4%)"
+
+    PTC4-M_Lo:
+      archetype_id: "PTC4-M (Lo)"
+      upd_ice_code: "C4-M"
+      code_era: ["Low-Code"]
+      height_class: "Mid-rise"
+      stories: "4"
+      system: "RCMRF (with CHB Infill), PTB, and elevator core RCSW"
+      modelled_in_ch6: false
+      modelling_method: "Merged"
+      sorting_rationale: "Available structural drawings; only 1 building"
+      floor_area_share_most_probable_percent: 1
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: medium
+      notes: "Only 1 building in this archetype. Merged in analysis."
+
+    C1-H_Hi:
+      archetype_id: "C1-H (Hi)"
+      upd_ice_code: "C1-H"
+      code_era: ["High-Code"]
+      height_class: "High-rise"
+      stories: "10–11"
+      system: "RCMRF w/ basement"
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      sorting_rationale: "Available structural drawings"
+      buildings_count: 2
+      floor_area_share_most_probable_percent: 18
+      source: { section: "4.4.4", table: "Table 4-6", figure: "Figure 4-11", printed_page: 57 }
+      provenance_confidence: high
+      notes: >
+        Only 2 high-rise buildings in Makati; account for 18% of total floor area.
+        One confirmed RCMRF from structural drawings.
+
+  floor_area_ptmrf_combined_percent:
+    description: "PTC1-M (Mid) + PTC1-M (Hi) combined share of Makati total floor area"
+    value: 57
+    unit: "percent"
+    source: { section: "4.4.4", figure: "Figure 4-11", printed_page: 58 }
+    provenance_confidence: high
+    notes: "Text explicitly states this figure"
+
+# ---------------------------------------------------------------------------
+# 7. QUEZON CITY INDEX BUILDINGS (ARCHETYPES)
+# ---------------------------------------------------------------------------
+quezon_city_index_buildings:
+  description: >
+    Representative index buildings for Quezon City seismic risk assessment.
+    'Most probable' and 'possible' bounds defined due to greater uncertainty
+    in typology identification (only 14% RVS coverage).
+  source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+
+  key_assumptions:
+    value:
+      - "Concrete and Semi-Concrete buildings treated as RCMRFs (C1) per 2010-11 DPWH RVS and 2018 RVS findings (Lopez, 2018-2020)"
+      - "Building names (e.g., HB Hall, SB Hall, Mathay, DepEd Building) indicate funding source and may indicate structural archetype — one design often used on multiple campuses"
+      - "New (2016+) low-rise buildings assumed to be RCMRFs (QC SDG, 2018)"
+    source: { section: "4.4.5", printed_page: 59 }
+    provenance_confidence: high
+    notes: ""
+
+  archetypes:
+    C1-L_PreLo:
+      archetype_id: "C1-L (Pre/Lo)"
+      upd_ice_code: "C1-L"
+      code_era: ["Pre-Code", "Low-Code"]
+      height_class: "Low-rise"
+      stories: "1–2"
+      system: "RCMRF (with CHB Infill)"
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      rvs_buildings_informing: 13
+      sorting_rationale: >
+        Completed pre-1975: 'Semi-Concrete' types (could be CWS) including
+        'RP-US (Pre-fab)' buildings per Marshall (1977).
+        Completed 1975-1995: 'Semi-Concrete' and 'Concrete' types without RCSWs.
+        Extrapolation from RVS of 13 buildings.
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: high
+      notes: ""
+
+    C1-L_MidHi:
+      archetype_id: "C1-L (Mid/Hi)"
+      upd_ice_code: "C1-L"
+      code_era: ["Mid-Code", "High-Code"]
+      height_class: "Low-rise"
+      stories: "1–2"
+      system: "RCMRF (with CHB Infill)"
+      modelled_in_ch6: true
+      modelling_method: "Full NL model"
+      rvs_buildings_informing: 19
+      sorting_rationale: >
+        Construction 1995+; Assuming all new (2016+) low-rise buildings are RCMRFs
+        (QC SDG, 2018). RVS of 19 buildings.
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: high
+      notes: ""
+
+    C1-M_PreLo:
+      archetype_id: "C1-M (Pre/Lo)"
+      upd_ice_code: "C1-M"
+      code_era: ["Pre-Code", "Low-Code"]
+      height_class: "Mid-rise"
+      stories: "3–4"
+      system: "RCMRF (with CHB Infill)"
+      modelled_in_ch6: true
+      modelling_method: "Full NL model"
+      rvs_buildings_informing: 7
+      sorting_rationale: >
+        Completed pre-1975–1994 (only 1 building pre-1975); 'Concrete' and
+        'Semi-Concrete' (only wood partitions or flooring, Lopez 2018-2020) types.
+        Extrapolation from RVS of 7 buildings.
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: high
+      notes: ""
+
+    C1-M_Mid:
+      archetype_id: "C1-M (Mid)"
+      upd_ice_code: "C1-M"
+      code_era: ["Mid-Code"]
+      height_class: "Mid-rise"
+      stories: "3–4"
+      system: "RCMRF (with CHB Infill)"
+      modelled_in_ch6: true
+      modelling_method: "Full NL model"
+      rvs_buildings_informing: 23
+      sorting_rationale: >
+        Completed 1995-2003; 'Concrete' and 'Semi-Concrete' (only wood partitions
+        or flooring, Lopez 2018-2020) types. Extrapolation using similar names
+        from RVS of 23 buildings.
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: high
+      notes: ""
+
+    C1-M_Hi:
+      archetype_id: "C1-M (Hi)"
+      upd_ice_code: "C1-M"
+      code_era: ["High-Code"]
+      height_class: "Mid-rise"
+      stories: "3–4"
+      system: "RCMRF (with CHB Infill)"
+      modelled_in_ch6: true
+      modelling_method: "Full NL model"
+      rvs_buildings_informing: 25
+      sorting_rationale: >
+        Available structural drawings of recent DPWH/DepEd Standards and from
+        QC SDG (2018). Extrapolation from RVS of 25 buildings.
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: high
+      notes: ""
+
+    S1-M_Hi:
+      archetype_id: "S1-M (Hi)"
+      upd_ice_code: "S1-M"
+      code_era: ["High-Code"]
+      height_class: "Mid-rise"
+      stories: "3–4"
+      system: "SMRF (with CHB Infill)"
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      rvs_buildings_informing: 14
+      sorting_rationale: >
+        Available structural drawings. Using similar names from RVS of 14 buildings
+        and information from QC SDG. Typical examples: 'HB Hall' and 'SB Hall'
+        with concrete-encased columns.
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: high
+      notes: "C1-M (Hi) + S1-M (Hi) together ~47% of QC building stock by count"
+
+    C4-L_LoMid:
+      archetype_id: "C4-L (Lo/Mid)"
+      upd_ice_code: "C4-L"
+      code_era: ["Low-Code", "Mid-Code"]
+      height_class: "Low-rise"
+      stories: "2"
+      system: "RCMRF (with CHB Infill) and transverse RCSWs"
+      modelled_in_ch6: false
+      modelling_method: "Merged"
+      rvs_buildings_informing: 1
+      sorting_rationale: "Completed 1980-2003; Extrapolation from RVS of one building"
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Only 1 building informing extrapolation. Merged with C4-M in analysis."
+
+    C4-M_Mid:
+      archetype_id: "C4-M (Mid)"
+      upd_ice_code: "C4-M"
+      code_era: ["Mid-Code"]
+      height_class: "Mid-rise"
+      stories: "3–4"
+      system: "RCMRF (with CHB Infill) and transverse RCSWs"
+      modelled_in_ch6: false
+      modelling_method: "Merged"
+      rvs_buildings_informing: 11
+      sorting_rationale: "Possible use of 1994 RCMRF/SW DPWH standard; Extrapolation from RVS of 11 buildings"
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: medium
+      notes: "Contributes to 'possible' bound (~5% of QC stock). Merged in analysis."
+
+    CWS-L:
+      archetype_id: "CWS-L"
+      upd_ice_code: "CWS-L"
+      code_era: ["N/A or Unknown"]
+      height_class: "Low-rise"
+      stories: "1–2"
+      system: "RCMRF w/ wooden frame"
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      rvs_buildings_informing: 1
+      sorting_rationale: "'Semi-Concrete' types; Extrapolation from RVS of one building"
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Only 1 building informing extrapolation."
+
+    S3-L:
+      archetype_id: "S3-L"
+      upd_ice_code: "S3-L"
+      code_era: ["Low-Code or unspecified"]
+      height_class: "Low-rise"
+      stories: "1"
+      system: "Light steel frame & bracing"
+      modelled_in_ch6: false
+      modelling_method: "Not explicitly stated (assumed simplified or proxy)"
+      rvs_buildings_informing: 4
+      sorting_rationale: "'Prefab' type — Lopez (2018-2020) main assumption; Extrapolation from RVS of 4 buildings"
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: medium
+      notes: "Modelling status not explicitly stated in Table 4-7 for S3-L. Assumed not modelled as a primary archetype."
+
+    CHB-L:
+      archetype_id: "CHB-L"
+      upd_ice_code: "CHB-L"
+      code_era: ["Low-Code or unspecified"]
+      height_class: "Low-rise"
+      stories: "1"
+      system: "Reinforced/unreinforced CHB"
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      rvs_buildings_informing: 7
+      sorting_rationale: "'Prefab' and 'Semi-Concrete' types; based on RVS of 7 buildings and common low-rise typology in Manila"
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: medium
+      notes: ""
+
+    W-L:
+      archetype_id: "W-L"
+      upd_ice_code: "W1 & W2-L"
+      code_era: ["Pre-Code or Low-Code"]
+      height_class: "Low-rise"
+      stories: "1"
+      system: "Wooden frame and walls"
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      rvs_buildings_informing: 1
+      sorting_rationale: "'Wood' & 'Gabaldon' building names/types; Extrapolation from RVS of 1 building"
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Only 1 building informing extrapolation."
+
+    N-L:
+      archetype_id: "N-L"
+      upd_ice_code: "N-L"
+      code_era: ["Pre-Code or unknown"]
+      height_class: "Low-rise"
+      stories: "1"
+      system: "Wooden frame w/ CHB/G.I."
+      modelled_in_ch6: true
+      modelling_method: "Simplified"
+      rvs_buildings_informing: 0
+      sorting_rationale: "'Makeshift' building names/types; based on Bautista et al. (2014)"
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: No direct RVS observations; extrapolated from GMMA-RAP typology descriptions."
+
+    PC-L:
+      archetype_id: "PC-L"
+      upd_ice_code: "PC1 & PC2-L"
+      code_era: ["Low-Code or unspecified"]
+      height_class: "Low-rise"
+      stories: "1"
+      system: "Precast RCMRF or RCSWs"
+      modelled_in_ch6: false
+      modelling_method: "Merged"
+      rvs_buildings_informing: 1
+      sorting_rationale: "'Prefab' types; Extrapolation from RVS of 1 building; PC1 may not exist"
+      excluded_from_portfolio: true
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: low
+      notes: "REVIEW NEEDED: Excluded from portfolio analysis (<0.1% contribution). Only 1 building."
+
+    MH:
+      archetype_id: "MH"
+      upd_ice_code: "N/A"
+      code_era: ["unspecified"]
+      height_class: "Low-rise"
+      stories: "1"
+      system: "Manufactured Building Unit"
+      modelled_in_ch6: false
+      modelling_method: "Not modelled"
+      buildings_count: 2
+      sorting_rationale: "2 'FVR' buildings (Luna, Bautista, & Guzman, 2008) — ignored"
+      excluded_from_portfolio: true
+      source: { section: "4.4.5", table: "Table 4-7", printed_page: 60 }
+      provenance_confidence: high
+      notes: "Excluded from portfolio analysis (<0.1% contribution). Only 2 buildings."
+
+# ---------------------------------------------------------------------------
+# 8. STRUCTURAL TYPOLOGY DISTRIBUTION SUMMARY
+# ---------------------------------------------------------------------------
+typology_distribution_summary:
+  description: "High-level structural system dominance across both cities"
+  source: { section: "4.1.3 and 4.4.5", printed_page: 41 }
+
+  dominant_system: "RCMRF (Reinforced Concrete Moment Resisting Frame) with CHB infill — UPD-ICE C1"
+
+  gmma_rap_c1_all_public_schools_mm:
+    value: 95.23
+    unit: "percent"
+    source: { section: "4.1.3", printed_page: 41 }
+    provenance_confidence: high
+    notes: "Bautista et al. (2014) for all Metro Manila public schools"
+
+  qc_rcmrf_c1_share:
+    value: 73
+    unit: "percent"
+    source: { section: "4.4.5", printed_page: 61 }
+    provenance_confidence: high
+    notes: "QC 'most probable' bound"
+
+  qc_c4m_possible_share:
+    value: 5
+    unit: "percent"
+    source: { section: "4.4.5", printed_page: 61 }
+    provenance_confidence: medium
+    notes: "QC 'possible' bound contribution from RCMRF/SW dual system"
+
+  makati_ptmrf_dominant:
+    description: >
+      Post-tensioned moment frame beams (PTMRFs) are the dominant system in
+      Makati mid-rise buildings, constructed from 1993 onwards.
+    source: { section: "4.4.4", printed_page: 56 }
+    provenance_confidence: high
+    notes: ""
+
+# ---------------------------------------------------------------------------
+# 9. METRO MANILA URBAN CONTEXT
+# ---------------------------------------------------------------------------
+metro_manila_context:
+  total_population:
+    value: 13000000
+    unit: "count"
+    source: { section: "4.1", printed_page: 37 }
+    provenance_confidence: high
+    notes: "PSA (2018b)"
+
+  informal_settler_population_mm:
+    value: 1300000
+    unit: "count"
+    source: { section: "4.1", printed_page: 37 }
+    provenance_confidence: high
+    notes: "World Bank (2017); PSA (2018b)"
+
+  gmma_total_population:
+    value: 20000000
+    unit: "count"
+    source: { section: "4.1", printed_page: 37 }
+    provenance_confidence: medium
+    notes: "Bautista M.L. et al. (2014)"
+
+  gmma_informal_settler_additional:
+    value: 2700000
+    unit: "count"
+    source: { section: "4.1", printed_page: 37 }
+    provenance_confidence: medium
+    notes: "From surrounding province municipalities; Bautista M.L. et al. (2014)"
+
+  informal_settlement_floor_area_share:
+    value: 31
+    unit: "percent"
+    source: { section: "4.1", printed_page: 37 }
+    provenance_confidence: medium
+    notes: >
+      ~31% of GMMA inhabitants live in densely packed neighbourhoods that account
+      for less than 9% of total residential floor area. Implies extreme density.
+
+  residential_floor_area_share_informal:
+    value: 9
+    unit: "percent"
+    source: { section: "4.1", printed_page: 37 }
+    provenance_confidence: medium
+    notes: "Less than 9% of total residential floor area occupied by 31% of population in dense neighbourhoods"

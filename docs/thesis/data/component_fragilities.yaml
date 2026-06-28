@@ -1,0 +1,830 @@
+# Component Fragility Assignments and Casualty Consequences
+# Source: Chapter 6 (§6.2.2) and Appendix D.2.2, Tables D-2 through D-4
+# Thesis: Jeswani, K.K. (2021). The Seismic Resilience of Critical Spatially-Distributed Building Portfolios. MASc Thesis, University of Toronto.
+# Note on β for CHB components: values in Table D-4 already enriched by additional 0.4 (see Table D-4 footnote)
+
+metadata:
+  document: "MASc Thesis Chapter 6"
+  author: "Kevin Jeswani"
+  year: 2021
+  edp_notes:
+    PIDR: "Peak inter-storey drift ratio [%]"
+    PFA: "Peak floor acceleration [g] — uses EDP of floor ABOVE component"
+    PGA: "Peak ground acceleration [g] — used for elevator at ground floor"
+  unit_notes:
+    EA: "Each (per piece)"
+    SF: "Square feet (ft²)"
+    LF: "Linear feet (ft)"
+
+# ============================================================
+# STRUCTURAL COMPONENTS
+# ============================================================
+structural_components:
+
+  ductile_rcmrf_1side:
+    label: "Ductile RCMRF; 1-Side"
+    description: "Ductile reinforced concrete moment-resisting frame, beam-column joints on one side"
+    fragility_basis: "P-58-3: ACI 318 SMF, Conc Col & Bm = 24\"×24\", Beam one side"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, MutEx(DS3, DS4)); P(DS3)=0.8, P(DS4)=0.2"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pidr: 2.0
+        beta: 0.4
+        description: "Light beam/joint cracking > 0.6 in; No significant spalling, no rebar fracture/buckling"
+        injury: {theta: null, beta: null}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: null
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 2.75
+        beta: 0.3
+        description: "Moderate beam/joint cracking; Cover spalling exposes transverse and joint rebar; No fracture/buckling"
+        injury: {theta: null, beta: null}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: null
+        red_tag: {theta: null, beta: null}
+      DS3:
+        theta_pidr: 5.0
+        beta: 0.3
+        description: "Heavy beam/joint cracking; Heavy cover spalling exposes long./trans. rebar; Possible core crushing, rebar fracture/buckling"
+        injury: {theta: null, beta: null}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: null
+        red_tag: {theta: 0.2, beta: 0.5}
+        notes: "Mutually exclusive with DS4 (P(DS3)=0.8)"
+      DS4:
+        theta_pidr: 5.0
+        beta: 0.3
+        description: "= DS2 (same damage as DS2, alternative failure mode)"
+        injury: {theta: null, beta: null}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: null
+        red_tag: {theta: null, beta: null}
+        notes: "Mutually exclusive with DS3 (P(DS4)=0.2)"
+
+  ductile_rcmrf_2sides:
+    label: "Ductile RCMRF; 2-Sides"
+    description: "Ductile RC MRF, beam-column joints on two sides"
+    fragility_basis: "P-58-3: ACI 318 SMF, Conc Col & Bm = 24\"×24\", Beam both sides"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, MutEx(DS3, DS4)); P(DS3)=0.8, P(DS4)=0.2"
+    notes: "Same fragility as 1-Side; different costs"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1: {theta_pidr: 2.0, beta: 0.4, description: "Light beam/joint cracking > 0.6 in", red_tag: {theta: null, beta: null}}
+      DS2: {theta_pidr: 2.75, beta: 0.3, description: "Moderate beam/joint cracking; cover spalling", red_tag: {theta: null, beta: null}}
+      DS3: {theta_pidr: 5.0, beta: 0.3, description: "Heavy beam/joint cracking; possible core crushing", red_tag: {theta: 0.2, beta: 0.5}}
+      DS4: {theta_pidr: 5.0, beta: 0.3, description: "= DS2", red_tag: {theta: null, beta: null}}
+
+  non_ductile_rcmrf_1side:
+    label: "Non-Ductile RCMRF; 1-Side"
+    description: "Non-conforming RC MRF, weak columns, beam-column on one side"
+    fragility_basis: "P-58-3: Non-conforming MF, weak columns, Conc Col & Bm = 24\"×24\", Beam one side"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pidr: 1.5
+        beta: 0.4
+        description: "Light column/beam/joint cracking; No significant spalling, no rebar fracture/buckling"
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 2.0
+        beta: 0.4
+        description: "Moderate column/beam/joint cracking; Cover spalling exposes transverse and joint rebar"
+        red_tag: {theta: null, beta: null}
+      DS3:
+        theta_pidr: 2.5
+        beta: 0.4
+        description: "Heavy cracking; Possible core crushing, rebar fracture/buckling"
+        red_tag: {theta: 0.1, beta: 0.5}
+
+  non_ductile_rcmrf_2sides:
+    label: "Non-Ductile RCMRF; 2-Sides"
+    description: "Non-conforming RC MRF, weak columns, beam-column on two sides"
+    fragility_basis: "P-58-3: Non-conforming MF, weak columns, Conc Col & Bm = 24\"×24\", Beam both sides"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    notes: "Same fragility as 1-Side; different costs"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1: {theta_pidr: 1.5, beta: 0.4, description: "Light column/beam/joint cracking", red_tag: {theta: null, beta: null}}
+      DS2: {theta_pidr: 2.0, beta: 0.4, description: "Moderate cracking; cover spalling", red_tag: {theta: null, beta: null}}
+      DS3: {theta_pidr: 2.5, beta: 0.4, description: "Heavy cracking; possible core crushing", red_tag: {theta: 0.1, beta: 0.5}}
+
+  pt_rcmrf_1side:
+    label: "PT RCMRF; 1-Side"
+    description: "Post-tensioned RC MRF, beam-column on one side"
+    fragility_basis: "P-58-3: ACI 318 SMF, Conc Col & Bm = 24\"×24\", Beam one side (same as Ductile RCMRF). Costs adjusted for PT behaviour."
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, MutEx(DS3, DS4)); P(DS3)=0.8, P(DS4)=0.2"
+    notes: "Same fragility as Ductile RCMRF assumed; costs adjusted for PT behaviour"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1: {theta_pidr: 2.0, beta: 0.4, description: "Light beam/joint cracking", red_tag: {theta: null, beta: null}}
+      DS2: {theta_pidr: 2.75, beta: 0.3, description: "Moderate beam/joint cracking; cover spalling", red_tag: {theta: null, beta: null}}
+      DS3: {theta_pidr: 5.0, beta: 0.3, description: "Heavy cracking; possible core crushing", red_tag: {theta: 0.2, beta: 0.5}}
+      DS4: {theta_pidr: 5.0, beta: 0.3, description: "= DS2", red_tag: {theta: null, beta: null}}
+
+  pt_rcmrf_2sides:
+    label: "PT RCMRF; 2-Sides"
+    description: "Post-tensioned RC MRF, beam-column on two sides"
+    fragility_basis: "Same as Ductile RCMRF 2-Sides; costs adjusted for PT behaviour"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, MutEx(DS3, DS4)); P(DS3)=0.8, P(DS4)=0.2"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1: {theta_pidr: 2.0, beta: 0.4}
+      DS2: {theta_pidr: 2.75, beta: 0.3}
+      DS3: {theta_pidr: 5.0, beta: 0.3, red_tag: {theta: 0.2, beta: 0.5}}
+      DS4: {theta_pidr: 5.0, beta: 0.3}
+
+  non_rbs_steel_mrf_1side:
+    label: "Non-RBS Steel MRF; 1-Side"
+    description: "Post-Northridge welded steel moment connection other than RBS, beam one side, depth <= W27"
+    fragility_basis: "P-58-3: Post-Northridge welded steel moment connection other than RBS, beam one side, beam depth <= W27"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pidr: 3.0
+        beta: 0.3
+        description: "Local beam flange and web buckling"
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 4.0
+        beta: 0.3
+        description: "DS1 plus lateral torsional distortion of beam in hinge region"
+        red_tag: {theta: 0.5, beta: 0.5}
+      DS3:
+        theta_pidr: 5.0
+        beta: 0.3
+        description: "Low-cycle fatigue fracture in buckled hinge"
+        red_tag: {theta: 0.5, beta: 0.5}
+
+  non_rbs_steel_mrf_2sides:
+    label: "Non-RBS Steel MRF; 2-Sides"
+    description: "Post-Northridge welded steel MRF, beam both sides, depth <= W27"
+    fragility_basis: "P-58-3: same as 1-Side; different costs"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1: {theta_pidr: 3.0, beta: 0.3, red_tag: {theta: null, beta: null}}
+      DS2: {theta_pidr: 4.0, beta: 0.3, red_tag: {theta: 0.5, beta: 0.5}}
+      DS3: {theta_pidr: 5.0, beta: 0.3, red_tag: {theta: 0.5, beta: 0.5}}
+
+  steel_column_splice:
+    label: "Steel Column Splice"
+    description: "Welded column splices, Column W < 150 lb/ft"
+    fragility_basis: "P-58-3: Welded column splices, Column W < 150 lb/ft"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(MutEx(DS1, DS2), DS3); P(DS1)=0.95, P(DS2)=0.05"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pidr: 2.0
+        beta: 0.4
+        description: "Ductile fracture of groove weld flange splice; Damage obscured on-site or not significant to warrant repair"
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 2.0
+        beta: 0.4
+        description: "Ductile fracture of groove weld flange splice"
+        red_tag: {theta: null, beta: null}
+        notes: "Mutually exclusive with DS1; P(DS2)=0.05"
+      DS3:
+        theta_pidr: 5.0
+        beta: 0.4
+        description: "DS1 + complete failure of web splice plate & dislocation of two column segments"
+        red_tag: {theta: 0.02, beta: 0.5}
+
+  steel_column_base_plate:
+    label: "Steel Column Base Plate"
+    description: "Steel Column Base Plates, Column W < 150 lb/ft"
+    fragility_basis: "P-58-3: Steel Column Base Plates, Column W < 150 lb/ft"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(MutEx(DS1, DS2), DS3, DS4); P(DS1)=0.95, P(DS2)=0.05"
+    source:
+      section: "6.2.2"
+      table: "Table D-3"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pidr: 4.0
+        beta: 0.4
+        description: "Crack at fusion line (column flange-baseplate weld); Damage obscured or not significant"
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 4.0
+        beta: 0.4
+        description: "Crack at fusion line (column flange-baseplate weld)"
+        red_tag: {theta: null, beta: null}
+        notes: "Mutually exclusive with DS1; P(DS2)=0.05"
+      DS3:
+        theta_pidr: 7.0
+        beta: 0.4
+        description: "Propagation of brittle crack into column and/or base plate"
+        red_tag: {theta: 0.25, beta: 0.5}
+      DS4:
+        theta_pidr: 10.0
+        beta: 0.4
+        description: "Complete fracture of column or weld; Dislocation of column relative to base"
+        red_tag: {theta: 0.1, beta: 0.5}
+
+# ============================================================
+# NON-STRUCTURAL COMPONENTS
+# ============================================================
+non_structural_components:
+
+  chb_wall_solid_unreinforced:
+    label: "CHB Wall; Solid; Unreinforced"
+    description: "Concrete hollow block infill wall, solid (no openings), unreinforced"
+    fragility_basis: "CM17 (Chiozzi & Miranda, 2017): Masonry walls, no openings, medium mortar, weak prism strength"
+    intended_use: "Assumed for badly anchored/reinforced CHB; with global collapse"
+    edp_type: PIDR
+    unit: "125 SF"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    notes: "β already enriched by additional 0.4; casualties/red tags approximated and subject to further review"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: medium
+    notes: "REVIEW NEEDED: Casualty and red tag consequences for CHB-type components approximated; Table D-4 footnote confirms β already enriched by 0.4"
+    damage_states:
+      DS1:
+        theta_pidr: 0.13
+        beta: 0.52
+        description: "Light CHB cracking"
+        injury: {theta: null, beta: null}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: null
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 0.31
+        beta: 0.49
+        description: "Moderate CHB cracking & corner crushing"
+        injury: {theta: null, beta: null}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: null
+        red_tag: {theta: null, beta: null}
+      DS3:
+        theta_pidr: 0.76
+        beta: 0.52
+        description: "Heavy CHB cracking; Possible collapse; Slight Injury over 50 SF approx."
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 50
+        red_tag: {theta: 0.1, beta: 0.5}
+
+  chb_wall_solid_reinforced:
+    label: "CHB Wall; Solid; Reinforced"
+    description: "Concrete hollow block infill wall, solid, with reinforcing mesh (also represents existing reinforced CHB in newer buildings with frame dowels)"
+    fragility_basis: "CA19 (Cardone et al., 2019): Masonry walls with reinforcing mesh"
+    intended_use: "Similar fragility to unreinforced wall, but no global collapse. Also represents DG19-based upgrade for existing unreinforced CHB."
+    edp_type: PIDR
+    unit: "125 SF"
+    ds_hierarchy: "Seq(DS1, DS2)"
+    notes: "β already enriched by additional 0.4"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: medium
+    damage_states:
+      DS1:
+        theta_pidr: 0.23
+        beta: 0.4
+        description: "Light CHB cracking"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 0.67
+        beta: 0.4
+        description: "Moderate CHB cracking & corner crushing"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+
+  chb_wall_perforated_unreinforced:
+    label: "CHB with Doors/Windows; Unreinforced"
+    description: "CHB infill wall with door/window openings, unreinforced"
+    fragility_basis: "CM17 DS1-3 (masonry with openings, medium mortar, weak prism); DS4 lowest drift value from DG19"
+    intended_use: "Similar to CHB Wall Solid, but window/door replacement required at DS4"
+    edp_type: PIDR
+    unit: "125 SF"
+    ds_hierarchy: "Seq(DS1, DS2, DS3, DS4)"
+    notes: "β already enriched by additional 0.4; casualties approximated"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: medium
+    notes: "REVIEW NEEDED: Casualty and red tag consequences for CHB-type components approximated"
+    damage_states:
+      DS1:
+        theta_pidr: 0.09
+        beta: 0.42
+        description: "Light CHB cracking"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 0.30
+        beta: 0.48
+        description: "Moderate CHB cracking & corner crushing"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS3:
+        theta_pidr: 0.80
+        beta: 0.53
+        description: "Heavy CHB cracking; Possible collapse; Minor Window/Door Damage; Slight Injury over 50 SF approx."
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 50
+        red_tag: {theta: 0.25, beta: 0.5}
+      DS4:
+        theta_pidr: 1.45
+        beta: 0.52
+        description: "Heavy CHB cracking; Possible collapse; Major Window/Door Damage; Slight Injury over 50 SF approx."
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 50
+        red_tag: {theta: 0.1, beta: 0.5}
+
+  chb_wall_perforated_reinforced:
+    label: "CHB with Doors/Windows; Reinforced"
+    description: "CHB infill wall with openings, with reinforcing mesh"
+    fragility_basis: "CM17 DS1-2 (masonry with openings, medium mortar, medium prism); DS3=DS4 from DG19"
+    intended_use: "Similar to unreinforced counterpart but no DS3 and only minor window/door damage"
+    edp_type: PIDR
+    unit: "125 SF"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    notes: "β already enriched by additional 0.4"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: medium
+    damage_states:
+      DS1:
+        theta_pidr: 0.23
+        beta: 0.4
+        description: "Light CHB cracking"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 0.67
+        beta: 0.4
+        description: "Moderate CHB cracking & corner crushing"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS3:
+        theta_pidr: 1.45
+        beta: 0.52
+        description: "Moderate CHB cracking & corner crushing; Minor window/door damage"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+
+  curtain_wall:
+    label: "Curtain Wall"
+    description: "Aluminum-/steel-framed curtain wall type windows in stairwells"
+    fragility_basis: "P-58-3: Midrise stick-built curtain wall, Monolithic, Not laminated, Annealed glass, 1/4 in. AN monolithic; glass-frame clearance = 0 in.; aspect ratio = 6:5; dry sealant"
+    intended_use: "Weakest P-58 curtain wall fragility"
+    edp_type: PIDR
+    unit: "30 SF"
+    ds_hierarchy: "Seq(DS1, DS2, DS3, DS4)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pidr: 0.09
+        beta: 0.42
+        description: "Light CHB cracking"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 0.30
+        beta: 0.48
+        description: "Moderate CHB cracking & corner crushing"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS3:
+        theta_pidr: 0.88
+        beta: 0.47
+        description: "Heavy CHB cracking; Possible partial collapse; Some glass cracking"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS4:
+        theta_pidr: 1.08
+        beta: 0.47
+        description: "Heavy CHB cracking; Possible partial collapse; Glass falls from frame; Very slight injury"
+        injury: {theta: 0.02, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 36
+        red_tag: {theta: null, beta: null}
+
+  suspended_ceiling_non_seismic:
+    label: "Suspended Ceiling; Non-Seismic"
+    description: "Wood- or light-steel-framed suspended ceiling, non-seismically braced"
+    fragility_basis: "P-58-3: Suspended Ceiling, SDC A,B,C, Area (A) > 2500 SF, Vert support only. Actually using 250 SF units; includes fixtures."
+    intended_use: "Weakest P-58 fragility; non-seismic ceiling (pre-2012 wood-framed or older light-steel); includes fixtures"
+    edp_type: PFA
+    edp_notes: "Uses EDP of floor above"
+    unit: "250 SF"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 0.56
+        beta: 0.25
+        description: "5% Ceiling damage"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pfa_g: 1.08
+        beta: 0.25
+        description: "30% Ceiling damage"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: 0.75, beta: 0.5}
+      DS3:
+        theta_pfa_g: 1.31
+        beta: 0.25
+        description: "100% Ceiling damage; Slight Injury over 250 SF"
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 250
+        red_tag: {theta: 0.5, beta: 0.5}
+
+  suspended_ceiling_braced:
+    label: "Suspended Ceiling; Braced"
+    description: "Seismically braced suspended ceiling (SDC D,E)"
+    fragility_basis: "P-58-3: Suspended Ceiling, SDC D,E (Ip=1.0), Area (A) < 250 SF, Vert & Lat support. Significant improvement in fragility; includes fixtures."
+    edp_type: PFA
+    edp_notes: "Uses EDP of floor above"
+    unit: "250 SF"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 1.6
+        beta: 0.3
+        description: "5% Ceiling damage"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pfa_g: 1.95
+        beta: 0.3
+        description: "30% Ceiling damage"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: 0.75, beta: 0.5}
+      DS3:
+        theta_pfa_g: 2.07
+        beta: 0.3
+        description: "100% Ceiling damage; Slight Injury over 250 SF"
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 250
+        red_tag: {theta: 0.5, beta: 0.5}
+
+  ceiling_fixtures_non_seismic:
+    label: "Ceiling Fixtures; Non-Seismic"
+    description: "Ceiling-/wall-mounted lighting, fans, and similar fixtures; non-seismically rated pendant assumed"
+    fragility_basis: "P-58-3: Independent Pendant Lighting – non-seismic/seismically rated. Taking seismically rated fragility since pendant is rare; With casualty of non-seismic."
+    edp_type: PFA
+    edp_notes: "Uses EDP of floor above"
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 1.5
+        beta: 0.4
+        description: "Falls, Breaks; If pendant: disassembly of rod at connection, fatigue failure, or pullout from ceiling; Slight injury over 50 SF"
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 50
+        red_tag: {theta: null, beta: null}
+
+  ceiling_fixtures_seismic:
+    label: "Ceiling Fixtures; Seismic"
+    description: "Modern non-pendant ceiling/wall-mounted lighting and fans; seismically rated"
+    fragility_basis: "P-58-3: Independent Pendant Lighting – seismically rated. Assumed for non-pendant modern fixtures; No casualty."
+    edp_type: PFA
+    edp_notes: "Uses EDP of floor above"
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 1.5
+        beta: 0.4
+        description: "Falls, Breaks; If pendant: disassembly at connection, fatigue failure, or pullout from ceiling"
+        injury: {theta: null, beta: null}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: null
+        red_tag: {theta: null, beta: null}
+
+  cip_rc_stairs:
+    label: "CIP RC Stairs"
+    description: "Monolithic cast-in-place and precast concrete stairs with no seismic joints"
+    fragility_basis: "P-58-3.9.6: Fragility for 'rigid stairs' assumed (no joints)"
+    edp_type: PIDR
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1, DS2, DS3)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pidr: 0.5
+        beta: 1.26
+        description: "Local concrete cracking, local spalling"
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pidr: 1.7
+        beta: 0.62
+        description: "Extensive concrete cracking/crushing"
+        red_tag: {theta: null, beta: null}
+      DS3:
+        theta_pidr: 2.8
+        beta: 0.5
+        description: "Loss of live load capacity"
+        red_tag: {theta: 0.75, beta: 0.5}
+
+  desktop_electronics:
+    label: "Desktop Electronics"
+    description: "Desktop computers, monitors, stereos, etc. on smooth surface"
+    fragility_basis: "P-58-3: Desktop electronics including computers, monitors, stereos, etc., smooth surface"
+    edp_type: PFA
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 0.4
+        beta: 0.5
+        description: "Falls, does not function; Slight injury over 16 SF"
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: null, beta: null}
+        affected_area_sf: 16
+        red_tag: {theta: null, beta: null}
+
+  wall_mounted_electronics:
+    label: "Wall-Mounted Electronics"
+    description: "Electronic equipment on wall mount brackets; used for AC units and TVs"
+    fragility_basis: "P-58-3: Electronic equipment on wall mount brackets"
+    edp_type: PFA
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 2.5
+        beta: 0.5
+        description: "Falls, does not function; Slight fatality over 16 SF; Moderate injury over 16 SF"
+        injury: {theta: 0.2, beta: 0.5}
+        fatality: {theta: 0.1, beta: 0.5}
+        affected_area_sf: 16
+        red_tag: {theta: null, beta: null}
+
+  elevator:
+    label: "Elevator"
+    description: "Traction elevator (modern elevators assumed)"
+    fragility_basis: "P-58-3: Traction Elevator"
+    edp_type: PFA
+    edp_notes: "At Ground Floor (GF) = PGA"
+    unit: "1 EA"
+    ds_hierarchy: "Simul(DS1, DS2, DS3, DS4); P{DS1,2,3,4} = {0.26, 0.79, 0.68, 0.17}"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 0.39
+        beta: 0.45
+        description: "Anchorage failure of controller/machine/motor generator/governor; or rope guard failure"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+        simultaneous_probability: 0.26
+      DS2:
+        theta_pfa_g: 0.39
+        beta: 0.45
+        description: "Distortion/damage of rail/counterweight/counterweight bracket/counterweight guide/counterweight frame"
+        simultaneous_probability: 0.79
+      DS3:
+        theta_pfa_g: 0.39
+        beta: 0.45
+        description: "Cab stabilizers, walls, or doors damaged"
+        simultaneous_probability: 0.68
+      DS4:
+        theta_pfa_g: 0.39
+        beta: 0.45
+        description: "Cab ceiling damaged; Slight injury over 40 SF"
+        injury: {theta: 0.1, beta: 0.5}
+        fatality: {theta: 0.05, beta: 0.5}
+        affected_area_sf: 40
+        simultaneous_probability: 0.17
+
+  sprinkler_drop:
+    label: "Sprinkler Drop"
+    description: "Fire Sprinkler Drop Standard Threaded Steel, into unbraced lay-in tile SOFT ceiling, 6 ft. long drop max, SDC A/B"
+    fragility_basis: "P-58-3"
+    edp_type: PFA
+    edp_notes: "Uses EDP of floor above"
+    unit: "100 EA"
+    ds_hierarchy: "Seq(DS1, DS2)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 0.75
+        beta: 0.4
+        description: "Spraying/dripping/leakage at joints, 0.1 Leaks/drop"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+      DS2:
+        theta_pfa_g: 0.95
+        beta: 0.4
+        description: "Joints break, major leakage; 0.1 Breaks/drop"
+
+  sprinkler_horizontal_piping:
+    label: "Sprinkler/Horizontal Piping"
+    description: "Fire Sprinkler Water Piping – Horizontal Mains and Branches – Old Style Victaulic – Thin Wall Steel – No bracing, SDC A/B"
+    fragility_basis: "P-58-3: grouped sprinkler piping and other less common horizontal piping"
+    edp_type: PFA
+    edp_notes: "Uses EDP of floor above"
+    unit: "1000 LF"
+    ds_hierarchy: "Seq(DS1, DS2)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 1.1
+        beta: 0.4
+        description: "Spraying/dripping/leakage at joints, 0.2 Leaks/20 ft"
+      DS2:
+        theta_pfa_g: 2.4
+        beta: 0.5
+        description: "Joints break, major leakage; 0.2 Breaks/20 ft"
+
+  electrical_distribution_equipment:
+    label: "Electrical Distribution Equipment"
+    description: "Distribution Panel, 100-350 Amp – Unanchored/No isolation. Groups Distribution Panel/Low Voltage Switchgear/Motor Control Center."
+    fragility_basis: "P-58-3"
+    edp_type: PFA
+    unit: "1 EA"
+    ds_hierarchy: "Seq(DS1)"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 2.16
+        beta: 0.45
+        description: "Damaged; Inoperative"
+        injury: {theta: null, beta: null}
+        red_tag: {theta: null, beta: null}
+
+  diesel_generator:
+    label: "Diesel Generator"
+    description: "Diesel generator, 100-350 kVA – Unanchored/No isolation; Equipment fragility only"
+    fragility_basis: "P-58-3"
+    edp_type: PFA
+    unit: "1 EA"
+    ds_hierarchy: "MutEx(DS1, DS2, DS3, DS4); P(DS1)=0.7; P(DS1,2,3)=0.1"
+    source:
+      section: "6.2.2"
+      table: "Table D-4"
+      printed_page: 298
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        theta_pfa_g: 0.9
+        beta: 0.4
+        description: "Damaged: pipes & nozzles; Inoperative"
+        mutually_exclusive_probability: 0.7
+      DS2:
+        theta_pfa_g: 0.9
+        beta: 0.4
+        description: "Damaged: drive shaft misalignment; Inoperative"
+        mutually_exclusive_probability: 0.1
+      DS3:
+        theta_pfa_g: 0.9
+        beta: 0.4
+        description: "Damaged: minor electrical (e.g., failed relay); Inoperative"
+        mutually_exclusive_probability: 0.1
+      DS4:
+        theta_pfa_g: 0.9
+        beta: 0.4
+        description: "Damaged: exhaust line expansion bellows disconnected; Inoperative"
+        mutually_exclusive_probability: 0.1
+
+# ============================================================
+# ARCHETYPE COMPONENT ASSIGNMENT SUMMARY
+# ============================================================
+archetype_component_assignments:
+  source:
+    section: "6.2.5"
+    table: "Table 6-4"
+    printed_page: 129
+  provenance_confidence: high
+  notes: "Y=Flag for component assignment; X=Remove Existing; ↓=Upgrade Existing; ✓=Mitigated. See Appendix D.5 Table D-13 for quantities."
+
+  component_quantity_dispersions:
+    from_drawings_or_rvs:
+      beta_q: 0.2
+      source: {section: "6.2.5", printed_page: 130}
+    from_engineering_judgment:
+      beta_q: 0.4
+      example_archetype: "C1-H (Hi)"
+      source: {section: "6.2.5", printed_page: 130}

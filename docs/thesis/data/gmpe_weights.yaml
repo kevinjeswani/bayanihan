@@ -1,0 +1,218 @@
+# GMPE Logic-Tree Weights for PEM2020 (Philippine Earthquake Model 2020)
+# Source: Table 7-3, "GMPE weights for rupture scenarios in portfolio loss estimation;
+#         After Peñarubia, et al. (2020)"
+# Thesis: Jeswani, K.K. (2021). MASc Thesis, University of Toronto.
+# Note: Table 7-3 is in Chapter 7 (printed page 158 / PDF page 185) but documents the
+#       PEM2020 PSHA model used throughout Chapter 3 for hazard definition.
+#       Chapter 3 (§3.1.3) explicitly names CY08 and BA08 as the two GMPEs used in
+#       PEM2020 for SHALLOW CRUSTAL site amplification; Table 7-3 confirms all four
+#       shallow-crustal and four subduction-interface GMPEs with equal weighting (0.25 each).
+
+metadata:
+  psha_model: "PEM2020 — Philippine Earthquake Model 2020"
+  reference: "Peñarubia, et al. (2020)"
+  platform: "OpenQuake (GEM, 2020b)"
+  adopted_by: "Jeswani (2021) for Ch.3 hazard definition and Ch.7 portfolio loss estimation"
+  table_source:
+    section: "7.x"
+    table: "Table 7-3"
+    printed_page: 158
+  note: >
+    All GMPEs within each tectonic regime carry equal weight (0.25).
+    Intraslab (subcrustal) events from Manila Trench were omitted from
+    ground-motion selection in this study (Section 3.2.4); no intraslab
+    GMPEs are listed in Table 7-3.
+
+# ============================================================
+# SHALLOW CRUSTAL (governing hazard 475–2475 yr: WVF, EVF, near-fault)
+# ============================================================
+shallow_crustal:
+  description: "Shallow crustal faults within ~25 km of Metro Manila; primary hazard source at DBE–MCE levels. Key sources: WVF, EVF, GNW, PFS segments."
+  total_weight: 1.0
+
+  gmpes:
+
+    CY08:
+      full_name: "Chiou & Youngs (2008)"
+      short_name: "CY08"
+      reference: "Chiou, B.S., & Youngs, R.R. (2008). An NGA Model for the Average Horizontal Component of Peak Ground Motion and Response Spectra."
+      tectonic_regime:
+        value: "shallow_crustal"
+        unit: "dimensionless"
+        source: {section: "3.1.3", table: "Table 7-3", printed_page: 27}
+        provenance_confidence: high
+        notes: "Explicitly named in §3.1.3 (p.27) as one of the two PEM2020 shallow-crustal GMPEs; confirmed in Table 7-3."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree (1/4 = 0.25) for four shallow-crustal GMPEs."
+      nga_generation: "NGA-West1"
+      reference_vs30_m_s:
+        value: 760
+        unit: "m/s"
+        source: {section: "3.1.1", table: null, printed_page: 23}
+        provenance_confidence: high
+        notes: "PEM2020 reference site condition; confirmed as same as BA08 reference Vs30."
+
+    BA08:
+      full_name: "Boore & Atkinson (2008)"
+      short_name: "BA08"
+      reference: "Boore, D., & Atkinson, G. (2008). Ground-Motion Prediction Equations for the Average Horizontal Component of PGA, PGV, and 5%-Damped PSA at Spectral Periods between 0.01 s and 10.0 s."
+      tectonic_regime:
+        value: "shallow_crustal"
+        unit: "dimensionless"
+        source: {section: "3.1.3", table: "Table 7-3", printed_page: 27}
+        provenance_confidence: high
+        notes: "Explicitly named in §3.1.3 (p.27) and used for period-dependent site amplification factors (same Vs30=760 m/s reference). Also confirmed in Table 7-3."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree. BA08 site amplification factors applied to target geomean Sa curves in §3.1.3."
+      nga_generation: "NGA-West1"
+      special_role: "Used for site amplification factors in §3.1.3 because its reference Vs30=760 m/s matches the PEM2020 reference site."
+      reference_vs30_m_s:
+        value: 760
+        unit: "m/s"
+        source: {section: "3.1.3", table: null, printed_page: 27}
+        provenance_confidence: high
+        notes: ""
+
+    Zhao06_crustal:
+      full_name: "Zhao, et al. (2006)"
+      short_name: "Zhao06"
+      reference: "Zhao, J.X., Zhang, J., Asano, A., Ohno, Y., Oouchi, T., Takahashi, T., et al. (2006). Attenuation Relations of Strong Ground Motion in Japan Using Site Classification Based on Predominant Period."
+      tectonic_regime:
+        value: "shallow_crustal"
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Listed under Shallow Crustal column in Table 7-3. Zhao et al. (2006) covers multiple regimes; here applied in crustal context per PEM2020 logic tree."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree."
+      nga_generation: "Non-NGA (Japanese dataset)"
+
+    BSSA14:
+      full_name: "Boore, Stewart, Seyhan & Atkinson (2014)"
+      short_name: "BSSA14"
+      reference: "Boore, D.M., Stewart, J.P., Seyhan, E., & Atkinson, G.M. (2014). NGA-West 2 Equations for Predicting PGA, PGV, and 5%-Damped PSA for Shallow Crustal Earthquakes."
+      tectonic_regime:
+        value: "shallow_crustal"
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Listed as 'Boore, et al. (2014)' in Table 7-3 under Shallow Crustal. NGA-West2 update of BA08."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree."
+      nga_generation: "NGA-West2"
+
+# ============================================================
+# SUBDUCTION INTERFACE
+# (Manila Trench interface; governs 475-yr hazard at 100–150 km distances)
+# ============================================================
+subduction_interface:
+  description: "Subduction interface events: Manila Trench (Mw up to ~8.0, ~100–150 km from MM). Also East Luzon Trough/Philippine Trench (less likely). Governs second hazard cluster in 475-yr disaggregation."
+  total_weight: 1.0
+
+  gmpes:
+
+    Youngs97:
+      full_name: "Youngs, Chiou, Silva & Humphrey (1997)"
+      short_name: "Youngs97"
+      reference: "Youngs, R., Chiou, S., Silva, W., & Humphrey, J. (1997). Strong Ground Motion Attenuation Relationships for Subduction Zone Earthquakes."
+      tectonic_regime:
+        value: "subduction_interface"
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Listed in Table 7-3 under Subduction Interface as 'Youngs, et al. (1997)'."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree (1/4 = 0.25) for four subduction-interface GMPEs."
+
+    AB03:
+      full_name: "Atkinson & Boore (2003)"
+      short_name: "AB03"
+      reference: "Atkinson, G., & Boore, D. (2003). Empirical Ground-Motion Relations for Subduction-Zone Earthquakes and Their Application to Cascadia and Other Regions."
+      tectonic_regime:
+        value: "subduction_interface"
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Listed in Table 7-3 under Subduction Interface as 'Atkinson & Boore (2003)'."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree."
+
+    Zhao06_interface:
+      full_name: "Zhao, et al. (2006)"
+      short_name: "Zhao06"
+      reference: "Zhao, J.X., Zhang, J., Asano, A., Ohno, Y., Oouchi, T., Takahashi, T., et al. (2006). Attenuation Relations of Strong Ground Motion in Japan Using Site Classification Based on Predominant Period."
+      tectonic_regime:
+        value: "subduction_interface"
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Listed in Table 7-3 under Subduction Interface as 'Zhao, et al. (2006)'. Same reference as crustal entry above; applies to both regimes."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree."
+
+    Abrahamson16:
+      full_name: "Abrahamson, Gregor & Addo (2016) — BC Hydro"
+      short_name: "Abrahamson16"
+      reference: "Abrahamson, N., Gregor, N., & Addo, K. (2016). BC Hydro Ground Motion Prediction Equations for Subduction Earthquakes."
+      tectonic_regime:
+        value: "subduction_interface"
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Listed in Table 7-3 under Subduction Interface as 'Abrahamson, et al. (2016)'."
+      weight:
+        value: 0.25
+        unit: "dimensionless"
+        source: {section: "7.x", table: "Table 7-3", printed_page: 158}
+        provenance_confidence: high
+        notes: "Equal-weight logic tree."
+
+# ============================================================
+# NOTES ON OMITTED REGIMES
+# ============================================================
+omitted_regimes:
+  intraslab:
+    notes: >
+      Subcrustal (intraslab) GMs from the Manila Trench were explicitly omitted from
+      the ground-motion selection procedure in this study (§3.2.4, printed p.31).
+      No intraslab GMPEs appear in Table 7-3. The thesis notes this as a direction
+      for future work.
+    source: {section: "3.2.4", table: null, printed_page: 31}
+
+# ============================================================
+# SUMMARY COUNT
+# ============================================================
+summary:
+  total_gmpes: 6
+  unique_gmpe_references: 6
+  note: "Zhao06 appears in both shallow_crustal and subduction_interface branches of the logic tree (counted once as a unique reference, twice as logic-tree entries). CY08 and BA08 are NGA-West1; BSSA14 is NGA-West2."
+  shallow_crustal_count: 4
+  subduction_interface_count: 4

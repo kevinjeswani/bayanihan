@@ -1,0 +1,65 @@
+{
+  "_metadata": {
+    "title": "Non-structural component mitigation map (Philippine school portfolio)",
+    "description": "The thesis's SECOND mitigation layer (beyond the structural FRP retrofit of the non-ductile RCMRF): broadly-applied non-structural equipment upgrades whose purpose is to reduce INJURIES from falling hazards (Jeswani 2021 Ch 6.2.4 Table 6-3; Ch 8.3 'Short-Term Non-Structural Mitigations'). Each acceleration- or drift-sensitive non-structural component is replaced by its anchored/braced/seismic counterpart (higher fragility capacity AND, for fixtures/electronics, no casualty consequence). This is a COMPONENT-LEVEL fragility/consequence swap — NOT new EDPs and NOT a structural re-analysis (HARD SCOPE compliant). It changes the Pelicun damage sample (which drives the non-collapse component injury pathway in casualties.py) and the component repair loss; it does NOT change collapse probability (that is the structural FRP layer's job).",
+    "source_thesis": "Jeswani, K. K. (2021), MASc thesis, University of Toronto. Table 6-3 'Simulated Component Mitigation Strategies' (printed p.128; docs/thesis/06_vulnerability_loss_estimation.md:204-214); Table 6-4 archetype/mitigated-counterpart assignments (printed p.129-130); Ch 8.3 'Short-Term Non-Structural Mitigations' (08_conclusions.md:87): brace ceilings, anchor/safety-wire fixtures (fans/lights), secure desktop electronics, anchor wall-mounted AC units. Thesis result: 'Non-structural mitigation measures neutralized non-collapse injuries' (06:448, 460); injury rate 14.5%->1.1% (Makati), 9.1%->2.3% (QC) (08:37).",
+    "mechanism": "At the Pelicun asset-marginals build (building._build_cmp_marginals), every base component id that appears as a key in 'substitutions' is replaced by its mapped 'to' component id (a stronger/anchored variant that already exists in fragility.csv + consequence_repair.csv), and every component id in 'removed' is dropped from the marginals entirely (thesis: electronics are 'removed item from mitigated models (simulate no damage/casualty)'). The mitigated counterparts (PH.NS.CLG.BR, PH.NS.FIX.SE, PH.NS.CHB.SR, PH.NS.CHB.PR) carry NO non-collapse injury consequence in casualty_consequences.json (FIX.SE, CHB.*R) or a much higher acceleration capacity (CLG.BR DS3 theta 2.07 g vs CLG.NS 1.31 g), so the non-collapse injury pathway is suppressed for the upgraded components. Quantities, locations, directions and all other (structural) components are unchanged.",
+    "scope": "Applied PORTFOLIO-WIDE for the upgraded component classes (every building that carries one of these acceleration/drift-sensitive non-structural components gets the upgrade), per the thesis's broad non-structural programme. This is NOT limited to the FRP-retrofitted archetypes — the thesis applied the non-structural upgrades across the portfolio (Table 6-4 marks the mitigated counterpart '✓' for the C1-M / PTC1-M / C1-L primary archetypes that carry these components). The structural FRP layer (C1-M (Pre/Lo) -> C1-M (Pre/Lo) FRP) is a SEPARATE map (portfolio.MITIGATION_RETROFIT_MAP) and is applied simultaneously in the mitigated run.",
+    "provenance_overall": "high for the substitution targets (Table 6-3 is an explicit existing->upgraded component table; all target ids already exist in fragility.csv / consequence_repair.csv with thesis provenance). The braced-ceiling, seismic-fixture and reinforced-CHB fragilities are the thesis's own Table D-4 values; the electronics 'removed' treatment is verbatim from Table 6-3.",
+    "generated_by": "OPUS mitigation-correction agent 2026-06-27 (extracted from thesis Table 6-3 + Table 6-4; corrects the prior agent's structural-only framing). Data-driven: code reads this file, never hardcodes the map."
+  },
+
+  "substitutions": {
+    "PH.NS.CLG.NS": {
+      "to": "PH.NS.CLG.BR",
+      "label": "Suspended Ceiling; Non-Seismic -> Braced",
+      "upgrade_activities": "Partial removal of existing ceiling; install compression struts and diagonal splay wires; install wall bracket (one end fixed, other free) if none present.",
+      "effect": "Acceleration capacity raised (DS3 PFA theta 1.31 g -> 2.07 g); fewer ceiling sections reach the casualty DS3 (injury theta 0.10 over 250 SF). Loss impact marginal (same repair consequence).",
+      "source": "Table 6-3 (p.128); fragility PH.NS.CLG.BR Table D-4 (p.298).",
+      "provenance_confidence": "high"
+    },
+    "PH.NS.FIX.NS": {
+      "to": "PH.NS.FIX.SE",
+      "label": "Ceiling Fixtures; Non-Seismic -> Braced/Seismic (safety-wired)",
+      "upgrade_activities": "Check existing anchorage, move away from MRF beams if necessary; install additional safety cables (~25% of new lighting fixture cost). Safety-wire fans/lights, phase out pendant fixtures.",
+      "effect": "Seismic/safety-wired fixtures carry NO non-collapse casualty (PH.NS.FIX.SE is absent from casualty_consequences.json noncollapse table), vs PH.NS.FIX.NS injury theta 0.10 over 50 SF per damaged unit. This is the DOMINANT non-collapse injury driver in the school archetypes, so its neutralisation is the headline injury benefit (thesis: 'non-structural mitigation neutralized non-collapse injuries').",
+      "source": "Table 6-3 (p.128); Table 6-2 (p.121) 'Ceiling Fixtures; Seismic ... no casualty'; fragility PH.NS.FIX.SE Table D-4 (p.298).",
+      "provenance_confidence": "high"
+    },
+    "PH.NS.CHB.SU": {
+      "to": "PH.NS.CHB.SR",
+      "label": "CHB Wall; Solid; Unreinforced -> Reinforced",
+      "upgrade_activities": "Saw-cut isolation at wall-ends, re-tooth, polypropylene expansion joint, post-installed anchors into frame, welded-wire-mesh both sides, new mortar, paint.",
+      "effect": "Reinforced CHB has higher drift capacity (DS1 PIDR 0.13% -> 0.23%, DS2 0.31% -> 0.67%) and NO heavy-damage DS3 -> NO non-collapse injury consequence (PH.NS.CHB.SR carries no casualty DS in casualty_consequences.json). Reduces the secondary CHB injury contribution and 'no global collapse' of infill.",
+      "source": "Table 6-3 (p.128); fragility/consequence PH.NS.CHB.SR Table D-4/D-9 (p.298/306).",
+      "provenance_confidence": "medium",
+      "note": "CHB casualty consequences are approximated in the thesis (Table D-4 footnote)."
+    },
+    "PH.NS.CHB.PU": {
+      "to": "PH.NS.CHB.PR",
+      "label": "CHB with Doors/Windows; Unreinforced -> Reinforced",
+      "upgrade_activities": "As for solid CHB (welded-wire-mesh, anchors, expansion joint), preserving openings.",
+      "effect": "Reinforced perforated CHB: higher drift capacity, casualty DS3/DS4 removed -> no non-collapse injury consequence.",
+      "source": "Table 6-3 (p.128); fragility/consequence PH.NS.CHB.PR Table D-4/D-9 (p.298/306).",
+      "provenance_confidence": "medium",
+      "note": "CHB casualty consequences are approximated in the thesis (Table D-4 footnote)."
+    }
+  },
+
+  "removed": {
+    "PH.NS.ELEC.DT": {
+      "label": "Desktop Electronics",
+      "upgrade_activities": "Attach safety fasteners / heavy-duty straps so the unit does not fall.",
+      "effect": "Thesis: 'Removed item from mitigated models (simulate no damage/casualty)'. Dropped from the mitigated marginals -> no damage, no non-collapse injury (was injury theta 0.10 over 16 SF).",
+      "source": "Table 6-3 (p.128).",
+      "provenance_confidence": "high"
+    },
+    "PH.NS.ELEC.WM": {
+      "label": "Wall-Mounted Electronics (AC units / TVs)",
+      "upgrade_activities": "Attach additional angled brackets to anchor wall-mounted AC units.",
+      "effect": "Thesis: 'Removed item from mitigated models (simulate no damage/casualty)'. Dropped from the mitigated marginals -> no damage, no non-collapse injury/fatality (was the only non-collapse FATALITY-bearing NSC: injury 0.20 / fatality 0.10 over 16 SF, high PFA capacity 2.5 g so rarely fired).",
+      "source": "Table 6-3 (p.128).",
+      "provenance_confidence": "high"
+    }
+  }
+}

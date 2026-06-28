@@ -1,0 +1,57 @@
+{
+  "_provenance": {
+    "source": "docs/thesis/data/redi_impedance_factors.yaml",
+    "thesis": "Jeswani, K.K. (2021). The Seismic Resilience of Critical Spatially-Distributed Building Portfolios. MASc Thesis, University of Toronto.",
+    "section": "6.3.2",
+    "table": "Table 6-7",
+    "printed_page": 135,
+    "methodology": "Almufti & Willford (2013). REDi Rating System v1.0. Arup.",
+    "notes": [
+      "All delay distributions are lognormal (theta=median in days, beta=log-standard deviation).",
+      "Units: days. YAML source uses days for inspection and weeks for all others; converted to days here (1 week = 7 days).",
+      "Default values correspond to the PRIMARY SCHOOL ARCHETYPES group (C1-M, C1-L, PTC1-M, CWS-L, C1-H, S1-M) which cover the majority of the Jeswani (2021) portfolio.",
+      "Repair-class-dependent variants are captured in sub-categories below and in comments; defaults use Max Repair Class = 3 (the binding/conservative case for mixed portfolios).",
+      "PERMITTING vs ENGINEER split: Table 6-7 combines engineering mobilization + permitting as a single delay path. The split below (approx. 50/50 of combined median) is engineering judgment. LOW CONFIDENCE — flag for Kevin's review.",
+      "LONG-LEAD MATERIALS: No standalone theta/beta in Table 6-7. Glazing/curtain wall marked '(LL)' in Table D-16 but no days given. Value below adopted from REDi v1.0 general knowledge (14 days median, beta=0.50). LOW CONFIDENCE — verify against Almufti & Willford 2013 App. A4.3.",
+      "provenance_confidence: inspection=HIGH, financing=HIGH, contractor=HIGH, engineer_combined=HIGH, permitting=LOW (split is estimated), long_lead=LOW (no thesis value)"
+    ]
+  },
+  "inspection_median_days": 5.0,
+  "inspection_beta": 0.54,
+  "_inspection_note": "Non-Essential Facility category. theta=5 days, beta=0.54. Source: Table 6-7 (p.135). Applies to all archetypes. provenance_confidence: HIGH.",
+
+  "financing_median_days": 336.0,
+  "financing_beta": 0.57,
+  "_financing_note": "SBA-Backed Loans category for primary school archetypes. theta=48 weeks * 7 = 336 days, beta=0.57. Source: Table 6-7 (p.135). provenance_confidence: HIGH. Alternate values in YAML: simple_non_engineered=6wks/42days/beta=1.11, wood_frame=15wks/105days/beta=0.68.",
+
+  "permitting_median_days": 14.0,
+  "permitting_beta": 0.54,
+  "_permitting_note": "ENGINEERING JUDGMENT SPLIT. Table 6-7 gives combined 'engineer mobilization + permitting' as 4 weeks (28 days, beta=0.54) for Max Repair Class 3. Permitting estimated at ~50% of combined = 14 days; engineer_median_days takes remaining 14 days. LOW CONFIDENCE. provenance_confidence: LOW.",
+
+  "contractor_median_days": 133.0,
+  "contractor_beta": 0.38,
+  "_contractor_note": "Non-essential facility <20 stories, Max Repair Class = 3. theta=19 weeks * 7 = 133 days, beta=0.38. Source: Table 6-7 (p.135). provenance_confidence: HIGH. Alternate (Max RC=1): theta=7wks=49days, beta=0.60.",
+
+  "engineer_median_days": 14.0,
+  "engineer_beta": 0.54,
+  "_engineer_note": "ENGINEERING JUDGMENT SPLIT. Combined 'engineer mobilization + permitting' per Table 6-7 = 4 weeks (28 days, beta=0.54) for Max Repair Class 3. Engineer share estimated at ~50% = 14 days; permitting takes remaining 14 days. LOW CONFIDENCE. Alternate (Max RC=1): combined=2wks=14days/beta=0.32; (complete redesign): combined=42wks=294days/beta=0.45. provenance_confidence: LOW.",
+
+  "long_lead_median_days": 14.0,
+  "long_lead_beta": 0.50,
+  "_long_lead_note": "NO THESIS VALUE. Glazing/curtain wall components flagged as Long Lead (LL) in Table D-16 but no days or beta given. Value of 14 days median / beta=0.50 adopted from REDi v1.0 general knowledge. LOW CONFIDENCE — must verify against Almufti & Willford 2013 App. A4.3 or thesis Appendix D. provenance_confidence: LOW.",
+
+  "_sub_categories": {
+    "_note": "Sub-category values for reference only; not loaded by ImpedingFactorParams. Use for future archetype-specific calibration.",
+    "inspection_all_archetypes": {"median_days": 5.0, "beta": 0.54},
+    "financing_primary_school": {"median_days": 336.0, "beta": 0.57},
+    "financing_simple_non_engineered": {"median_days": 42.0, "beta": 1.11},
+    "financing_wood_frame": {"median_days": 105.0, "beta": 0.68},
+    "engineer_plus_permitting_max_rc1": {"median_days": 14.0, "beta": 0.32},
+    "engineer_plus_permitting_max_rc3": {"median_days": 28.0, "beta": 0.54},
+    "engineer_plus_permitting_complete_redesign": {"median_days": 294.0, "beta": 0.45, "provenance_confidence": "MEDIUM"},
+    "contractor_max_rc1_primary_school": {"median_days": 49.0, "beta": 0.60},
+    "contractor_max_rc3_primary_school": {"median_days": 133.0, "beta": 0.38},
+    "contractor_max_rc1_simple": {"median_days": 21.0, "beta": 0.66},
+    "contractor_max_rc3_simple": {"median_days": 49.0, "beta": 0.35}
+  }
+}

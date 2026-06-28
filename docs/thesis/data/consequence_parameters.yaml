@@ -1,0 +1,798 @@
+# Repair Cost and Repair Time Component Consequence Functions
+# Source: Chapter 6 §6.2.3 and Appendix D.3 (Tables D-8, D-9, D-5)
+# Thesis: Jeswani, K.K. (2021). The Seismic Resilience of Critical Spatially-Distributed Building Portfolios. MASc Thesis, University of Toronto.
+#
+# UNITS:
+#   Cost θ: thousands of PHP [000 PHP] (median, at reference year 2020)
+#   Time θ: man-hours [MH] (median)
+#   CV/β: coefficient of variation (used as dispersion; P-58 uses μ≈θ even for lognormal)
+#
+# ECONOMIES OF SCALE:
+#   Q_min: lower quantity bound → below this, (C,T) = θ × (C,T)_max/θ
+#   Q_max: upper quantity bound → above this, (C,T) = θ × (C,T)_min/θ
+#   Between Q_min and Q_max: linear interpolation
+#
+# NOTE: P-58 uses mean (μ) ≈ median (θ) even for lognormal distributions.
+# This thesis uses actual θ and the same ratios of (C,T)_{max,min}/θ from P-58-3.
+# Additional β dispersion enrichment of +0.25 (root sum of squares) applied to all
+# distributions to account for further uncertainty (FEMA, 2018a, per Section 6.2.3).
+#
+# REFERENCE KEY PARAMETERS (Section 6.2.3, Appendix D.3):
+#   - P-58-3 costs inflated by factor 1.29 (Jul 2010 → May 2020, CACCI DGS 2020)
+#   - Material cost ratio r_mat = 0.37 (Metro Manila vs. San Francisco, lower bound)
+#   - Labour cost ratio r_lab = 0.03
+#   - Skilled labour rate c_lab = PHP 107/person-hour (including overhead)
+#   - Exchange rate: USD 1.0 = PHP 50.8 (May 2020 average)
+#   - Post-disaster demand surge factors: 1.1 (C_10 DPWH costs), 1.2 (C_90 DPWH costs)
+
+metadata:
+  document: "MASc Thesis Chapter 6 / Appendix D.3"
+  author: "Kevin Jeswani"
+  year: 2021
+  currency: "PHP (Philippine Peso)"
+  reference_year: 2020
+  cost_unit: "000 PHP (thousands of PHP)"
+  time_unit: "MH (man-hours/person-hours)"
+  distributions:
+    LN: "Lognormal"
+    N: "Normal"
+
+# ============================================================
+# STRUCTURAL COMPONENTS — Table D-8 (Appendix D.3.4, printed page 305)
+# ============================================================
+structural_consequence_functions:
+
+  ductile_rcmrf_1side:
+    label: "Ductile RCMRF; 1-Side"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost:
+          theta_000php: 16.9
+          CV_beta: 0.50
+          distribution: LN
+        time:
+          theta_MH: 7.3
+          CV_beta: 0.50
+          distribution: LN
+        economies_of_scale:
+          Q_min: 5
+          C_T_max_factor: 1.2
+          Q_max: 20
+          C_T_min_factor: 0.8
+      DS2:
+        cost:
+          theta_000php: 28.3
+          CV_beta: 0.54
+          distribution: LN
+        time:
+          theta_MH: 16.4
+          CV_beta: 0.54
+          distribution: N
+        economies_of_scale:
+          Q_min: 5
+          C_T_max_factor: 1.2
+          Q_max: 20
+          C_T_min_factor: 0.8
+      DS3:
+        cost:
+          theta_000php: 44.9
+          CV_beta: 0.59
+          distribution: LN
+        time:
+          theta_MH: 25.2
+          CV_beta: 0.49
+          distribution: N
+        economies_of_scale:
+          Q_min: 5
+          C_T_max_factor: 1.2
+          Q_max: 20
+          C_T_min_factor: 0.8
+      DS4:
+        cost:
+          theta_000php: 28.3
+          CV_beta: 0.53
+          distribution: LN
+        time:
+          theta_MH: 16.4
+          CV_beta: 0.54
+          distribution: N
+        economies_of_scale:
+          Q_min: 5
+          C_T_max_factor: 1.2
+          Q_max: 20
+          C_T_min_factor: 0.8
+        notes: "DS4 = DS2 damage; same cost as DS2"
+
+  ductile_rcmrf_2sides:
+    label: "Ductile RCMRF; 2-Sides"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 25.6, CV_beta: 0.59, distribution: LN}
+        time: {theta_MH: 10.3, CV_beta: 0.58, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 43.5, CV_beta: 0.54, distribution: LN}
+        time: {theta_MH: 21.9, CV_beta: 0.61, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 65.9, CV_beta: 0.61, distribution: LN}
+        time: {theta_MH: 30.5, CV_beta: 0.57, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS4:
+        cost: {theta_000php: 43.5, CV_beta: 0.54, distribution: LN}
+        time: {theta_MH: 21.9, CV_beta: 0.61, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+        notes: "DS4 = DS2 damage"
+
+  pt_rcmrf_1side:
+    label: "PT RCMRF; 1-Side"
+    notes: "All C_10, C_50, C_90 set to 50% of standard ductile counterpart (less cracking), except DS3 C_50 of concrete repair tasks doubled (anchorage failure complexity)"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 10.3, CV_beta: 0.61, distribution: LN}
+        time: {theta_MH: 4.0, CV_beta: 0.58, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 16.5, CV_beta: 0.55, distribution: LN}
+        time: {theta_MH: 8.5, CV_beta: 0.54, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 24.8, CV_beta: 0.90, distribution: LN}
+        time: {theta_MH: 16.2, CV_beta: 0.80, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+        notes: "DS3 concrete repair cost doubled relative to ductile PT ratio; high uncertainty"
+      DS4:
+        cost: {theta_000php: 16.5, CV_beta: 0.54, distribution: LN}
+        time: {theta_MH: 8.5, CV_beta: 0.54, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+
+  pt_rcmrf_2sides:
+    label: "PT RCMRF; 2-Sides"
+    notes: "Same PT adjustments as PT RCMRF 1-Side"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 16.5, CV_beta: 0.71, distribution: LN}
+        time: {theta_MH: 6.0, CV_beta: 0.69, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 24.5, CV_beta: 0.55, distribution: LN}
+        time: {theta_MH: 9.4, CV_beta: 0.60, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 37.7, CV_beta: 0.90, distribution: LN}
+        time: {theta_MH: 21.6, CV_beta: 0.78, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+      DS4:
+        cost: {theta_000php: 24.5, CV_beta: 0.55, distribution: LN}
+        time: {theta_MH: 9.4, CV_beta: 0.60, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+
+  non_ductile_rcmrf_1side:
+    label: "Non-Ductile RCMRF; 1-Side"
+    notes: "Adjusted upwards for cracking of both beams and columns"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 17.8, CV_beta: 0.50, distribution: LN}
+        time: {theta_MH: 7.7, CV_beta: 0.51, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.9}
+      DS2:
+        cost: {theta_000php: 32.1, CV_beta: 0.48, distribution: N}
+        time: {theta_MH: 18.0, CV_beta: 0.53, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.9}
+      DS3:
+        cost: {theta_000php: 55.7, CV_beta: 0.49, distribution: N}
+        time: {theta_MH: 28.2, CV_beta: 0.48, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.9}
+
+  non_ductile_rcmrf_2sides:
+    label: "Non-Ductile RCMRF; 2-Sides"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 27.8, CV_beta: 0.60, distribution: LN}
+        time: {theta_MH: 11.3, CV_beta: 0.59, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.9}
+      DS2:
+        cost: {theta_000php: 53.4, CV_beta: 0.52, distribution: N}
+        time: {theta_MH: 26.1, CV_beta: 0.56, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.9}
+      DS3:
+        cost: {theta_000php: 90.0, CV_beta: 0.54, distribution: N}
+        time: {theta_MH: 37.2, CV_beta: 0.53, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.9}
+
+  non_rbs_steel_mrf_1side:
+    label: "Non-RBS Steel MRF; 1-Side"
+    notes: "Original P-58 DS2=DS3; DS2 scaled down to 0.75 × DS3"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 50.3, CV_beta: 0.19, distribution: LN}
+        time: {theta_MH: 36.7, CV_beta: 0.29, distribution: LN}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 7, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 179.1, CV_beta: 0.29, distribution: N}
+        time: {theta_MH: 42.3, CV_beta: 0.35, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 7, C_T_min_factor: 0.8}
+        notes: "Scaled to 0.75 × DS3"
+      DS3:
+        cost: {theta_000php: 237.2, CV_beta: 0.29, distribution: N}
+        time: {theta_MH: 56.2, CV_beta: 0.35, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 7, C_T_min_factor: 0.8}
+
+  non_rbs_steel_mrf_2sides:
+    label: "Non-RBS Steel MRF; 2-Sides"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 77.6, CV_beta: 0.18, distribution: N}
+        time: {theta_MH: 58.6, CV_beta: 0.30, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 7, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 353.5, CV_beta: 0.25, distribution: N}
+        time: {theta_MH: 82.9, CV_beta: 0.33, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 7, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 582.7, CV_beta: 0.22, distribution: N}
+        time: {theta_MH: 150.3, CV_beta: 0.31, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 7, C_T_min_factor: 0.8}
+
+  steel_column_splice:
+    label: "Steel Column Splice"
+    notes: "DS1 not observable/does not warrant repair — zero cost"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: null, CV_beta: 0.25, distribution: LN}
+        time: {theta_MH: null, CV_beta: 0.35, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: null, Q_max: 20, C_T_min_factor: null}
+        notes: "DS1: damage not observable or does not warrant repair — zero cost"
+      DS2:
+        cost: {theta_000php: 17.2, CV_beta: 0.36, distribution: N}
+        time: {theta_MH: 13.3, CV_beta: 0.44, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 37.9, CV_beta: 0.80, distribution: LN}
+        time: {theta_MH: 24.5, CV_beta: 0.97, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.9}
+
+  steel_column_base_plate:
+    label: "Steel Column Base Plate"
+    notes: "DS1 not observable/does not warrant repair — zero cost"
+    source:
+      section: "6.2.3"
+      table: "Table D-8"
+      printed_page: 305
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: null, CV_beta: 0.25, distribution: LN}
+        time: {theta_MH: null, CV_beta: 0.35, distribution: LN}
+        notes: "DS1: damage not observable or does not warrant repair — zero cost"
+      DS2:
+        cost: {theta_000php: 86.9, CV_beta: 0.42, distribution: LN}
+        time: {theta_MH: 67.0, CV_beta: 0.51, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.3, Q_max: 20, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 178.5, CV_beta: 0.20, distribution: LN}
+        time: {theta_MH: 60.9, CV_beta: 0.43, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.9}
+      DS4:
+        cost: {theta_000php: 289.4, CV_beta: 0.40, distribution: LN}
+        time: {theta_MH: 71.9, CV_beta: 0.46, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.9}
+
+# ============================================================
+# NON-STRUCTURAL COMPONENTS — Table D-9 (Appendix D.3.4, printed page 306)
+# ============================================================
+non_structural_consequence_functions:
+
+  chb_wall_solid_unreinforced:
+    label: "CHB Wall; Solid; Unreinforced"
+    notes: "P-58-3 reinforced masonry wall breakdown used as skeleton, with DG19 repair quantities and DPWH-based CHB construction costs. Does not include new doweling into frame."
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 4.3, CV_beta: 0.61, distribution: LN}
+        time: {theta_MH: 1.6, CV_beta: 0.72, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 20.8, CV_beta: 0.62, distribution: LN}
+        time: {theta_MH: 11.4, CV_beta: 0.68, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 41.4, CV_beta: 0.16, distribution: N}
+        time: {theta_MH: 18.4, CV_beta: 0.35, distribution: N}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+
+  chb_wall_solid_reinforced:
+    label: "CHB Wall; Solid; Reinforced"
+    notes: "Similar to unreinforced CHB, but no total collapse"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 4.3, CV_beta: 0.61, distribution: LN}
+        time: {theta_MH: 1.6, CV_beta: 0.72, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 20.8, CV_beta: 0.62, distribution: LN}
+        time: {theta_MH: 11.4, CV_beta: 0.72, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+
+  chb_wall_perforated_unreinforced:
+    label: "CHB with Doors/Windows; Unreinforced"
+    notes: "Similar to standard CHB wall with partial window damage at DS3; Total replacement at DS4. Does not include new doweling into frame."
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 2.7, CV_beta: 0.60, distribution: LN}
+        time: {theta_MH: 0.9, CV_beta: 0.71, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 13.7, CV_beta: 0.63, distribution: LN}
+        time: {theta_MH: 7.3, CV_beta: 0.70, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 43.1, CV_beta: 0.33, distribution: LN}
+        time: {theta_MH: 21.6, CV_beta: 0.42, distribution: N}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS4:
+        cost: {theta_000php: 56.8, CV_beta: 0.21, distribution: N}
+        time: {theta_MH: 21.5, CV_beta: 0.36, distribution: N}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+        notes: "Total replacement; includes full wall + window/door set"
+
+  chb_wall_perforated_reinforced:
+    label: "CHB with Doors/Windows; Reinforced"
+    notes: "Similar to unreinforced CHB with Doors/Windows, but no total collapse and replacement only; door/windows damage at DS3."
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 2.6, CV_beta: 0.60, distribution: LN}
+        time: {theta_MH: 0.8, CV_beta: 0.71, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 13.9, CV_beta: 0.63, distribution: LN}
+        time: {theta_MH: 7.4, CV_beta: 0.70, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 28.1, CV_beta: 0.55, distribution: LN}
+        time: {theta_MH: 15.6, CV_beta: 0.53, distribution: N}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+
+  curtain_wall:
+    label: "Curtain Wall"
+    notes: "Adjusted for larger and more expensive curtain-wall type windows; smaller P-58 units (30 SF). Includes temporary weather protection."
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 0.5, CV_beta: 0.60, distribution: LN}
+        time: {theta_MH: 0.5, CV_beta: 0.70, distribution: LN}
+        economies_of_scale: {Q_min: 20, C_T_max_factor: 1.5, Q_max: 100, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 3.8, CV_beta: 0.68, distribution: LN}
+        time: {theta_MH: 7.2, CV_beta: 0.73, distribution: LN}
+        economies_of_scale: {Q_min: 20, C_T_max_factor: 1.5, Q_max: 100, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 19.0, CV_beta: 0.26, distribution: N}
+        time: {theta_MH: 31.6, CV_beta: 0.41, distribution: N}
+        economies_of_scale: {Q_min: 20, C_T_max_factor: 1.2, Q_max: 100, C_T_min_factor: 0.8}
+      DS4:
+        cost: {theta_000php: 14.8, CV_beta: 0.41, distribution: LN}
+        time: {theta_MH: 21.9, CV_beta: 0.34, distribution: N}
+        economies_of_scale: {Q_min: 20, C_T_max_factor: 1.2, Q_max: 100, C_T_min_factor: 0.8}
+
+  suspended_ceiling_non_seismic:
+    label: "Suspended Ceiling; Non-Seismic"
+    notes: "Direct PH costs for ceiling and fixture installation (DPWH-based)"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 2.2, CV_beta: 0.49, distribution: N}
+        time: {theta_MH: 1.0, CV_beta: 0.66, distribution: N}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 13.6, CV_beta: 0.60, distribution: LN}
+        time: {theta_MH: 3.9, CV_beta: 0.91, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 47.4, CV_beta: 0.15, distribution: LN}
+        time: {theta_MH: 15.4, CV_beta: 0.37, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+
+  suspended_ceiling_braced:
+    label: "Suspended Ceiling; Braced"
+    notes: "Same costs as Non-Seismic ceiling (direct PH costs for ceiling and fixture installation)"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 2.2, CV_beta: 0.49, distribution: N}
+        time: {theta_MH: 1.0, CV_beta: 0.66, distribution: N}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 13.6, CV_beta: 0.60, distribution: LN}
+        time: {theta_MH: 3.9, CV_beta: 0.91, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 47.4, CV_beta: 0.15, distribution: LN}
+        time: {theta_MH: 15.4, CV_beta: 0.37, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+
+  ceiling_fixtures_non_seismic:
+    label: "Ceiling Fixtures; Non-Seismic"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 2.5, CV_beta: 0.26, distribution: LN}
+        time: {theta_MH: 0.6, CV_beta: 2.65, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 2.0, Q_max: 10, C_T_min_factor: 0.6}
+        notes: "Very high time dispersion (CV=2.65) reflects wide range of fixture types"
+
+  ceiling_fixtures_seismic:
+    label: "Ceiling Fixtures; Seismic"
+    notes: "Same costs as Non-Seismic (ceiling fixture installation cost)"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 2.5, CV_beta: 0.26, distribution: LN}
+        time: {theta_MH: 0.6, CV_beta: 2.65, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 2.0, Q_max: 10, C_T_min_factor: 0.6}
+
+  cip_rc_stairs:
+    label: "CIP RC Stairs"
+    notes: "Philippine costs for casting of new RC"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 7.7, CV_beta: 0.58, distribution: N}
+        time: {theta_MH: 5.4, CV_beta: 0.63, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+      DS2:
+        cost: {theta_000php: 24.5, CV_beta: 0.59, distribution: LN}
+        time: {theta_MH: 23.2, CV_beta: 0.66, distribution: LN}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 82.2, CV_beta: 0.45, distribution: N}
+        time: {theta_MH: 39.7, CV_beta: 0.52, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.2, Q_max: 10, C_T_min_factor: 0.8}
+
+  desktop_electronics:
+    label: "Desktop Electronics"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 15.0, CV_beta: 0.43, distribution: LN}
+        time: {theta_MH: 0.9, CV_beta: 0.49, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 30, C_T_min_factor: 0.8}
+
+  wall_mounted_electronics:
+    label: "Wall-Mounted Electronics"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 20.0, CV_beta: 0.22, distribution: LN}
+        time: {theta_MH: 1.2, CV_beta: 0.43, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 1.2, Q_max: 20, C_T_min_factor: 0.8}
+
+  elevator:
+    label: "Elevator"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 60.6, CV_beta: 0.86, distribution: LN}
+        time: {theta_MH: 29.1, CV_beta: 0.93, distribution: LN}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 2.0, Q_max: 10, C_T_min_factor: 0.6}
+      DS2:
+        cost: {theta_000php: 257.5, CV_beta: 0.28, distribution: N}
+        time: {theta_MH: 116.7, CV_beta: 0.38, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 2.0, Q_max: 10, C_T_min_factor: 0.6}
+      DS3:
+        cost: {theta_000php: 220.3, CV_beta: 0.40, distribution: N}
+        time: {theta_MH: 77.2, CV_beta: 0.48, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 2.0, Q_max: 10, C_T_min_factor: 0.6}
+      DS4:
+        cost: {theta_000php: 34.4, CV_beta: 0.48, distribution: N}
+        time: {theta_MH: 26.1, CV_beta: 0.54, distribution: N}
+        economies_of_scale: {Q_min: 5, C_T_max_factor: 2.0, Q_max: 10, C_T_min_factor: 0.6}
+
+  sprinkler_drop:
+    label: "Sprinkler Drop"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 1.7, CV_beta: 0.21, distribution: LN}
+        time: {theta_MH: 1.6, CV_beta: 0.33, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.1, Q_max: 5, C_T_min_factor: 0.9}
+      DS2:
+        cost: {theta_000php: 3.5, CV_beta: 0.27, distribution: LN}
+        time: {theta_MH: 3.3, CV_beta: 0.37, distribution: LN}
+        economies_of_scale: {Q_min: 2, C_T_max_factor: 1.1, Q_max: 5, C_T_min_factor: 0.9}
+
+  sprinkler_horizontal_piping:
+    label: "Sprinkler/Other Piping"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 1.7, CV_beta: 0.65, distribution: LN}
+        time: {theta_MH: 1.6, CV_beta: 0.77, distribution: LN}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.1, Q_max: 10, C_T_min_factor: 0.9}
+      DS2:
+        cost: {theta_000php: 17.3, CV_beta: 0.04, distribution: N}
+        time: {theta_MH: 16.2, CV_beta: 0.25, distribution: N}
+        economies_of_scale: {Q_min: 3, C_T_max_factor: 1.1, Q_max: 10, C_T_min_factor: 0.9}
+
+  electrical_distribution_equipment:
+    label: "Electrical Distribution Equipment"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 34.7, CV_beta: 0.31, distribution: LN}
+        time: {theta_MH: 14.5, CV_beta: 0.29, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.1, Q_max: 5, C_T_min_factor: 0.9}
+
+  diesel_generator:
+    label: "Diesel Generator"
+    source:
+      section: "6.2.3"
+      table: "Table D-9"
+      printed_page: 306
+    provenance_confidence: high
+    damage_states:
+      DS1:
+        cost: {theta_000php: 3.1, CV_beta: 0.17, distribution: LN}
+        time: {theta_MH: 2.2, CV_beta: 0.30, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.1, Q_max: 5, C_T_min_factor: 0.9}
+      DS2:
+        cost: {theta_000php: 38.6, CV_beta: 0.17, distribution: LN}
+        time: {theta_MH: 27.1, CV_beta: 0.30, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.3, Q_max: 5, C_T_min_factor: 0.8}
+      DS3:
+        cost: {theta_000php: 7.7, CV_beta: 0.15, distribution: LN}
+        time: {theta_MH: 5.4, CV_beta: 0.29, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 5, C_T_min_factor: 0.8}
+      DS4:
+        cost: {theta_000php: 7.7, CV_beta: 0.15, distribution: LN}
+        time: {theta_MH: 5.4, CV_beta: 0.29, distribution: LN}
+        economies_of_scale: {Q_min: 1, C_T_max_factor: 1.2, Q_max: 5, C_T_min_factor: 0.8}
+
+# ============================================================
+# DPWH-DERIVED UNIT CONSTRUCTION COSTS — Table D-5 (Appendix D.3.2, printed page 302)
+# ============================================================
+dpwh_unit_costs:
+  source:
+    section: "Appendix D.3.2"
+    table: "Table D-5"
+    printed_page: 302
+  provenance_confidence: high
+  notes: "Unit costs determined using DPWH 2017a/2019a cost estimation manuals; latest labour rates (Kalibrr Advice, 2019; ARCADIS, 2019); 2014 ACEL equipment rental rates inflated to 2020; PHILCON (2019) material prices and productivity rates. Adjusted for 3/4-person crew with PHILCON (2018) productivity rates where noted."
+
+  items:
+    concrete_manual_mixing:
+      cost: {value: 9062, unit: "PHP/m³"}
+      time: {value: 22.2, unit: "MH/m³"}
+      notes: "Adjusted for 3/4-person crew with PHILCON (2018) productivity rates"
+
+    formworks:
+      cost: {value: 745, unit: "PHP/m²"}
+      time: {value: 3.28, unit: "MH/m²"}
+      notes: "Includes assembly & stripping; adjusted for 3/4-person crew"
+
+    rebar_works:
+      cost: {value: 88, unit: "PHP/kg"}
+      time: {value: 0.11, unit: "MH/kg"}
+      notes: "Adjusted for 3/4-person crew"
+
+    steel_works:
+      cost: {value: 124, unit: "PHP/kg"}
+      time: {value: 0.13, unit: "MH/kg"}
+      notes: "Includes fabrication & erection; Based on PHILCON 'heavy steelworks'; adjusted for 3/4-person crew"
+
+    ceiling_installation:
+      cost: {value: 1331, unit: "PHP/m²"}
+      time: {value: 2.67, unit: "MH/m²"}
+      notes: "Estimate for wood framing (higher cost, conservative)"
+
+    ceiling_fixture_installation:
+      cost: {value: 1754, unit: "PHP/set"}
+      time: {value: 3.45, unit: "MH/set"}
+
+    painting_rc_or_chb:
+      cost: {value: 456, unit: "PHP/m²"}
+      time: {value: 1.90, unit: "MH/m²"}
+      notes: "DPWH wall painting"
+
+    electrical_fittings_p10:
+      cost: {value: 1226, unit: "PHP/set"}
+      time: {value: 4.66, unit: "MH/set"}
+      notes: "Includes outlet, PVC pipe, wires, utility box"
+
+    electrical_fittings_p90:
+      cost: {value: 3156, unit: "PHP/set"}
+      time: {value: 14.2, unit: "MH/set"}
+      notes: "Same as p10 with more wires/PVC pipe + switch, junction box"
+
+    chb_new_wall:
+      cost: {value: 1490, unit: "PHP/m²"}
+      time: {value: 2.26, unit: "MH/m²"}
+      notes: "Includes laying, tooling, plastering; adjusted for 3/4-person crew"
+
+    plastering_rc_or_chb:
+      cost: {value: 180, unit: "PHP/m²"}
+      time: {value: 0.44, unit: "MH/m²"}
+      notes: "Using PHILCON CHB Wall plastering"
+
+    full_wall_window_door_set_p10:
+      cost: {value: 24913, unit: "PHP/set"}
+      time: {value: 48.7, unit: "MH/set"}
+      notes: "Includes small (bathroom) window; Based on ~9.3 m² wall panel; DPWH/PHILCON hybrid 3/4-person crew"
+
+    full_wall_window_door_set_p50:
+      cost: {value: 36773, unit: "PHP/set"}
+      time: {value: 84.9, unit: "MH/set"}
+      notes: "Includes swing-type steel casement window; Based on ~9.3 m² wall panel"
+
+    full_wall_window_door_set_p90:
+      cost: {value: 38089, unit: "PHP/set"}
+      time: {value: 76.6, unit: "MH/set"}
+      notes: "Includes medium Jalousie window + panel door; Based on ~9.3 m² wall panel"
+
+    full_wall_partial_window_door_replacement_p10:
+      cost: {value: 5845, unit: "PHP/set"}
+      time: {value: 26.2, unit: "MH/set"}
+      notes: "Assumes full wall replacement, 100% of door & 50% window framing, 10% window panes"
+
+    full_wall_partial_window_door_replacement_p50:
+      cost: {value: 12958, unit: "PHP/set"}
+      time: {value: 59.7, unit: "MH/set"}
+
+    full_wall_partial_window_door_replacement_p90:
+      cost: {value: 17464, unit: "PHP/set"}
+      time: {value: 67.5, unit: "MH/set"}
+
+    full_wall_curtain_wall_p10:
+      cost: {value: 27921, unit: "PHP/set"}
+      time: {value: 77.4, unit: "MH/set"}
+      notes: "Fixed steel casement window; Based on ~8.2 m² wall panel; DPWH/PHILCON hybrid 3/4-person crew"
+
+    full_wall_curtain_wall_p50:
+      cost: {value: 35040, unit: "PHP/set"}
+      time: {value: 77.4, unit: "MH/set"}
+      notes: "Awning and fixed steel casement windows; Based on ~8.2 m² wall panel"
+
+    full_wall_curtain_wall_p90:
+      cost: {value: 78370, unit: "PHP/set"}
+      time: {value: 79.3, unit: "MH/set"}
+      notes: "Sliding/fixed aluminum casement windows; Based on ~8.2 m² wall panel"
+
+    full_wall_partial_curtain_wall_replacement_p10:
+      cost: {value: 30558, unit: "PHP/set"}
+      time: {value: 128, unit: "MH/set"}
+      notes: "Replace 25% of fixed steel casement window; Based on ~8.2 m² wall panel"
+
+    full_wall_partial_curtain_wall_replacement_p50:
+      cost: {value: 34127, unit: "PHP/set"}
+      time: {value: 128, unit: "MH/set"}
+      notes: "Replace 50% of fixed steel & awning casement window"
+
+    full_wall_partial_curtain_wall_replacement_p90:
+      cost: {value: 40714, unit: "PHP/set"}
+      time: {value: 68.3, unit: "MH/set"}
+      notes: "Replace 50% of sliding/fixed aluminum window"
+
+    switchgear_panel_board_mcc_installation:
+      cost: {value: 22813, unit: "PHP/set"}
+      time: {value: 40, unit: "MH/set"}
+      notes: "Labour for MCC with 'power load center switch gear' equipment from PHILCON"
+
+    scaffolding:
+      cost: {value: 300, unit: "PHP/set"}
+      notes: "Cost from online sales; crew rate applies for time (f=0.1)"
+
+    shoring:
+      cost: {value: 600, unit: "PHP/set"}
+      notes: "Cost from online sales; crew rate applies for time (f=0.1)"

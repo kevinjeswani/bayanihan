@@ -1,0 +1,815 @@
+# archetype_fragilities.yaml
+# Collapse fragility parameters per archetype + key NRHA-derived structural response summaries
+# Source: Jeswani (2021) MASc thesis
+#   - NRHA collapse fragilities: Figure 5-25 (printed p. 105) + Table 6-6 (printed p. 133)
+#   - Simplified collapse fragilities: Table 5-5 (printed p. 106-107) + Table 6-6 (printed p. 133)
+#   - Structural response summary narrative: Section 5.3.2.2 (printed pp. 98-104)
+#
+# IMPORTANT NOTE ON COLLAPSE FRAGILITY PARAMETERS:
+#   Figure 5-25 (Ch5) shows the MSA-MLE fragilities BEFORE enrichment with modelling uncertainty.
+#   Table 6-6 (Ch6) shows the FINAL fragility parameters used in P-58 loss estimation, AFTER
+#   enrichment. The β values in Table 6-6 are COMBINED uncertainties (aleatory + modelling β_m).
+#   The thesis states that β_m for NRHA archetypes with drawings = 0.25; re-designed = 0.40;
+#   simplified models already include β_m (further enriched by β = 0.20).
+#
+# INTENSITY MEASURE: Sa(T_avg) [g] — spectral acceleration at average of directional periods
+#   T_avg is the average of T_Longitudinal and T_Transverse (with infill for NRHA archetypes,
+#   bare for FRP retrofit).
+#
+# The β values in Table 6-6 appear to be the final COMBINED dispersions used in P-58,
+# which may represent ONLY the MSA uncertainty (not adding β_m again), since β_m is applied
+# separately in SRAMP to EDPs. The exact combination method is not fully explicit in the text.
+# Treat β from Table 6-6 as the primary fragility dispersion for loss estimation.
+
+schema_version: "1.0"
+extraction_date: "2026-06-26"
+extractor: "claude-sonnet-4-6 (automated thesis extraction)"
+
+archetype_fragilities:
+
+  # ═══════════════════════════════════════════════════
+  # NRHA-MODELLED ARCHETYPES
+  # Collapse fragility: MSA-MLE from multiple stripes analysis
+  # IM: Sa(T_avg) where T_avg = average of T1_Long and T1_Trans (infill)
+  # ═══════════════════════════════════════════════════
+
+  C1-M_Hi:
+    archetype_id: "C1-M (Hi)"
+    method: "NRHA (MSA-MLE)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.65
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Average of T1_Long=0.67s and T_Trans_infill=0.53s; rounded to 0.65s as used in P-58"
+      theta_median_Sa:
+        value: 2.00
+        unit: "g"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "After enrichment with modelling uncertainty; before enrichment curve visible in Figure 5-25"
+      beta_dispersion:
+        value: 0.09
+        unit: "dimensionless"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Very low β=0.09 is unusual. May represent only MSA aleatory dispersion (β_RTR) without β_m added, or may be the output of MLE on limited collapse records. The text states β_m=0.47 is applied separately in SRAMP. If β_collapse shown is pre-β_m, combined would be sqrt(0.09²+0.47²)≈0.48. Use with caution."
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.47
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "β_m applied to EDPs in SRAMP; β_analytical=0.25 (drawings available) + β_CQA=0.4 → combined β_m = sqrt(0.25²+0.4²)≈0.47"
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.6
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "P(TC) — probability of total collapse mode"
+    P_soft_storey:
+      value: 0.2
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "P(SS) — collapsed area pattern {0.8, 0.2, 0.2, 0.2} for stories GF to 4th"
+    structural_response_summary:
+      pidr_max_intensity:
+        value: "1.5–2% (mean lower-storey PIDR at 2,475-year Soil D)"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: "Graphical EDP data from Figure 5-21; no tabulated summary statistics"
+      ridr_max_intensity:
+        value: "< 1% (mean RIDRs generally below 1% limit)"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      pfa_max_intensity:
+        value: "0.25–1g lower floors; ~2g at roof level (at 475- to 2,475-year)"
+        unit: "g"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      failure_mode_observed: "Beam hinging before column hinging (ductile); side-sway collapse"
+
+  C1-M_Mid:
+    archetype_id: "C1-M (Mid)"
+    method: "NRHA (MSA-MLE)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.45
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Average of T1_Long=0.59s and T_Trans_infill=0.36s; ~0.475s; thesis uses 0.45s"
+      theta_median_Sa:
+        value: 1.72
+        unit: "g"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      beta_dispersion:
+        value: 0.17
+        unit: "dimensionless"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same note as C1-M (Hi) re interpretation of β. Apply β_m=0.57 separately in SRAMP."
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.57
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "β_analytical=0.4 (re-designed, no drawings) + β_CQA=0.4 → combined β_m = sqrt(0.4²+0.4²)≈0.57"
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.7
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_soft_storey:
+      value: 0.2
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {0.8, 0.2, 0.2} for stories GF to 3rd"
+    structural_response_summary:
+      pidr_max_intensity:
+        value: "1.25–2.5% (maximum intensity)"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: "Grouped with C1-L (Mid/Hi) in narrative"
+      ridr_max_intensity:
+        value: "< 1% for all but maximum intensity"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      pfa_max_intensity:
+        value: "0.25–0.75g (2nd and 3rd stories); 0.75–1.25g at roof"
+        unit: "g"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      failure_mode_observed: "Weak-column-strong-beam in hallway bay; side-sway collapse"
+
+  C1-M_PreLo:
+    archetype_id: "C1-M (Pre/Lo)"
+    method: "NRHA (MSA-MLE)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.40
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Average of T1_Long=0.50s and T_Trans_infill=0.33s; ~0.415s; thesis uses 0.40s"
+      theta_median_Sa:
+        value: 1.11
+        unit: "g"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Lowest θ of NRHA archetypes; 'almost doubled by FRP shear retrofitting' per thesis text"
+      beta_dispersion:
+        value: 0.23
+        unit: "dimensionless"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same note as C1-M (Hi) re interpretation of β. Apply β_m=0.57 separately."
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.57
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Same as C1-M (Mid): β_analytical=0.4 + β_CQA=0.4 → sqrt(0.4²+0.4²)≈0.57"
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.9
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "High P(TC) = 0.9 reflects non-ductile collapse mode"
+    P_soft_storey:
+      value: 0.05
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {1, 0.2, 0.2}; very low P(SS) as total collapse dominates"
+    structural_response_summary:
+      pidr_max_intensity:
+        value: "Numerous collapses; EDPs usable for only 1 record at 2,475-year Soil D"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: "That single surviving record EDP comparable to mean of C1-M (Mid)"
+      ridr_max_intensity:
+        value: "Not representative; dominated by collapse"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      pfa_max_intensity:
+        value: "Not representative; dominated by collapse"
+        unit: "g"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      failure_mode_observed: "Column shear hinging and force redistribution failure; model convergence failure"
+
+  C1-M_PreLo_FRP:
+    archetype_id: "C1-M (Pre/Lo) FRP"
+    method: "NRHA (MSA-MLE)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.47
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Bare frame periods used (infills isolated): T1_Long_bare=0.46s, T1_Trans_bare=0.42s; average ~0.44s; thesis uses 0.47s"
+      theta_median_Sa:
+        value: 2.12
+        unit: "g"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Nearly double the θ=1.11g of unremediated C1-M (Pre/Lo) — confirms FRP retrofit benefit"
+      beta_dispersion:
+        value: 0.21
+        unit: "dimensionless"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same note as C1-M (Hi) re interpretation of β."
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.57
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Same as C1-M (Pre/Lo)"
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.5
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "P(TC)=0.5 — lower than Pre/Lo unremediated (0.9)"
+    P_soft_storey:
+      value: 0.2
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {0.8, 0.2, 0.2, 0.2}; similar to C1-M (Hi) pattern"
+    structural_response_summary:
+      pidr_max_intensity:
+        value: "Some improvement vs. Pre/Lo; did not collapse in spot-check GM record"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: medium
+        notes: "Qualitative from Figure 5-24 narrative; no tabulated summary"
+      ridr_max_intensity:
+        value: "Improved vs. Pre/Lo; not quantified separately in narrative"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: medium
+        notes: ""
+      pfa_max_intensity:
+        value: "No drastic change vs. Pre/Lo"
+        unit: "g"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: medium
+        notes: ""
+      failure_mode_observed: "Beam hinging before column; damage isolated below 2nd storey beams; no shear failure"
+
+  C1-L_MidHi:
+    archetype_id: "C1-L (Mid/Hi)"
+    method: "NRHA (MSA-MLE)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.37
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Average of T1_Long=0.49s and T_Trans_infill=0.24s; ~0.365s; thesis uses 0.37s"
+      theta_median_Sa:
+        value: 1.85
+        unit: "g"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      beta_dispersion:
+        value: 0.15
+        unit: "dimensionless"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: medium
+        notes: "REVIEW NEEDED: Same note as C1-M (Hi) re interpretation of β."
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.47
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "β_analytical=0.25 (drawings available) + β_CQA=0.4 → sqrt(0.25²+0.4²)≈0.47"
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.6
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_soft_storey:
+      value: 0.3
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {0.8, 0.2} for stories GF and 2nd"
+    structural_response_summary:
+      pidr_max_intensity:
+        value: "1.25–2.5% (maximum intensity 2,475-year Soil D)"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: "Grouped with C1-M (Mid) in narrative"
+      ridr_max_intensity:
+        value: "< 1% for all but maximum intensity"
+        unit: "ratio"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      pfa_max_intensity:
+        value: "0.5–1.25g across all intensities"
+        unit: "g"
+        source: {section: "5.3.2.2", printed_page: 103}
+        provenance_confidence: high
+        notes: ""
+      failure_mode_observed: "Weak-column-strong-beam in hallway bay; velocity pulses push building to side-sway collapse; NSP invalid in transverse direction"
+
+  # ═══════════════════════════════════════════════════
+  # EDP PROXY ARCHETYPES
+  # Use same collapse fragility as NRHA counterpart
+  # ═══════════════════════════════════════════════════
+
+  PTC1-M_Hi:
+    archetype_id: "PTC1-M (Hi)"
+    method: "EDP Proxy (same as C1-M Hi)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.65
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "Same as C1-M (Hi) per EDP proxy method"
+      theta_median_Sa:
+        value: 2.00
+        unit: "g"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "= C1-M (Hi); explicitly stated in Table 6-6"
+      beta_dispersion:
+        value: 0.09
+        unit: "dimensionless"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: medium
+        notes: "= C1-M (Hi); same caveats apply"
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.47
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "= C1-M (Hi); 'PTC1-M archetypes used the same β_m as the archetype proxy being used'"
+    residual_drift_limit:
+      value: 1.5
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "1.5% (vs 1.0% for standard RCMRF); accounts for decreased permanent deformations in PT frames (Iqbal, 2004; 2005)"
+
+  PTC1-M_Mid:
+    archetype_id: "PTC1-M (Mid)"
+    method: "EDP Proxy (same as C1-M Mid)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.45
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "= C1-M (Mid)"
+      theta_median_Sa:
+        value: 1.72
+        unit: "g"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: "= C1-M (Mid); explicitly stated in Table 6-6"
+      beta_dispersion:
+        value: 0.17
+        unit: "dimensionless"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: medium
+        notes: "= C1-M (Mid)"
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.57
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "= C1-M (Mid); may be underestimation per thesis note"
+    residual_drift_limit:
+      value: 1.5
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "1.5% for PTC1-M archetypes (Iqbal, 2004; 2005)"
+
+  # ═══════════════════════════════════════════════════
+  # SIMPLIFIED ARCHETYPES
+  # Collapse fragility from HAZUS/UPD-ICE conversion
+  # β=0.94 for low-rise; β=0.90 for mid/high-rise
+  # ═══════════════════════════════════════════════════
+
+  C1-L_PreLo:
+    archetype_id: "C1-L (Pre/Lo)"
+    method: "Simplified (FEMA P-58 / UPD-ICE)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.30
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 1.00
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "Converted from UPD-ICE 'Complete' fragility PGA to Sa = 2.5 × PGA (ASEP 2016); for 0.11 < T < 0.55s"
+      beta_dispersion:
+        value: 0.94
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "High dispersion assigned to account for increased uncertainty in simplified/heuristic fragilities; β already includes β_m"
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: "Simplified models already include β_m in EDPs; supplementary β=0.2 added in P-58"
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.9
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_soft_storey:
+      value: 0.1
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {0.8, 0.2}"
+
+  CWS-L:
+    archetype_id: "CWS-L"
+    method: "Simplified (FEMA P-58 / HAZUS / UPD-ICE heuristic)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.30
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 2.10
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "HAZUS C1-L (Mid) equivalent"
+      beta_dispersion:
+        value: 0.94
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: ""
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    residual_drift_limit:
+      value: 0.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "RIDR limit = 0.0 means residual drift is not a governing criterion for this archetype"
+    P_total_collapse:
+      value: 1.0
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_soft_storey:
+      value: 1.0
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {0.5, 1} — total collapse of both stories"
+
+  C1-H_Hi:
+    archetype_id: "C1-H (Hi)"
+    method: "Simplified (FEMA P-58 / HAZUS High-Code; judgement-based collapse)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 1.32
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 2.72
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "Judgement-based collapse fragility; HAZUS High-Code C1-H equivalent"
+      beta_dispersion:
+        value: 0.90
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "High dispersion for judgement-based fragility"
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.7
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_soft_storey:
+      value: 0.3
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {1, 1, 0.8, 0.6, 0.4, 0.2, ... 0.2} across 10+ stories"
+
+  S1-M_Hi:
+    archetype_id: "S1-M (Hi)"
+    method: "Simplified (FEMA P-58 / UPD-ICE computational pushover; judgement-based collapse)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.84
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 4.26
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "Highest collapse median of all archetypes; judgement-based; UPD-ICE pushover curves as basis"
+      beta_dispersion:
+        value: 0.90
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "High dispersion for judgement-based fragility"
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 0.7
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_soft_storey:
+      value: 0.2
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Collapsed area pattern {1, 0.2, 0.2, 0.2, 0.2}"
+
+  W-L:
+    archetype_id: "W-L"
+    method: "Simplified (FEMA P-58 / HAZUS W1)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.14
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 0.75
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "Converted from UPD-ICE 'Complete' fragility; Sa = 2.5 × PGA"
+      beta_dispersion:
+        value: 0.94
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: ""
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 1.0
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_soft_storey:
+      value: null
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "No soft-storey collapse mode assigned for W-L (dash in Table 6-6)"
+
+  N-L:
+    archetype_id: "N-L"
+    method: "Simplified (FEMA P-58 / HAZUS ~W1)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.14
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 0.47
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "Lowest collapse median of all archetypes (non-engineered)"
+      beta_dispersion:
+        value: 0.94
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: ""
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 1.0
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+
+  CHB-L:
+    archetype_id: "CHB-L"
+    method: "Simplified (FEMA P-58 / HAZUS URM)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.14
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 0.35
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "Lowest of the low-rise secondary archetypes"
+      beta_dispersion:
+        value: 0.94
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: ""
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    residual_drift_limit:
+      value: 1.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    P_total_collapse:
+      value: 1.0
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+
+  S3-L:
+    archetype_id: "S3-L"
+    method: "Simplified (FEMA P-58 / HAZUS S3)"
+    collapse_fragility:
+      IM_type: "Sa(T_avg)"
+      T_avg:
+        value: 0.14
+        unit: "s"
+        source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+        provenance_confidence: high
+        notes: ""
+      theta_median_Sa:
+        value: 1.01
+        unit: "g"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: "Highest collapse median among 1-storey secondary archetypes; steel frame has more ductility"
+      beta_dispersion:
+        value: 0.94
+        unit: "dimensionless"
+        source: {section: "5.4", table: "Table 5-5", printed_page: 106}
+        provenance_confidence: high
+        notes: ""
+      distribution: "lognormal"
+    modelling_uncertainty_beta_m:
+      value: 0.20
+      unit: "dimensionless"
+      source: {section: "6.2.6.3", printed_page: 133}
+      provenance_confidence: high
+      notes: ""
+    residual_drift_limit:
+      value: 2.0
+      unit: "%"
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: "Higher residual drift limit (2.0%); 1-storey light steel frame easier to re-center"
+    P_total_collapse:
+      value: 1.0
+      source: {section: "6.2.6.3", table: "Table 6-6", printed_page: 133}
+      provenance_confidence: high
+      notes: ""

@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: >
+  If you use this software, please cite the open-access MASc thesis it reimplements
+  (the preferred-citation below) — not this repository.
+title: bayanihan
+authors:
+  - family-names: Jeswani
+    given-names: Kevin
+    orcid: https://orcid.org/0000-0002-5660-2346
+version: 0.0.0
+license: Apache-2.0
+repository-code: https://github.com/kevinjeswani/bayanihan
+preferred-citation:
+  type: thesis
+  authors:
+    - family-names: Jeswani
+      given-names: K. K.
+  title: >
+    The Seismic Resilience of Critical Spatially-Distributed Building Portfolios
+  institution:
+    name: University of Toronto
+  year: 2021
+  url: https://utoronto.scholaris.ca/items/4e628627-fb5b-4674-bac1-e20cb503a1f5
+references:
+  - type: article
+    authors:
+      - family-names: Jeswani
+        given-names: K.
+      - family-names: Guo
+        given-names: J.
+      - family-names: Christopoulos
+        given-names: C.
+    title: >
+      Seismic risk assessment and mitigation analysis of large public school
+      building portfolios in Metro Manila
+    journal: Earthquake Spectra
+    volume: 38
+    issue: 3
+    start: 1946
+    end: 1971
+    year: 2022
+    doi: 10.1177/87552930221086304

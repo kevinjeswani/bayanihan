@@ -1,0 +1,23 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Explicitly text
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.csv text eol=lf
+*.geojson text eol=lf
+*.json text eol=lf
+*.ipynb text eol=lf
+
+# Binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.parquet binary
+*.arrow binary
+*.xlsx binary
+*.docx binary
