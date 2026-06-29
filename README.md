@@ -10,7 +10,7 @@ Built on [Pelicun](https://github.com/NHERI-SimCenter/pelicun) (NHERI SimCenter,
 
 ---
 
-**Status: v0.1 wrap-up — the full pipeline runs end-to-end on the real recovered data and reproduces the 2021 thesis's governing scenario (WVF Mw 7.3, both cities) within tolerance on the free open stack. AI-agent-built; pre-1.0; not peer-reviewed in this form.**
+**Status: v0.1 — the full pipeline runs end-to-end on the real recovered data and reproduces the 2021 thesis's governing scenario (WVF Mw 7.3, both cities) within tolerance on the free open stack. AI-agent-built; pre-1.0; not peer-reviewed in this form.**
 
 ---
 
@@ -195,6 +195,12 @@ A machine-readable [CITATION.cff](CITATION.cff) is included in the repo root.
 Parameter provenance is documented throughout. **The bundled inventory is synthetic** — approximately 50 hypothetical school buildings for demonstration and CI. The real 1,021-building dataset is not redistributed (it needs the consent of the Quezon City and Makati school authorities). Some residuals (per-region fatalities, recovery time) are documented and not tuned away.
 
 ## Development
+
+Install with the dev extra (adds `pytest`, `ruff`, `mypy`) — the base install does not include them:
+
+```bash
+pip install -e ".[dev]"   # or, with uv: uv sync --extra dev
+```
 
 ### Tests vs. simulations
 

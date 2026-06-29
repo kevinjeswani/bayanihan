@@ -41,7 +41,7 @@ The repo exists, is published under Kevin Jeswani's name, is reproducible, and s
 
 | Component | Choice | Version pin |
 |-----------|--------|-------------|
-| Python | 3.11–3.13 | `>=3.11` (3.13 in use) |
+| Python | 3.13 | `>=3.13` |
 | Damage + loss | Pelicun | `>=3.9,<4` |
 | Recovery | Pelicun per-repair-class milestones + PH impeding factors | no PyREDi (see note) |
 | Numerics | numpy, scipy, pandas | latest compatible |

@@ -10,6 +10,21 @@ Each runner needs the gitignored real inventory
 tables. Without them the runners exit early; the fast test suite still passes (it does
 not depend on the real data).
 
+## Local setup (maintainer, reproducing real-data runs)
+
+The real inputs are gitignored and never committed. On a fresh clone or another machine,
+copy your local working data in and sync the environment before running any runner:
+
+```bash
+# 1. Real 1,021-building inventory  -> bayanihan/data/inventory/manila_schools_real.geojson
+# 2. sandbox/ working data (per-scenario distance tables + derivation inputs)
+# 3. Resolve the pinned environment (--extra dev also pulls in pytest/ruff/mypy)
+uv sync --extra dev
+```
+
+Both (1) and (2) stay gitignored — nothing here is committed. Without them the runners
+exit early and the fast test suite still passes (it does not depend on the real data).
+
 | Script | What it runs | Committed output |
 |--------|--------------|------------------|
 | `run_wvf73_portfolio.py` | Base WVF Mw 7.3 portfolio (the thesis Ch. 7 governing event), Makati + QC | `results/wvf73_portfolio_summary.json` |

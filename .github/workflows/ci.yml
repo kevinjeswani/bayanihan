@@ -1,0 +1,25 @@
+name: CI
+
+# Extremely minimal, fast gate: one job, Python 3.13, the fast suite only.
+# Heavy real-data portfolio runs (`-m integration`) and the scripts/ runners are
+# intentionally NOT in CI — they need the gitignored real inventory and are minutes-scale.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: lint · types · fast tests (py3.13)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.13"
+          enable-cache: true
+      - run: uv sync --extra dev
+      - run: uv run ruff check .
+      - run: uv run mypy bayanihan
+      - run: uv run pytest          # fast suite (addopts already deselects integration)

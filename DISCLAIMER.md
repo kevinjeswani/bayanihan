@@ -19,8 +19,10 @@ agents wrote essentially all of the code.
 - Not a validated engineering tool ready for use in practice
 
 Results produced by this package have **not been independently peer-reviewed in this
-form**. The thesis validation (reproducing ~26% weighted vulnerability factor for the
-WVF Mw=7.3 Makati scenario) is still in progress as of the date of writing.
+form**. The thesis validation is complete: the package reproduces the governing
+WVF Mw=7.3 scenario decision variables (whole-portfolio loss, injuries, fatalities)
+within tolerance on the open stack — see the README "Validation" section and
+`docs/validation/`.
 
 ## The peer-reviewed work
 
