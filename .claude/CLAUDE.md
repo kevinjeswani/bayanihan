@@ -77,10 +77,10 @@ The repo exists, is published under Kevin Jeswani's name, is reproducible, and s
 | **P5** | Portfolio Monte Carlo (real correlated 1,021-building run) | ✅ DONE |
 | **P6** | PH recovery model (`recovery.py` + `ph_redi_params.json`) | ✅ DONE |
 | **P7** | Validation — reproduce thesis Ch 7 WVF Mw=7.3 (both cities) within tolerance | ✅ DONE (all 4 DVs within ~±25%) |
-| **P8** | v0.1 release | 🟢 READY (public wrap-up in progress) |
+| **P8** | v0.1 release | ✅ DONE (v0.1.0 shipped 2026-06-29) |
 | **P9** | Articles + optional post-ship outreach | 🔵 POST-SHIP |
 
-The pipeline runs end-to-end on the **real recovered EDP data** (P2–P7 complete): the WVF Mw 7.3 portfolio reproduces the 2021 thesis decision variables (loss, casualties, recovery) within tolerance for both cities, with a synthetic demo path retained for users without the real inventory. Done: P0–P7; P8 (v0.1) in public wrap-up.
+The pipeline runs end-to-end on the **real recovered EDP data** (P2–P7 complete): the WVF Mw 7.3 portfolio reproduces the 2021 thesis decision variables (loss, casualties, recovery) within tolerance for both cities, with a synthetic demo path retained for users without the real inventory. Done: P0–P8 — v0.1.0 shipped 2026-06-29 (public GitHub release). P9 (articles + optional post-ship outreach) remains.
 
 ---
 
