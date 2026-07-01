@@ -9,8 +9,8 @@
     "notes": [
       "All delay distributions are lognormal (theta=median in days, beta=log-standard deviation).",
       "Units: days. YAML source uses days for inspection and weeks for all others; converted to days here (1 week = 7 days).",
-      "Default values correspond to the PRIMARY SCHOOL ARCHETYPES group (C1-M, C1-L, PTC1-M, CWS-L, C1-H, S1-M) which cover the majority of the Jeswani (2021) portfolio.",
-      "Repair-class-dependent variants are captured in sub-categories below and in comments; defaults use Max Repair Class = 3 (the binding/conservative case for mixed portfolios).",
+      "Default values (flat top-level fields) correspond to the PRIMARY SCHOOL ARCHETYPES group, Max Repair Class = 3 (the binding/conservative case). These serve as the unknown/fallback default so that scalar compute_recovery() and any current readers still work.",
+      "by_archetype: archetype-specific impeding factor groups. Each entry has financing, contractor, engineer sub-dicts with median_days and beta. Inspection (5 d/0.54) and long_lead (14 d/0.50) are the same for all archetypes.",
       "PERMITTING vs ENGINEER split: Table 6-7 combines engineering mobilization + permitting as a single delay path. The split below (approx. 50/50 of combined median) is engineering judgment. LOW CONFIDENCE — flag for Kevin's review.",
       "LONG-LEAD MATERIALS: No standalone theta/beta in Table 6-7. Glazing/curtain wall marked '(LL)' in Table D-16 but no days given. Value below adopted from REDi v1.0 general knowledge (14 days median, beta=0.50). LOW CONFIDENCE — verify against Almufti & Willford 2013 App. A4.3.",
       "provenance_confidence: inspection=HIGH, financing=HIGH, contractor=HIGH, engineer_combined=HIGH, permitting=LOW (split is estimated), long_lead=LOW (no thesis value)"
@@ -22,7 +22,7 @@
 
   "financing_median_days": 336.0,
   "financing_beta": 0.57,
-  "_financing_note": "SBA-Backed Loans category for primary school archetypes. theta=48 weeks * 7 = 336 days, beta=0.57. Source: Table 6-7 (p.135). provenance_confidence: HIGH. Alternate values in YAML: simple_non_engineered=6wks/42days/beta=1.11, wood_frame=15wks/105days/beta=0.68.",
+  "_financing_note": "SBA-Backed Loans category for primary school archetypes (default/fallback). theta=48 weeks * 7 = 336 days, beta=0.57. Source: Table 6-7 (p.135). provenance_confidence: HIGH.",
 
   "permitting_median_days": 14.0,
   "permitting_beta": 0.54,
@@ -40,8 +40,173 @@
   "long_lead_beta": 0.50,
   "_long_lead_note": "NO THESIS VALUE. Glazing/curtain wall components flagged as Long Lead (LL) in Table D-16 but no days or beta given. Value of 14 days median / beta=0.50 adopted from REDi v1.0 general knowledge. LOW CONFIDENCE — must verify against Almufti & Willford 2013 App. A4.3 or thesis Appendix D. provenance_confidence: LOW.",
 
+  "by_archetype": {
+    "_note": "Archetype-specific impeding factor groups from Table 6-7 (p.135). Keys are canonical archetype IDs from ARCHETYPE_IDS. Inspection (5 d/0.54) and long_lead (14 d/0.50) are the same for all archetypes and are inherited from the flat top-level fields. Merged archetypes are resolved to their parent's group entry.",
+    "_provenance_gap_simple_wood": {
+      "contractor": "Table 6-7 lists contractor delay for simple/wood archetypes under 'max_repair_class_3' = 7 weeks (49 d, beta=0.35), but does NOT specify per-archetype Max RC dependency (RC1 vs RC3) for these non-engineered typologies. We apply the RC3 value (49 d) as the documented default. LOW CONFIDENCE — flag for Kevin's review.",
+      "engineer": "Table 6-7 does NOT specify engineer mobilization for simple/wood archetypes (N-L, CHB-L, S3-L, W-L). Non-engineered buildings plausibly need no engineer mobilization. Assigned 0 d. LOW CONFIDENCE — flag for Kevin's review."
+    },
+    "C1-M (Hi)": {
+      "_label": "Primary school, RC MRF, Hi-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. Source: Table 6-7 p.135. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 49.0, "beta": 0.60, "_note": "Max RC=1, non-essential <20 stories. 7 wks * 7 = 49 d. Source: Table 6-7 p.135. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 0.0, "beta": 0.01, "_note": "Engineer on contract (DPWH/City Engineering). 0 weeks. Source: Table 6-7 p.135. provenance_confidence: HIGH. beta=0.01 avoids log(0) in lognormal sampling."}
+    },
+    "C1-M (Mid)": {
+      "_label": "Primary school, RC MRF, Mid-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 49.0, "beta": 0.60, "_note": "Max RC=1. 7 wks * 7 = 49 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 14.0, "beta": 0.32, "_note": "Max RC=1. 2 wks * 7 = 14 d, beta=0.32. Source: Table 6-7 p.135. provenance_confidence: HIGH."}
+    },
+    "C1-M (Pre/Lo)": {
+      "_label": "Primary school, RC MRF, Pre-code/Low-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 49.0, "beta": 0.60, "_note": "Max RC=1. 7 wks * 7 = 49 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 14.0, "beta": 0.32, "_note": "Max RC=1. 2 wks * 7 = 14 d, beta=0.32. provenance_confidence: HIGH."}
+    },
+    "C1-M (Pre/Lo) FRP": {
+      "_label": "Primary school, RC MRF Pre/Lo with FRP retrofit",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. Source: Table 6-7 p.135. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d (combined eng+permitting, not split). Source: Table 6-7 p.135. provenance_confidence: HIGH. Note: Table 6-7 also lists a complete-redesign variant (42wks=294d/beta=0.45) for C1-M (Pre/Lo) FRP — this is the standard (non-redesign) value."}
+    },
+    "C1-L (Mid/Hi)": {
+      "_label": "Primary school, RC wall, Mid/Hi-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d. provenance_confidence: HIGH."}
+    },
+    "C1-L (Pre/Lo)": {
+      "_label": "Primary school, RC wall, Pre/Lo-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d. provenance_confidence: HIGH."}
+    },
+    "PTC1-M (Hi)": {
+      "_label": "Primary school, PT RC MRF, Hi-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d. provenance_confidence: HIGH."}
+    },
+    "PTC1-M (Mid)": {
+      "_label": "Primary school, PT RC MRF, Mid-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d. provenance_confidence: HIGH."}
+    },
+    "CWS-L": {
+      "_label": "Primary school, coupled wall-slab, Low-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d. provenance_confidence: HIGH."}
+    },
+    "C1-H (Hi)": {
+      "_label": "Primary school, RC frame+wall, Hi-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d. provenance_confidence: HIGH."}
+    },
+    "S1-M (Hi)": {
+      "_label": "Primary school, steel MRF, Hi-rise",
+      "financing": {"median_days": 336.0, "beta": 0.57, "_note": "SBA-Backed Loans. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 133.0, "beta": 0.38, "_note": "Max RC=3. 19 wks * 7 = 133 d. provenance_confidence: HIGH."},
+      "engineer": {"median_days": 28.0, "beta": 0.54, "_note": "Max RC=3. 4 wks * 7 = 28 d. provenance_confidence: HIGH."}
+    },
+    "N-L": {
+      "_label": "Simple non-engineered, Low-rise",
+      "financing": {"median_days": 42.0, "beta": 1.11, "_note": "Insurance category (simple non-engineered). 6 wks * 7 = 42 d. Source: Table 6-7 p.135. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 49.0, "beta": 0.35, "_note": "Max RC=3 (simple), on-contract. 7 wks * 7 = 49 d. Source: Table 6-7 p.135. provenance_confidence: HIGH. NOTE: provenance gap — Table 6-7 does not specify RC1/RC3 dependency for simple/wood; RC3 value (49d) used as documented default. LOW CONFIDENCE on RC assignment."},
+      "engineer": {"median_days": 0.0, "beta": 0.01, "_note": "Non-engineered building; no engineer mobilization expected. LOW CONFIDENCE — Table 6-7 does not specify engineer delay for simple/wood archetypes. beta=0.01 avoids log(0)."}
+    },
+    "CHB-L": {
+      "_label": "CHB masonry infill, Low-rise",
+      "financing": {"median_days": 42.0, "beta": 1.11, "_note": "Insurance category (simple non-engineered). 6 wks * 7 = 42 d. Source: Table 6-7 p.135. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 49.0, "beta": 0.35, "_note": "Max RC=3 (simple), on-contract. 7 wks * 7 = 49 d. Source: Table 6-7 p.135. provenance_confidence: HIGH. LOW CONFIDENCE on RC assignment — see _provenance_gap_simple_wood."},
+      "engineer": {"median_days": 0.0, "beta": 0.01, "_note": "Non-engineered building; no engineer mobilization. LOW CONFIDENCE. beta=0.01 avoids log(0)."}
+    },
+    "S3-L": {
+      "_label": "Steel moment frame, Low-rise",
+      "financing": {"median_days": 42.0, "beta": 1.11, "_note": "Insurance category (simple non-engineered). 6 wks * 7 = 42 d. Source: Table 6-7 p.135. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 49.0, "beta": 0.35, "_note": "Max RC=3 (simple), on-contract. 7 wks * 7 = 49 d. Source: Table 6-7 p.135. provenance_confidence: HIGH. LOW CONFIDENCE on RC assignment."},
+      "engineer": {"median_days": 0.0, "beta": 0.01, "_note": "Non-engineered building; no engineer mobilization. LOW CONFIDENCE. beta=0.01 avoids log(0)."}
+    },
+    "W-L": {
+      "_label": "Wood frame, Low-rise",
+      "financing": {"median_days": 105.0, "beta": 0.68, "_note": "Private Loans category (wood frame). 15 wks * 7 = 105 d. Source: Table 6-7 p.135. provenance_confidence: HIGH."},
+      "contractor": {"median_days": 49.0, "beta": 0.35, "_note": "Max RC=3 (wood, on-contract). 7 wks * 7 = 49 d. Source: Table 6-7 p.135. provenance_confidence: HIGH. LOW CONFIDENCE on RC assignment — see _provenance_gap_simple_wood."},
+      "engineer": {"median_days": 0.0, "beta": 0.01, "_note": "Non-engineered building; no engineer mobilization. LOW CONFIDENCE. beta=0.01 avoids log(0)."}
+    },
+    "PC-L": {
+      "_note": "Merged into C1-L (Pre/Lo); inherits that archetype's impeding set.",
+      "_merged_parent": "C1-L (Pre/Lo)",
+      "financing": {"median_days": 336.0, "beta": 0.57},
+      "contractor": {"median_days": 133.0, "beta": 0.38},
+      "engineer": {"median_days": 28.0, "beta": 0.54}
+    },
+    "PTC1-M (Pre/Lo)": {
+      "_note": "Merged into C1-M (Pre/Lo); inherits that archetype's impeding set.",
+      "_merged_parent": "C1-M (Pre/Lo)",
+      "financing": {"median_days": 336.0, "beta": 0.57},
+      "contractor": {"median_days": 49.0, "beta": 0.60},
+      "engineer": {"median_days": 14.0, "beta": 0.32}
+    },
+    "PTC4-M (Lo)": {
+      "_note": "Merged into PTC1-M (Mid); inherits that archetype's impeding set.",
+      "_merged_parent": "PTC1-M (Mid)",
+      "financing": {"median_days": 336.0, "beta": 0.57},
+      "contractor": {"median_days": 133.0, "beta": 0.38},
+      "engineer": {"median_days": 28.0, "beta": 0.54}
+    },
+    "C4-L (Lo/Mid)": {
+      "_note": "Merged into C1-L (Mid/Hi); inherits that archetype's impeding set.",
+      "_merged_parent": "C1-L (Mid/Hi)",
+      "financing": {"median_days": 336.0, "beta": 0.57},
+      "contractor": {"median_days": 133.0, "beta": 0.38},
+      "engineer": {"median_days": 28.0, "beta": 0.54}
+    },
+    "C4-M (Mid)": {
+      "_note": "Merged into C1-M (Hi); inherits that archetype's impeding set.",
+      "_merged_parent": "C1-M (Hi)",
+      "financing": {"median_days": 336.0, "beta": 0.57},
+      "contractor": {"median_days": 49.0, "beta": 0.60},
+      "engineer": {"median_days": 0.0, "beta": 0.01}
+    }
+  },
+
+  "financing_cost_scaling": {
+    "_provenance": {
+      "source": "Jeswani (2021) MASc thesis, Table D-15 (Appendix D.7.1, p.312)",
+      "section": "Appendix D.7.1",
+      "table": "Table D-15",
+      "notes": [
+        "Replacement-cost → financing-weeks curve from Table D-15 (REDi replacement-time delays).",
+        "Applied HERE as a replacement-cost → REPAIR FINANCING curve for SBA/primary-school buildings only.",
+        "This is a MEDIUM-confidence faithful extension approved by Kevin Jeswani 2026-06-30:",
+        "  the Table D-15 curve was originally for replacement-time delay, not repair-financing delay.",
+        "  For primary schools where repair costs span the same order-of-magnitude as replacement costs,",
+        "  the curve is a reasonable proxy for cost-dependent SBA financing timelines.",
+        "  Simple (Insurance 42 d) and wood (Private 105 d) financing remain FLAT — they are already",
+        "  in low-cost brackets where the curve would not apply.",
+        "Units: replacement_cost_php in PHP_2020, financing_days = weeks * 7.",
+        "Interpolation: log-linear on replacement_cost_php, clamped at endpoints.",
+        "Beta (dispersion) = 0.57 (same as flat SBA beta, Table 6-7, HIGH confidence)."
+      ],
+      "provenance_confidence": "MEDIUM"
+    },
+    "financing_beta": 0.57,
+    "curve": [
+      {"replacement_cost_php": 2000000,    "financing_days": 56},
+      {"replacement_cost_php": 10000000,   "financing_days": 252},
+      {"replacement_cost_php": 50000000,   "financing_days": 336},
+      {"replacement_cost_php": 100000000,  "financing_days": 392},
+      {"replacement_cost_php": 500000000,  "financing_days": 504},
+      {"replacement_cost_php": 1000000000, "financing_days": 560},
+      {"replacement_cost_php": 1500000000, "financing_days": 672}
+    ]
+  },
+
   "_sub_categories": {
-    "_note": "Sub-category values for reference only; not loaded by ImpedingFactorParams. Use for future archetype-specific calibration.",
+    "_note": "Sub-category values for reference only; not loaded by ImpedingFactorParams. Superseded by by_archetype above.",
     "inspection_all_archetypes": {"median_days": 5.0, "beta": 0.54},
     "financing_primary_school": {"median_days": 336.0, "beta": 0.57},
     "financing_simple_non_engineered": {"median_days": 42.0, "beta": 1.11},

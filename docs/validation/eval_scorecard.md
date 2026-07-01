@@ -22,10 +22,10 @@
 | Makati injury ratio (median) | **0.150** | 0.145 (thesis) | +3.4% ✅ |
 | QC injury ratio (median) | **0.098** | 0.091 (thesis) | +7.7% ✅ |
 | whole fatalities (median count) | **3,057** | 2,899 (`.mat` PA_CasF) | +5.5% ✅ |
-| Makati fatalities (median count) | **752** | 320 (thesis) | +135% ⚠️ ~2.4× |
-| QC fatalities (median count) | **2,152** | 900 (thesis) | +139% ⚠️ ~2.4× |
+| Makati fatalities (median count) | **752** | 320 text / ~416 `.mat` split | ⚠️ Makati-only residual (text 320 = low-conf) |
+| QC fatalities (median count) | **2,152** | 900 text / ~2,529 `.mat` split | ✅ matches `.mat` (text 900 = low-conf) |
 | non-collapse injury fraction (whole / Makati, median) | 0.73 / 0.76 | ~0.70 whole / 0.78–0.99 Makati (thesis) | ✅ NC-dominant (recalibrated 2026-06-27) |
-| tests passing | **576** (542 fast + 34 integration) | — | green |
+| tests passing | **599** (565 fast + 34 integration) | — | green |
 
 **Key decisions baked in:**
 - IM is per-archetype Sa(T1), not a common Sa(0.5 s). Three independent proofs from the EDP Manager workbook. The "Sa(0.5 s)" label in the thesis is the count-weighted mean-T1 representative label (≈0.46 s), not a per-building conditioning IM. Confirmed 2026-06-27 (`docs/learnings/2026-06-27_im_sa05_reconciliation.md`).
@@ -33,7 +33,7 @@
 - Residual whole-portfolio loss delta (+15% median; +55% p90) dominated by **CHB-driven ductile-HOT component over-prediction** vs the 2021 Thesis "Simplified" category grouping — documented real method difference, not a bug (`docs/learnings/2026-06-27_p7_per_archetype_reconciliation.md` §3a). Not tuned to target.
 - CHB ductile-HOT archetypes (C1-M Hi, C1-L Mid/Hi, PTC1-M Hi, S1-M Hi): held rigorous by decision — Pelicun's full FEMA P-58 Table D-9/D-13 CHB infill accounting vs Thesis (2021) "Simplified" grouping.
 - CWS-L: cold by design — Table 6-6 gives no residual-drift limit (limit 0.0%), so demolition cannot lift it. The `.mat` 0.799 must come from a 2021 Thesis mechanism not replicated in v0.1.
-- Casualties: FEMA P-58 model with FEMA P-58 Table 6-5 expected (Peak) occupancy applied to collapse fatalities only (thesis mechanism confirmed from `.mat` decode + MATLAB pipeline). Components from thesis Tables D-1/D-2 + D-13. Whole fatalities match `.mat` PA_CasF within 5.5%; per-region fatalities ~2.4× high (collapse-distribution mismatch — see "Status & documented residuals" below).
+- Casualties: FEMA P-58 model with FEMA P-58 Table 6-5 expected (Peak) occupancy applied to collapse fatalities only (thesis mechanism confirmed from `.mat` decode + MATLAB pipeline). Components from thesis Tables D-1/D-2 + D-13. Whole fatalities match `.mat` PA_CasF within 5.5%; the per-region text targets (320/900) are internally inconsistent with the `.mat` whole and are demoted to low-confidence — our QC matches the `.mat`, only Makati has a small real residual (delta investigation 2026-06-29; see "Status & documented residuals" below).
 
 ---
 
@@ -75,7 +75,7 @@
 
 **Injury summary:** All three region/whole totals within ±10% of thesis / `.mat` anchors, AND the non-collapse/collapse split is now correct (NC-dominant). The earlier model matched the total via a compensating error (collapse injuries dominated); the 2026-06-27 NC-injury recalibration (occupancy factor on collapse injuries + NC component injuries raised to the thesis per-archetype rates) fixes the split without breaking the total. Mitigation injury reduction now converges (whole −69% vs `.mat` −72%; QC −72% vs −75%).
 
-**Fatality summary:** Whole-portfolio fatalities reconcile to `.mat` PA_CasF median within 5.5% (3,057 vs 2,899) — the occupancy-factor fix (FEMA P-58 Table 6-5) landed the aggregate correctly. Per-region fatalities (Makati 752 vs 320; QC 2,152 vs 900) are both ~2.4× high, consistently across regions. Root cause: per-archetype **collapse distribution** differs from the 2021 Thesis even though the aggregate collapse rate (0.222) matches — collapse is concentrated in different archetypes than the thesis, and the fatality distribution is right-skewed. Not tuned. Documented in `docs/learnings/2026-06-27_casualties.md`.
+**Fatality summary:** Whole-portfolio fatalities reconcile to `.mat` PA_CasF median within 5.5% (3,057 vs 2,899) — the occupancy-factor fix (FEMA P-58 Table 6-5) landed the aggregate correctly. The apparent per-region "delta" (Makati 752 vs text 320; QC 2,152 vs text 900) is largely a **TARGET-DATA artifact, not a model defect** (delta investigation 2026-06-29). The thesis TEXT per-region counts are internally inconsistent with the thesis's *own* `.mat`: 320 + 900 = 1,220 is only 42% of the `.mat` whole median 2,899 — impossible for two positively-correlated regions that partition the portfolio. Decoding `Bldg_CasF[:,0]` and attaching our region labels gives the thesis's OWN split as **QC ≈ 2,529 / Makati ≈ 416** (QC = 86% of fatalities). Against that: our **QC (~2,050–2,150) matches the `.mat`**; only **Makati** carries a genuine residual (~2×, but a noisy 96-building subset). So this is NOT a uniform ~2.4× regional collapse misallocation — the whole matches because the dominant QC term is correct. The text 320/900 are demoted to low-confidence in `portfolio_validation.yaml` (same treatment as the QC injury '{1000,2500}' typo). Not tuned. See `docs/learnings/2026-06-29_delta_investigation.md`.
 
 **Non-collapse injury fraction (RESOLVED 2026-06-27):** now 0.73 whole / 0.76 Makati (was 0.11), matching the thesis's own `.mat`-reconstructed fractions (~0.70 whole; 0.79 Makati = the §7.4.2 "0.78–0.99" Makati anchor — the anchor is a Makati figure, the thesis whole is ~0.70). The fix: (i) the FEMA P-58 occupancy factor now scales collapse INJURIES too, and (ii) the affected-area NC injuries are raised per archetype to the thesis published rates (`.mat` `Arch_simp_norm_CasI`). Both data-driven / provenance-flagged; the injury total is preserved (whole 59,373 ≈ 58,117). Documented in `docs/learnings/2026-06-27_casualties.md` → "NC-injury recalibration".
 
@@ -87,11 +87,11 @@ Computed — thesis-faithful definition: portfolio-level "time for 90% of buildi
 
 | DV | region | thesis median | thesis p90 | ours median | Δ median | status |
 |---|---|---:|---:|---:|---:|---|
-| 90% FR time | Makati | 970 days | 1 070 days | **1 191** | +23% | ◐ |
-| 90% FR time | Quezon City | 640 days | 655 days | **872** | +36% | ◐ |
-| 90% FR time | Whole portfolio | — | — | **922** | — | — |
+| 90% FR time | Makati | 970 days | 1 070 days | **1 106** | +14% | ✅ |
+| 90% FR time | Quezon City | 640 days | 655 days | **663** | +4% | ✅ |
+| 90% FR time | Whole portfolio | — | — | **724** | — | — |
 
-> Recovery runs systematically long vs the thesis across all scenarios — a documented residual driven by the PH-calibrated impeding-factor tails vs the thesis's North-American REDi factors (which the thesis itself flagged medium-confidence, "subject to further review"). Not tuned.
+> **v0.2 recovery refinement (2026-07-01):** archetype-specific impeding factors (Table 6-7) + repair-cost-scaled financing (Table D-15) bring the **governing WVF-7.3 recovery within ±15%** (Makati +14%, QC +4%; was +23%/+36% in v0.1) — untuned, provenance-backed. The remaining residual is the **intensity spread across scenarios**: the thesis's steep low-intensity recovery came from REDi's *sequential repair scheduling* (delays compound across repair sequences), which our simplified parallel `repair + max(impeding)` model does not capture. Deferred to **v0.3**. See `docs/learnings/2026-06-29_delta_investigation.md`.
 
 ### Loss source decomposition (informational — no thesis target)
 
@@ -119,15 +119,15 @@ Loss is total-loss-dominated (collapse + demolition = 71%). This is a physical p
 | Injuries (whole / Makati / QC) | ✅ all within ±10% + NC-dominant | Whole +2.2%; Makati +3.5%; QC +8.0%; NC fraction 0.73/0.76 (recalibrated 2026-06-27) |
 | Tests | ✅ 576 pass (542 fast + 34 integration) | full suite green |
 
-### Remaining ⚠️ residuals — documented, all trace to ONE upstream cause
+### Remaining ⚠️ residuals — documented
 
-All remaining ⚠️ discrepancies trace to the **per-archetype collapse distribution** differing from the 2021 Thesis: the aggregate collapse rate matches (0.222) but collapse is concentrated in different archetypes. This single cause propagates into all three residuals:
+The remaining **loss** ⚠️ discrepancies trace to the **per-archetype collapse distribution** differing from the 2021 Thesis: the aggregate collapse rate matches (0.222) but collapse is concentrated in different archetypes. The per-region **fatality** residual is a separate, **target-data** issue (the thesis text 320/900 do not reconcile to the thesis's own `.mat` — see the Fatality summary above), *not* collapse misallocation:
 
 | residual | magnitude | root cause |
 |---|---|---|
 | Whole-portfolio loss p90 +55% (0.543 vs 0.351) | ⚠️ over-dispersed | collapse concentrated in different archetypes → heavier tail; also CHB-driven ductile-HOT lift |
 | Makati median loss −21% (0.206 vs 0.26) | ⚠️ just outside ±20% band | per-archetype compensation: CHB-HOT ductiles (over-predict) + CWS-L cold (under-predict) partially cancel at region level; collapse distribution shape vs 2021 Thesis |
-| Makati / QC fatalities ~2.4× (752 vs 320; 2,152 vs 900) | ⚠️ over-predicted per-region | collapse concentrated differently by region/archetype than 2021 Thesis → whole matches, regional split does not |
+| Makati fatalities ~2× vs `.mat` (752 vs `.mat` 416); QC matches `.mat` (2,152 vs 2,529) | ⚠️ Makati-only, noisy 96-bldg subset | **target-data, not collapse misallocation**: thesis text 320/900 are broken targets (demoted to low-confidence); QC matches the `.mat`; only Makati carries a real residual. Whole matches +5.5% |
 | ~~Non-collapse injury fraction 0.11 vs 0.78–0.99 (inverted)~~ | ✅ RESOLVED 2026-06-27 | recalibrated to 0.73 whole / 0.76 Makati (occupancy factor on collapse injuries + NC injuries raised to thesis per-archetype rates); the 0.78–0.99 anchor is a Makati figure, thesis whole ≈0.70 |
 | Mitigated Makati injuries −65% vs thesis −92% | ⚠️ bounded | structural-FRP coverage (C1-M (Pre/Lo) only, 20/96 Makati buildings; gated on P2) + residual non-swapped NC components (curtain wall, braced ceilings) in the high-rise concrete stock |
 
@@ -202,8 +202,8 @@ Thesis targets are from `portfolio_validation.yaml`: **WVF-7.3 is high-confidenc
 | Loss ratio | Quezon City | 0.090 | 0.234 *(mean 0.258)* | +160% | ⚠️ QC high |
 | Injury ratio | Makati | 0.040 | 0.088 | +119% | ⚠️ |
 | Injury ratio | Quezon City | 0.040 | 0.055 | +38% | ⚠️ |
-| 90% FR time | Makati | 450 days | 1165 | +159% | ⚠️ |
-| 90% FR time | Quezon City | 175 days | 854 | +388% | ⚠️ |
+| 90% FR time | Makati | 450 days | 1070 | +138% | ⚠️ |
+| 90% FR time | Quezon City | 175 days | 630 | +260% | ⚠️ |
 
 > **Makati loss ratio matches the thesis CDF read essentially exactly (0.138 vs 0.140).** QC runs higher (see far-field/near-fault note below).
 
@@ -215,8 +215,8 @@ Thesis targets are from `portfolio_validation.yaml`: **WVF-7.3 is high-confidenc
 | Loss ratio | Quezon City | 0.090 | 0.151 *(mean 0.173)* | +68% | ⚠️ QC high |
 | Injury ratio | Makati | 0.060 | 0.012 | −80% | ⚠️ |
 | Injury ratio | Quezon City | 0.030 | 0.032 | +5% | ✅ |
-| 90% FR time | Makati | 550 days | 980 | +78% | ⚠️ |
-| 90% FR time | Quezon City | 150 days | 832 | — | ⚠️ |
+| 90% FR time | Makati | 550 days | 691 | +26% | ◐ |
+| 90% FR time | Quezon City | 150 days | 583 | +289% | ⚠️ |
 
 > Mw discrepancy: figure labels/section headings say 6.6; Table 7-1 simulation input 6.9. We used the workbook (header Mw=6.6) distances as-is — thesis-faithful to the labelled scenario.
 
@@ -228,8 +228,8 @@ Thesis targets are from `portfolio_validation.yaml`: **WVF-7.3 is high-confidenc
 | Loss ratio | Quezon City | 0.040 | 0.060 *(mean 0.070)* | +50% | ⚠️ QC high |
 | Injury ratio | Makati | 0.060 | 0.006 | −90% | ⚠️ |
 | Injury ratio | Quezon City | 0.025 | 0.009 | −64% | ⚠️ |
-| 90% FR time | Makati | 500 days | 946 | +89% | ⚠️ |
-| 90% FR time | Quezon City | 200 days | 767 | — | ⚠️ |
+| 90% FR time | Makati | 500 days | 617 | +23% | ◐ |
+| 90% FR time | Quezon City | 200 days | 340 | +70% | ⚠️ |
 
 > Mw discrepancy: figure labels/body text say 7.2; Table 7-1 shows Mw=7.6. Workbook header Mw=7.2 used as-is. GNW is the most attenuated (far-field ~30-46 km) — lowest loss of all five, as expected.
 
@@ -241,8 +241,8 @@ Thesis targets are from `portfolio_validation.yaml`: **WVF-7.3 is high-confidenc
 | Loss ratio | Quezon City | 0.065 | 0.094 *(mean 0.111)* | +45% | ⚠️ QC high |
 | Injury ratio | Makati | 0.070 | 0.013 | −81% | ⚠️ |
 | Injury ratio | Quezon City | 0.025 | 0.016 | −37% | ⚠️ |
-| 90% FR time | Makati | 400 days | 1006 | +152% | ⚠️ |
-| 90% FR time | Quezon City | 200 days | 798 | — | ⚠️ |
+| 90% FR time | Makati | 400 days | 736 | +84% | ⚠️ |
+| 90% FR time | Quezon City | 200 days | 432 | +116% | ⚠️ |
 
 > **Subduction-interface GMPE branch confirmed working** (4-branch interface logic tree via `openquake.hazardlib`). Mw discrepancy: figure labels say 8.15; Table 7-1 shows 7.9. Workbook header Mw=8.15 used as-is. Manila Trench loss sits between EVF and GNW — the megathrust magnitude offsets the large source distance.
 
@@ -254,9 +254,9 @@ The near-fault WVF cases match the thesis Makati loss well (6.5: −1%; 7.3 mean
 - **Quezon City (925 buildings, spatially extensive, extends toward the EVF/GNW sources)** runs **high** vs the thesis QC reads (+45% to +160%).
 - The **whole-portfolio** ordering and **WVF-7.3 governance** are nonetheless correct, and QC (the dominant 925-building subset) drives the whole-portfolio numbers.
 
-These deltas are against **medium/low-confidence figure reads** (Appendix-E CDF, every entry flagged "REVIEW NEEDED" in the yaml) — not the high-confidence WVF-7.3 text anchors. The most likely contributors: (1) the **Makati/QC distance split** in the workbooks vs the thesis's plotted CDFs; (2) the same per-archetype collapse-distribution / CHB component-aggregation differences already documented for WVF-7.3 propagate to every scenario; (3) recovery (90% FR) runs systematically long across all scenarios — the recovery-milestone calibration is a known WVF-7.3 residual (PH vs North-American REDi impeding factors) that carries over. **No values were tuned to the Appendix-E reads.** Detail: `docs/learnings/2026-06-27_breadth_scenarios.md`.
+These deltas are against **medium/low-confidence figure reads** (Appendix-E CDF, every entry flagged "REVIEW NEEDED" in the yaml) — not the high-confidence WVF-7.3 text anchors. The most likely contributors: (1) the **Makati/QC distance split** in the workbooks vs the thesis's plotted CDFs; (2) the same per-archetype collapse-distribution / CHB component-aggregation differences already documented for WVF-7.3 propagate to every scenario; (3) recovery (90% FR): v0.2 brought it within ±15% on WVF-7.3 and much lower across breadth, but QC breadth still runs long — the residual intensity spread is the v0.3 sequential-scheduling item. **No values were tuned to the Appendix-E reads.** Detail: `docs/learnings/2026-06-27_breadth_scenarios.md`.
 
-> **Note on recovery:** the 90% FR `ours` values above are the portfolio-level "time for 90% of buildings (by count) to reach functional recovery" (`recovery_90pct_functional_days` median across realizations) — the thesis-faithful definition, now extracted for every scenario. They run long vs the thesis (which itself flagged its recovery values as North-American-REDi, medium-confidence, "subject to further review").
+> **Note on recovery:** the 90% FR `ours` values above are the portfolio-level "time for 90% of buildings (by count) to reach functional recovery" (`recovery_90pct_functional_days` median across realizations) — the thesis-faithful definition, now extracted for every scenario. **v0.2** (archetype-specific + repair-cost-scaled REDi impeding) brought them down substantially — governing WVF-7.3 is within ±15% and Makati breadth now runs +23–138% (was much higher); QC breadth still runs long vs the low-confidence Appendix-E reads. The residual is the cross-scenario intensity spread → **v0.3** (REDi sequential repair scheduling).
 
 ---
 
@@ -324,7 +324,7 @@ P7 is declared DONE when the following are all ✅:
 1. WVF-7.3 whole-portfolio median loss ratio within ±20% of `.mat` anchor (0.256). Current: 0.295 = **+15%** ✅
 2. WVF-7.3 Makati loss ratio (mean or median) within ±20% of thesis text (0.26). Mean 0.267 = **+3%** ✅; median 0.206 = **−21%** ⚠️
 3. WVF-7.3 QC loss ratio within ±20% of thesis text (0.31). 0.323 = **+4%** ✅
-4. Casualties (injuries / fatalities) computed and compared — **✅ done** (whole injuries −4.1% ✅; whole fatalities +5.5% ✅; per-region fatalities ~2.4× ⚠️, documented; residuals trace to collapse-distribution mismatch)
-5. 90% FR time (portfolio-level CDF) computed and compared — **⏳ pending**
+4. Casualties (injuries / fatalities) computed and compared — **✅ done** (whole injuries −4.1% ✅; whole fatalities +5.5% ✅; per-region fatality text targets (320/900) are target-data artifacts — demoted to low-confidence; QC matches the `.mat`, only Makati has a small residual)
+5. 90% FR time (portfolio-level CDF) computed and compared — **✅ done** (v0.2: governing WVF-7.3 within ±15% — Makati +14%, QC +4%; cross-scenario intensity spread → v0.3)
 
 Item 5 unblocks P8 (v0.1 release) and requires only plausible order-of-magnitude agreement with the thesis (exact match not required; recovery targets are medium confidence due to North American REDi impeding factors in the original). The per-region fatality ⚠️ (item 4) does not block P8 — the residual is documented, the mechanism is faithful, and fixing it requires reconciling the collapse-fragility pipeline to the 2021 Thesis (a P2-gated future task).

@@ -849,11 +849,18 @@ class Building:
 
             has_comp_recovery = hasattr(_recovery, "compute_recovery_from_components")
             if time_per_cmp is not None and not time_per_cmp.empty and has_comp_recovery:
-                # Primary path: per-component repair time → per-class milestones
+                # Primary path: per-component repair time → per-class milestones.
+                # Pass repair_cost (PHP_2020) for Part C cost-scaled SBA financing.
+                # Unit check: repair_cost is PHP_2020 (Pelicun loss output in the same
+                # currency as replacement_cost_PHP; loss_ratio = repair_cost /
+                # replacement_cost confirms both are PHP_2020). The Table D-15 curve in
+                # ph_redi_params.json uses PHP units — units match.
                 recovery_result = _recovery.compute_recovery_from_components(
                     time_per_cmp=time_per_cmp,
                     damage_state=ds_proxy,
                     seed=seed,
+                    archetype=self.archetype,
+                    repair_cost=repair_cost,
                 )
             elif hasattr(_recovery, "compute_recovery"):
                 # Fallback: aggregate repair time (worker_hours) → scalar interface
@@ -862,6 +869,7 @@ class Building:
                     repair_time_samples=repair_days,
                     damage_state=ds_proxy,
                     seed=seed,
+                    archetype=self.archetype,
                 )
             else:
                 recovery_result = {}

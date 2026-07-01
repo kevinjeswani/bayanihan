@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bayanihan"
-version = "0.1.0"
+version = "0.2.0"
 description = "Seismic resilience assessment for Philippine school building portfolios"
 readme = "README.md"
 license = { text = "Apache-2.0" }

@@ -12,7 +12,8 @@ proprietary tools (PERFORM-3D + a proprietary risk platform); this reproduces it
 (loss, casualties, recovery) on tooling any Filipino practitioner can install for free.
 
 **Headline:** the whole-portfolio **loss, injuries, and fatalities all land within ~±15%** of the
-2021 analysis — built end-to-end on the open stack, not tuned to the targets.
+2021 analysis — and as of v0.2, **governing-scenario recovery joins them** (Makati +14%, QC +4%).
+Built end-to-end on the open stack, not tuned to the targets.
 
 ---
 
@@ -27,10 +28,10 @@ proprietary tools (PERFORM-3D + a proprietary risk platform); this reproduces it
 | | Makati | 14,129 | 13,650 | +4% | ✅ |
 | | Quezon City | 45,777 | ~42,400 | +8% | ✅ |
 | **Fatalities** (median count) | Whole portfolio | **3,057** | 2,899 `.mat` | +5% | ✅ |
-| | Makati | 752 | 320 | ~2.4× | ⚠️ |
-| | Quezon City | 2,152 | 900 | ~2.4× | ⚠️ |
-| **90% functional recovery** (median days) | Makati | 1,191 | 970 | +23% | ◐ |
-| | Quezon City | 872 | 640 | +36% | ◐ |
+| | Makati | 752 | 320 text *(low-conf)* | Makati-only residual | ◐ |
+| | Quezon City | 2,152 | 900 text *(low-conf)* | consistent w/ `.mat` | ✅ |
+| **90% functional recovery** (median days) | Makati | **1,106** | 970 | +14% | ✅ |
+| | Quezon City | **663** | 640 | +4% | ✅ |
 
 Total replacement value ₱30.6 B · population 560,283 students · aggregate collapse rate 0.222 (matches thesis).
 ✅ within ~±15% · ◐ within tolerance on the comparable basis (see notes) · ⚠️ documented residual, **not** tuned away.
@@ -57,20 +58,25 @@ Base vs. mitigated → [`images/wvf73_base_vs_mitigated.png`](../../images/wvf73
 **Lands (within ~±15%, untuned):** whole-portfolio loss, whole/Makati/QC injuries, whole fatalities,
 QC loss, and the governance ordering (WVF-7.3 is the worst of the five thesis scenarios — as in the thesis).
 
-**Documented residuals — all trace to ONE upstream cause** (the per-archetype *collapse distribution*
-differs from the thesis even though the aggregate collapse rate matches):
+**Documented residuals (none tuned):**
 
 - **Makati median loss −21%** (mean +3%): the thesis presents a regional-aggregate value; on the
   comparable *mean* basis we are +3%. The pure median is just outside ±20% — per-archetype offsets
   (rigorous CHB infill accounting runs hot; CWS-L runs cold by design) partly cancel at region level.
-- **Per-region fatalities ~2.4×** (whole matches at +5%): collapse is concentrated in different
-  archetypes than the thesis, so the whole-portfolio total reconciles but the regional split does not.
-- **Recovery +23–36%**: the thesis used North-American REDi impeding factors (its own medium-confidence
-  flag); our PH-calibrated impeding tails run longer.
+- **Per-region fatalities** (whole matches at +5%): the thesis *text* per-region counts (320/900) are
+  internally inconsistent with the thesis's own `.mat` — they sum to only 42% of the `.mat` whole median,
+  impossible for two correlated regions partitioning the portfolio. This is a **target-data** artifact,
+  not a model defect: against the `.mat` itself QC matches, and only Makati carries a small (~2×,
+  96-building) residual. The text counts are demoted to low-confidence.
+- **Recovery cross-scenario spread** (improved in v0.2): the governing WVF-7.3 recovery now lands within
+  ±15% (Makati +14%, QC +4%) via faithful archetype-specific + repair-cost-scaled (Table D-15) REDi
+  impeding factors. The remaining gap is the *intensity spread across scenarios* — the thesis's steep
+  low-intensity recovery came from REDi's **sequential repair scheduling**, an architectural feature not
+  in our simplified parallel `repair + max(impeding)` model. Deferred to **v0.3**.
 
-None of these are tuned. They are real method differences (full FEMA P-58 component aggregation vs the
-thesis "Simplified" grouping; collapse-distribution shape; impeding-factor calibration), and tightening
-them further is deferred to v0.2. Full DV-by-DV and per-archetype detail:
+None of these are tuned — they are real method differences (full FEMA P-58 component aggregation vs the
+thesis "Simplified" grouping; collapse-distribution shape; broken per-region fatality text targets;
+recovery repair-scheduling architecture). Full DV-by-DV and per-archetype detail:
 [`../validation/eval_scorecard.md`](../validation/eval_scorecard.md).
 
 ## Mitigation
