@@ -10,6 +10,8 @@ Tests:
   7. Per-component interface: compute_recovery_from_components().
   8. Repair-class composition: milestones reflect class breakdown, not fixed fractions.
   9. _component_repair_class() maps correctly per YAML Table D-16.
+ 10. Archetype-specific impeding factors: by_archetype selection (v0.2).
+ 11. Per-milestone conditional gating: cosmetic-only buildings skip financing floor (v0.2).
 """
 import numpy as np
 import pandas as pd
@@ -17,9 +19,13 @@ import pytest
 
 from bayanihan.recovery import (
     REPAIR_CLASS_MAP,
+    SBA_PRIMARY_ARCHETYPES,
     WORKERS_PER_DAY_DEFAULT,
     ImpedingFactorParams,
     _component_repair_class,
+    _cost_scale_financing,
+    _load_ph_params_raw,
+    _resolve_archetype_impeding,
     aggregate_time_by_repair_class,
     compute_recovery,
     compute_recovery_from_components,
@@ -449,3 +455,454 @@ def test_fixed_fractions_removed():
     )
     # Under old 0.40/0.75/1.00 fractions, reoccupancy < functional < full always
     # The equality above confirms the fixed-fraction logic is gone
+
+
+# ---------------------------------------------------------------------------
+# 10. Archetype-specific impeding factors (v0.2 — Table 6-7 fidelity)
+# ---------------------------------------------------------------------------
+
+def test_resolve_archetype_impeding_simple_group():
+    """Simple (N-L, CHB-L, S3-L) group: financing 42 d (Insurance) not 336 d (SBA)."""
+    raw = _load_ph_params_raw()
+    for arch in ("N-L", "CHB-L", "S3-L"):
+        overrides = _resolve_archetype_impeding(arch, raw)
+        assert "financing_median_days" in overrides, f"{arch}: financing override missing"
+        assert overrides["financing_median_days"] == pytest.approx(42.0), (
+            f"{arch}: expected financing 42 d (Insurance), got {overrides['financing_median_days']}"
+        )
+        assert overrides["financing_beta"] == pytest.approx(1.11), (
+            f"{arch}: expected financing beta 1.11"
+        )
+
+
+def test_resolve_archetype_impeding_wood_group():
+    """Wood (W-L): financing 105 d (Private Loans) not 336 d (SBA)."""
+    raw = _load_ph_params_raw()
+    overrides = _resolve_archetype_impeding("W-L", raw)
+    assert overrides["financing_median_days"] == pytest.approx(105.0), (
+        f"W-L: expected financing 105 d (Private Loans), got {overrides['financing_median_days']}"
+    )
+    assert overrides["financing_beta"] == pytest.approx(0.68)
+
+
+def test_resolve_archetype_impeding_c1m_hi():
+    """C1-M (Hi): contractor 49 d (RC1), engineer 0 d (on-contract), financing 336 d."""
+    raw = _load_ph_params_raw()
+    overrides = _resolve_archetype_impeding("C1-M (Hi)", raw)
+    assert overrides["contractor_median_days"] == pytest.approx(49.0), (
+        f"C1-M (Hi): expected contractor 49 d (Max RC=1), got {overrides['contractor_median_days']}"
+    )
+    assert overrides["contractor_beta"] == pytest.approx(0.60)
+    # Engineer on contract → 0 d
+    assert overrides["engineer_median_days"] == pytest.approx(0.0), (
+        f"C1-M (Hi): expected engineer 0 d (on-contract), got {overrides['engineer_median_days']}"
+    )
+    assert overrides["financing_median_days"] == pytest.approx(336.0)
+
+
+def test_resolve_archetype_impeding_c1m_mid():
+    """C1-M (Mid): contractor 49 d (RC1), engineer 14 d (RC1)."""
+    raw = _load_ph_params_raw()
+    overrides = _resolve_archetype_impeding("C1-M (Mid)", raw)
+    assert overrides["contractor_median_days"] == pytest.approx(49.0)
+    assert overrides["engineer_median_days"] == pytest.approx(14.0)
+    assert overrides["engineer_beta"] == pytest.approx(0.32)
+
+
+def test_resolve_archetype_impeding_rc3_group():
+    """Primary RC3 archetypes: contractor 133 d, engineer 28 d."""
+    raw = _load_ph_params_raw()
+    for arch in ("C1-L (Mid/Hi)", "C1-L (Pre/Lo)", "PTC1-M (Hi)", "PTC1-M (Mid)",
+                 "CWS-L", "C1-H (Hi)", "S1-M (Hi)", "C1-M (Pre/Lo) FRP"):
+        overrides = _resolve_archetype_impeding(arch, raw)
+        assert overrides["contractor_median_days"] == pytest.approx(133.0), (
+            f"{arch}: expected contractor 133 d (RC3)"
+        )
+        assert overrides["engineer_median_days"] == pytest.approx(28.0), (
+            f"{arch}: expected engineer 28 d (RC3)"
+        )
+
+
+def test_resolve_archetype_impeding_unknown_returns_empty():
+    """Unknown archetype → empty dict (falls back to flat defaults)."""
+    raw = _load_ph_params_raw()
+    overrides = _resolve_archetype_impeding("UNKNOWN-XYZ", raw)
+    assert overrides == {}
+
+
+def test_resolve_archetype_impeding_none_returns_empty():
+    """archetype=None → empty dict."""
+    raw = _load_ph_params_raw()
+    overrides = _resolve_archetype_impeding(None, raw)
+    assert overrides == {}
+
+
+def test_archetype_simple_produces_lower_fr_than_primary():
+    """Simple archetype (N-L, financing 42 d) produces lower median FR than primary school default.
+
+    This confirms the intensity-scaling fix: simple buildings with Insurance financing
+    (42 d) recover faster than primary schools with SBA loans (336 d).
+    """
+    rng = np.random.default_rng(42)
+    n = 1000
+    # Create a mix of Class-1 and Class-2 repair (typical moderate damage)
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(10, 100, n),  # Class 1
+        "PH.NS.SPR.DROP": rng.uniform(5, 50, n),     # Class 2
+    })
+    ds = np.ones(n, dtype=int)
+
+    # Primary school archetype (SBA financing, 336 d)
+    result_primary = compute_recovery_from_components(
+        time_per_cmp, ds, seed=1, archetype="C1-L (Mid/Hi)"
+    )
+    # Simple archetype (Insurance financing, 42 d)
+    result_simple = compute_recovery_from_components(
+        time_per_cmp, ds, seed=1, archetype="N-L"
+    )
+
+    med_fr_primary = np.median(result_primary["functional_recovery_days"])
+    med_fr_simple = np.median(result_simple["functional_recovery_days"])
+
+    assert med_fr_simple < med_fr_primary, (
+        f"Simple (N-L) FR {med_fr_simple:.1f} d should be < primary (C1-L) FR "
+        f"{med_fr_primary:.1f} d (financing 42d vs 336d)"
+    )
+
+
+# ---------------------------------------------------------------------------
+# 11. Per-milestone conditional gating (v0.2 — intensity-scaling fix)
+# ---------------------------------------------------------------------------
+
+def test_cosmetic_only_building_functional_near_inspection():
+    """Cosmetic-only building (rc1=rc2=0, rc3>0) must get functional ≈ inspection delay.
+
+    Prior behavior: functional = 0 + ~338 d (full financing floor always applied).
+    Fixed behavior: functional = inspection delay (5 d median) — not ~338 d.
+
+    This is the core intensity-scaling fix: a building with only cosmetic damage
+    (Class 3 only) should NOT draw the full SBA financing + contractor floor.
+    """
+    rng = np.random.default_rng(0)
+    n = 2000
+    # Class-3-only components (curtain wall, ceiling fixtures)
+    time_per_cmp = pd.DataFrame({
+        "PH.NS.CW": rng.uniform(10, 100, n),   # Class 3
+        "PH.NS.FIX": rng.uniform(5, 40, n),    # Class 3
+    })
+    ds = np.ones(n, dtype=int)  # all damaged
+
+    result = compute_recovery_from_components(time_per_cmp, ds, seed=0)
+
+    # rc1 and rc2 should be zero
+    np.testing.assert_array_equal(result["rc1_days"], 0.0)
+    np.testing.assert_array_equal(result["rc2_days"], 0.0)
+
+    med_fr = np.median(result["functional_recovery_days"])
+
+    # With gating, functional_recovery ≈ inspection delay (5 d median).
+    # The inspection lognormal (theta=5, beta=0.54) has p50≈5, p90≈10.
+    # The old financing floor (theta=336, beta=0.57) has p50≈336.
+    # Verify functional is far below the old floor (< 50 d) and near inspection range.
+    assert med_fr < 50.0, (
+        f"Cosmetic-only building: functional recovery median {med_fr:.1f} d should be "
+        f"< 50 d (near inspection delay ~5 d). Old behavior was ~338 d."
+    )
+    assert med_fr > 0.0, "Damaged cosmetic-only building must have positive functional recovery"
+
+
+def test_class1_building_still_uses_impeding_floor():
+    """Building with Class-1 damage (structural) must still get full impeding delay.
+
+    Gating must NOT bypass impeding for Class-1 buildings — they have rc1 > 0,
+    so the full financing/contractor delay should apply.
+    """
+    rng = np.random.default_rng(1)
+    n = 2000
+    # Class-1-only structural damage
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(50, 200, n),  # Class 1
+    })
+    ds = np.ones(n, dtype=int)
+
+    result_primary = compute_recovery_from_components(
+        time_per_cmp, ds, seed=0, archetype="C1-L (Mid/Hi)"
+    )
+    med_fr = np.median(result_primary["functional_recovery_days"])
+
+    # With SBA financing (336 d median), functional should be >> 100 d
+    # (the impeding floor still dominates for Class-1 buildings)
+    assert med_fr > 200.0, (
+        f"Class-1 structural building should have functional recovery >> 200 d "
+        f"(impeding floor dominates), got {med_fr:.1f} d"
+    )
+
+
+def test_functional_gating_no_break_ordering():
+    """Milestone ordering still holds after gating: full >= functional >= reoccupancy >= 0."""
+    rng = np.random.default_rng(99)
+    n = 500
+    # Mix of all three classes
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(0, 200, n),  # Class 1 (some zero → cosmetic only)
+        "PH.NS.SPR.DROP": rng.uniform(0, 80, n),    # Class 2
+        "PH.NS.CW": rng.uniform(10, 120, n),         # Class 3
+    })
+    ds = rng.integers(0, 4, size=n)
+
+    result = compute_recovery_from_components(time_per_cmp, ds, seed=7)
+
+    assert np.all(result["full_recovery_days"] >= result["functional_recovery_days"]), (
+        "full_recovery must >= functional_recovery after gating"
+    )
+    assert np.all(result["functional_recovery_days"] >= result["reoccupancy_days"]), (
+        "functional_recovery must >= reoccupancy after gating"
+    )
+    assert np.all(result["reoccupancy_days"] >= 0.0), "reoccupancy must be >= 0"
+    assert np.all(result["full_recovery_days"] >= 0.0), "full_recovery must be >= 0"
+
+
+def test_ds0_gating_produces_zero():
+    """DS=0 still gives zero for all milestones even with gating logic."""
+    rng = np.random.default_rng(7)
+    n = 100
+    time_per_cmp = pd.DataFrame({
+        "PH.NS.CW": rng.uniform(10, 100, n),   # Class 3 only
+    })
+    ds = np.zeros(n, dtype=int)  # all undamaged
+
+    result = compute_recovery_from_components(time_per_cmp, ds, seed=0)
+
+    for key in ("reoccupancy_days", "functional_recovery_days", "full_recovery_days",
+                "impeding_factor_days"):
+        np.testing.assert_array_equal(result[key], 0.0, err_msg=f"{key} must be 0 for DS=0")
+
+
+def test_archetype_param_none_backward_compatible():
+    """archetype=None produces same result as not passing archetype (backward compat)."""
+    rng = np.random.default_rng(55)
+    n = 200
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(50, 200, n),
+        "PH.NS.SPR.DROP": rng.uniform(10, 50, n),
+    })
+    ds = np.ones(n, dtype=int)
+
+    r_default = compute_recovery_from_components(time_per_cmp, ds, seed=42)
+    r_none = compute_recovery_from_components(time_per_cmp, ds, seed=42, archetype=None)
+
+    for key in r_default:
+        np.testing.assert_array_equal(
+            r_default[key], r_none[key],
+            err_msg=f"Key '{key}' differs: archetype=None should match default"
+        )
+
+
+# ---------------------------------------------------------------------------
+# 12. Part C — cost-scaled SBA/primary financing (Table D-15 curve)
+# ---------------------------------------------------------------------------
+
+def test_cost_scaling_curve_loaded():
+    """ph_redi_params.json contains the financing_cost_scaling curve with required keys."""
+    raw = _load_ph_params_raw()
+    scaling = raw.get("financing_cost_scaling", {})
+    assert "curve" in scaling, "financing_cost_scaling.curve missing from ph_redi_params.json"
+    assert "financing_beta" in scaling, "financing_cost_scaling.financing_beta missing"
+    curve = scaling["curve"]
+    assert len(curve) == 7, f"Expected 7 curve points (Table D-15), got {len(curve)}"
+    for pt in curve:
+        assert "replacement_cost_php" in pt
+        assert "financing_days" in pt
+
+
+def test_cost_scale_financing_low_cost():
+    """Cost << lower bound → clamp to minimum financing days (56 d)."""
+    raw = _load_ph_params_raw()
+    rng = np.random.default_rng(0)
+    n = 500
+    # Very low cost: 100k PHP — below the 2M lower bound
+    repair_cost = np.full(n, 100_000.0)
+    delays = _cost_scale_financing(repair_cost, raw, fallback_median=336.0, fallback_beta=0.57, rng=rng)
+    # Samples from LN(log(56), 0.57) — median should be near 56
+    assert np.median(delays) == pytest.approx(56.0, rel=0.3), (
+        f"Low-cost clamp: expected median near 56 d, got {np.median(delays):.1f}"
+    )
+
+
+def test_cost_scale_financing_high_cost():
+    """Cost >> upper bound → clamp to maximum financing days (672 d)."""
+    raw = _load_ph_params_raw()
+    rng = np.random.default_rng(0)
+    n = 500
+    # Very high cost: 5B PHP — above the 1.5B upper bound
+    repair_cost = np.full(n, 5_000_000_000.0)
+    delays = _cost_scale_financing(repair_cost, raw, fallback_median=336.0, fallback_beta=0.57, rng=rng)
+    assert np.median(delays) == pytest.approx(672.0, rel=0.3), (
+        f"High-cost clamp: expected median near 672 d, got {np.median(delays):.1f}"
+    )
+
+
+def test_cost_scale_financing_midrange():
+    """50M PHP on the curve → financing days should be near 336 d."""
+    raw = _load_ph_params_raw()
+    rng = np.random.default_rng(0)
+    n = 1000
+    # 50M PHP is a curve point: financing_days = 336
+    repair_cost = np.full(n, 50_000_000.0)
+    delays = _cost_scale_financing(repair_cost, raw, fallback_median=336.0, fallback_beta=0.57, rng=rng)
+    assert np.median(delays) == pytest.approx(336.0, rel=0.25), (
+        f"Midrange cost (50M PHP): expected median near 336 d, got {np.median(delays):.1f}"
+    )
+
+
+def test_cost_scale_monotone():
+    """Higher repair cost → longer median financing delay (monotone curve)."""
+    raw = _load_ph_params_raw()
+    costs = [2_000_000.0, 10_000_000.0, 50_000_000.0, 500_000_000.0, 1_500_000_000.0]
+    medians = []
+    for cost in costs:
+        rng = np.random.default_rng(123)
+        rc = np.full(2000, cost)
+        delays = _cost_scale_financing(rc, raw, fallback_median=336.0, fallback_beta=0.57, rng=rng)
+        medians.append(float(np.median(delays)))
+
+    for i in range(len(medians) - 1):
+        assert medians[i] <= medians[i + 1], (
+            f"Cost scaling not monotone: cost[{i}]={costs[i]:.0e} → {medians[i]:.1f} d, "
+            f"cost[{i+1}]={costs[i+1]:.0e} → {medians[i+1]:.1f} d"
+        )
+
+
+def test_high_cost_primary_longer_financing_than_low_cost():
+    """Primary school with high repair cost gets longer financing than low repair cost.
+
+    This is the core Part C invariant: cost-scaling must produce intensity sensitivity
+    in financing delay — a heavily-damaged expensive building takes longer to finance
+    than a lightly-damaged cheap one.
+    """
+    rng = np.random.default_rng(7)
+    n = 1000
+    # Both buildings: structural damage (Class 1) — so impeding floor applies
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(50, 200, n),  # Class 1
+        "PH.NS.SPR.DROP": rng.uniform(10, 50, n),    # Class 2
+    })
+    ds = np.ones(n, dtype=int)
+
+    # Low cost: 2M PHP (small building, lower bound → 56 d financing)
+    rc_low = np.full(n, 2_000_000.0)
+    result_low = compute_recovery_from_components(
+        time_per_cmp, ds, seed=42,
+        archetype="C1-L (Mid/Hi)",
+        repair_cost=rc_low,
+    )
+
+    # High cost: 1B PHP (large building, near upper bound → 560 d financing)
+    rc_high = np.full(n, 1_000_000_000.0)
+    result_high = compute_recovery_from_components(
+        time_per_cmp, ds, seed=42,
+        archetype="C1-L (Mid/Hi)",
+        repair_cost=rc_high,
+    )
+
+    med_fr_low = np.median(result_low["functional_recovery_days"])
+    med_fr_high = np.median(result_high["functional_recovery_days"])
+
+    assert med_fr_high > med_fr_low, (
+        f"High-cost primary ({med_fr_high:.1f} d) should have longer FR than "
+        f"low-cost primary ({med_fr_low:.1f} d)"
+    )
+
+
+def test_simple_financing_flat_unchanged():
+    """Simple (N-L) archetype financing is flat 42 d even when repair_cost is provided.
+
+    N-L is NOT in SBA_PRIMARY_ARCHETYPES, so repair_cost should be ignored.
+    """
+    rng = np.random.default_rng(0)
+    n = 1000
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(50, 200, n),
+    })
+    ds = np.ones(n, dtype=int)
+
+    # With a huge repair cost that would trigger long financing if cost-scaled
+    rc_huge = np.full(n, 2_000_000_000.0)
+
+    result_with_cost = compute_recovery_from_components(
+        time_per_cmp, ds, seed=1, archetype="N-L", repair_cost=rc_huge
+    )
+    result_no_cost = compute_recovery_from_components(
+        time_per_cmp, ds, seed=1, archetype="N-L"
+    )
+
+    # N-L (Insurance 42 d): results should be identical regardless of repair_cost
+    for key in result_with_cost:
+        np.testing.assert_array_equal(
+            result_with_cost[key], result_no_cost[key],
+            err_msg=f"N-L archetype: key '{key}' changed when repair_cost was provided"
+        )
+
+
+def test_wood_financing_flat_unchanged():
+    """Wood (W-L) archetype financing is flat 105 d even when repair_cost is provided."""
+    rng = np.random.default_rng(0)
+    n = 500
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(50, 200, n),
+    })
+    ds = np.ones(n, dtype=int)
+    rc_huge = np.full(n, 2_000_000_000.0)
+
+    result_with_cost = compute_recovery_from_components(
+        time_per_cmp, ds, seed=2, archetype="W-L", repair_cost=rc_huge
+    )
+    result_no_cost = compute_recovery_from_components(
+        time_per_cmp, ds, seed=2, archetype="W-L"
+    )
+
+    for key in result_with_cost:
+        np.testing.assert_array_equal(
+            result_with_cost[key], result_no_cost[key],
+            err_msg=f"W-L archetype: key '{key}' changed when repair_cost was provided"
+        )
+
+
+def test_repair_cost_none_backward_compat():
+    """repair_cost=None produces identical results to not passing it (Part C backward compat)."""
+    rng = np.random.default_rng(17)
+    n = 300
+    time_per_cmp = pd.DataFrame({
+        "PH.S.DRCMRF.1S": rng.uniform(50, 200, n),
+        "PH.NS.SPR.DROP": rng.uniform(10, 50, n),
+    })
+    ds = np.ones(n, dtype=int)
+
+    r_default = compute_recovery_from_components(
+        time_per_cmp, ds, seed=99, archetype="C1-L (Mid/Hi)"
+    )
+    r_none = compute_recovery_from_components(
+        time_per_cmp, ds, seed=99, archetype="C1-L (Mid/Hi)", repair_cost=None
+    )
+
+    for key in r_default:
+        np.testing.assert_array_equal(
+            r_default[key], r_none[key],
+            err_msg=f"Key '{key}' differs: repair_cost=None should match no repair_cost"
+        )
+
+
+def test_sba_primary_archetypes_set_completeness():
+    """All archetypes in by_archetype with financing 336 d are in SBA_PRIMARY_ARCHETYPES."""
+    raw = _load_ph_params_raw()
+    by_arch = raw.get("by_archetype", {})
+    for arch_id, entry in by_arch.items():
+        if arch_id.startswith("_"):
+            continue
+        fin = entry.get("financing", {})
+        med = fin.get("median_days", 0.0)
+        if float(med) == 336.0:
+            assert arch_id in SBA_PRIMARY_ARCHETYPES, (
+                f"Archetype '{arch_id}' has financing 336 d (SBA) but is not in "
+                f"SBA_PRIMARY_ARCHETYPES — add it to recovery.py"
+            )

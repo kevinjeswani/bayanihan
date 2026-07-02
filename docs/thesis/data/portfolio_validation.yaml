@@ -170,8 +170,8 @@ WVF_Mw73:
       value: 320
       unit: "count"
       source: { section: "7.4.3", table: "text", printed_page: 181 }
-      provenance_confidence: high
-      notes: "WVF Mw=7.3 Makati existing (base case). Fatality ratio 0.3%."
+      provenance_confidence: low
+      notes: "WVF Mw=7.3 Makati existing (base case). Fatality ratio 0.3%. REVIEW NEEDED — LOW-CONFIDENCE per-region count: back-calculated from a 1-sig-fig ratio (0.3% x 94,300 ~ 283), and internally inconsistent with the author's OWN post-processed .mat. PA_CasF whole-portfolio median = 2,899; the .mat per-building-mean regional split gives Makati ~416 / QC ~2,529 (sum ~2,945), whereas the text 320+900=1,220 is only 42% of the whole median — impossible for two positively-correlated regions that partition the portfolio. DO NOT use the per-region fatality COUNT as a validation gate; the authoritative fatality anchor is the whole-portfolio .mat median 2,899 (which this package matches within +5.5%). Same class of issue as the QC injury '{1000,2500}' typo (see quezon_city injuries_median_text). See docs/learnings/2026-06-29_delta_investigation.md."
     fatalities_p90:
       value: 950
       unit: "count"
@@ -336,8 +336,8 @@ WVF_Mw73:
       value: 900
       unit: "count"
       source: { section: "7.4.3", table: "text", printed_page: 181 }
-      provenance_confidence: high
-      notes: "WVF Mw=7.3 Quezon City existing (base case). Fatality ratio 0.2%."
+      provenance_confidence: low
+      notes: "WVF Mw=7.3 Quezon City existing (base case). Fatality ratio 0.2%. REVIEW NEEDED — LOW-CONFIDENCE per-region count: back-calculated from a 1-sig-fig ratio (0.2% x 466,000 ~ 932), and inconsistent with the author's OWN .mat (PA_CasF whole median 2,899; .mat per-building-mean QC ~2,529, ~86% of all fatalities). DO NOT use as a per-region validation gate; anchor to the whole-portfolio .mat median 2,899. This package's QC fatalities (~2,050-2,150) are consistent with the .mat, not with the text 900. See docs/learnings/2026-06-29_delta_investigation.md."
     fatalities_p90:
       value: 2500
       unit: "count"

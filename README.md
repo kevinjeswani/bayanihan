@@ -10,7 +10,7 @@ Built on [Pelicun](https://github.com/NHERI-SimCenter/pelicun) (NHERI SimCenter,
 
 ---
 
-**Status: v0.1 — the full pipeline runs end-to-end on the real recovered data and reproduces the 2021 thesis's governing scenario (WVF Mw 7.3, both cities) within tolerance on the free open stack. AI-agent-built; pre-1.0; not peer-reviewed in this form.**
+**Status: v0.2 — the full pipeline runs end-to-end on the real recovered data and reproduces the 2021 thesis's governing scenario (WVF Mw 7.3, both cities) within tolerance on the free open stack. AI-agent-built; pre-1.0; not peer-reviewed in this form.**
 
 ---
 
@@ -29,7 +29,7 @@ The goal is for a Filipino structural engineer to `pip install bayanihan` and ru
 
 The full chain runs end-to-end on the **real recovered data**: `hazard.py` (openquake.hazardlib 8-branch GMPE tree + Loth–Baker spatial correlation) → spatially-correlated Sa(T₁) field → real multi-stripe PERFORM-3D EDPs → Pelicun damage + loss + FEMA P-58 casualties → native REDi recovery milestones → 1,021-building portfolio Monte Carlo → loss map.
 
-**576 tests** pass on Python 3.13 (542 fast + 34 heavy integration runs — see [Development](#development)).
+**599 tests** pass on Python 3.13 (565 fast + 34 heavy integration runs — see [Development](#development)).
 
 **Validated** against the 2021 thesis's governing scenario (WVF Mw 7.3, Makati + Quezon City, N = 1,000): whole-portfolio loss, injuries, and fatalities all reproduce within ~±15% on the open stack — see [Validation](#validation-wvf-mw-73) below.
 
